@@ -1,4 +1,4 @@
-<!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="robots" content="noindex,nofollow"></head><body><title>틀린시연찾기</title>
+<!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="robots" content="noindex,nofollow"><meta name="theme-color" content="#1d2140"><link rel="manifest" href="manifest.webmanifest"><link rel="apple-touch-icon" href="apple-touch-icon.png"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="틀린시연찾기"></head><body><title>틀린시연찾기</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Jua&family=Black+Han+Sans&family=Noto+Sans+KR:wght@400;700;900&display=swap">
 <style>
@@ -780,6 +780,8 @@ body[data-screen="loop"] .sunburst{--sun-1:#ffe9b8;--sun-2:#ffd27a}
 /* ── v29: 이사 안내 ── */
 .movebar{display:flex;flex-wrap:wrap;gap:8px 12px;align-items:center;margin:0 0 10px;padding:8px 12px;border:3px solid var(--ink);border-radius:12px;background:linear-gradient(90deg,#ffe9a8,#fff6d6);font-size:13px;font-weight:700;color:var(--ink)}
 .movebar .g-btn{margin-left:auto;text-decoration:none}
+.netbadge{position:fixed;left:50%;bottom:10px;transform:translateX(-50%);z-index:9999;background:#1d2140;color:#ffd93b;font-weight:800;font-size:12px;padding:6px 14px;border-radius:999px;box-shadow:0 4px 0 rgba(0,0,0,.25);pointer-events:none}
+.tchip.install b{background:#22b573!important;color:#fff!important}
 </style>
 
 <div class="sunburst" aria-hidden="true"></div>
@@ -1022,7 +1024,7 @@ body[data-screen="loop"] .sunburst{--sun-1:#ffe9b8;--sun-2:#ffd27a}
     <div class="corner"><button type="button" class="g-btn" id="btnBoard">마스터 현황표</button><button type="button" class="g-btn" id="btnRecords">기록실</button></div>
     <button type="button" class="g-btn tail" id="btnHow">게임방법</button>
     <button type="button" class="g-btn tail green" id="btnStart">▶ 게임시작</button>
-    <div class="credit">틀린시연찾기 · 공식 메뉴얼 + 체험존 기반 · 신사업전략팀 · <span id="verTag" title="업데이트 노트는 게임방법 안에">v39</span></div>
+    <div class="credit">틀린시연찾기 · 공식 메뉴얼 + 체험존 기반 · 신사업전략팀 · <span id="verTag" title="업데이트 노트는 게임방법 안에">v40</span></div>
   </div>
 </section>
 
@@ -1266,6 +1268,7 @@ body[data-screen="loop"] .sunburst{--sun-1:#ffe9b8;--sun-2:#ffd27a}
     <div class="sites" id="siteLegend"></div>
     <p class="kbd" style="margin:10px 0 0">전체 완주 점수 = 100 − 오답×5 − 찬스×8. S 100 · A 90↑ · B 75↑ · C 60↑ · D · F(원장님 퇴장). 시간 초과도 오답 1회. 👀 시범은 정답과 멘트를 보여주는 자동 재생.</p>
     <details class="changelog"><summary>🆕 업데이트 노트 (최근)</summary><ul>
+      <li><b>v40</b> 📲 웹 버전을 폰 홈 화면에 앱으로 설치 · 오프라인에서도 훈련(화면·이미지·BGM 저장), 연결되면 기록 자동 전송 · 오프라인 표시 · 현황표 📊 구글 시트 바로가기</li>
       <li><b>v39</b> 🚚 새 주소로 이사: 예전 claude.ai 버전 미션 화면에서 "내 기록 들고 새 주소로" 한 번 누르면 이 기기의 기록·의견·평가가 웹 버전으로 넘어가 구글 시트에 쌓임</li>
       <li><b>v38</b> 웹 사이트(GitHub Pages) 버전 오픈 — 기록·의견·평가·공지가 구글 시트 「틀린시연찾기 DB」에 바로 쌓임(로그인·조직 무관), 실패 시 보내기함 재전송</li>
       <li><b>v37</b> 다 쌓이게: 팀 저장소에 못 쓴 기록·의견·평가는 이 기기 보내기함에 모아 자동 재전송 · 미션 화면에 저장 상태 줄(☁ 팀 저장 / 📱 이 기기에만 n건 → 📤 팀장님께 보내기) · 팀장님이 공유 코드를 합치면 팀 저장소에도 올라감 · 의견 제출 문구를 실제 저장 위치대로 · 이 기기 기록 보관 60→1,500건</li>
@@ -1586,7 +1589,7 @@ function renderMap(){
     if(!st.locked){ b.addEventListener('click', e=>{ if(e.target.closest('[data-order]')){ openOrder(st.id); return; } const isGuide = !!e.target.closest('[data-guide]'); const isDemo = !isGuide && !!e.target.closest('.demo'); SFX.go(); startRun('one', st.id, isGuide?'guide':isDemo?'demo':''); }); }
     g.appendChild(b);
   });
-  renderTodo(); renderDailyChip(); renderFocusChip(); renderWeeklyChip(); renderQDrillChip(); renderWrongQChip(); renderNumChip(); renderPathChip(); layoutTodo(); renderTools(); renderMastery(); renderWeekly(); renderNotice(); renderSync(); flushOutbox(); renderMoveBar();
+  renderTodo(); renderDailyChip(); renderFocusChip(); renderWeeklyChip(); renderQDrillChip(); renderWrongQChip(); renderNumChip(); renderPathChip(); layoutTodo(); renderTools(); renderMastery(); renderWeekly(); renderNotice(); renderSync(); flushOutbox(); renderMoveBar(); renderInstallChip();
 }
 $('playAll').addEventListener('click', ()=>{ SFX.go(); startRun('all'); });
 
@@ -2993,6 +2996,17 @@ function renderMoveBar(){ if(ON_WEB) return; const cork=document.querySelector('
 async function importFromHash(){ const m=(location.hash||'').match(/import=([^&]+)/); if(!m) return; try{ history.replaceState(null,'',location.pathname+location.search); }catch(e){}
   try{ const d=await parseShareCode(decodeURIComponent(m[1])); const { nr, ne, nf }=mergeShared(d); toast(`📦 이사 완료 — 기록 ${nr} · 의견 ${nf||0} · 평가 ${ne}건을 가져왔어요 (시트로 올리는 중)`); }catch(err){ toast('이사 코드를 읽지 못했어요 — 예전 화면에서 다시 눌러 주세요'); } }
 setTimeout(importFromHash, 600);
+
+/* ── 📲 홈 화면 앱 · 오프라인 훈련 (웹 버전만) ── */
+let INSTALL_EVT=null; const IS_STANDALONE=(window.matchMedia&&matchMedia('(display-mode: standalone)').matches)||navigator.standalone===true;
+if(ON_WEB && 'serviceWorker' in navigator){ window.addEventListener('load', ()=>{ navigator.serviceWorker.register('sw.js').catch(()=>{}); }); }
+window.addEventListener('beforeinstallprompt', e=>{ e.preventDefault(); INSTALL_EVT=e; renderInstallChip(); });
+function renderInstallChip(){ if(!ON_WEB||IS_STANDALONE) return; const row=document.querySelector('#todo .trow.tools'); if(!row||row.querySelector('.tchip.install')) return; const b=document.createElement('button'); b.type='button'; b.className='tchip install'; b.innerHTML='<b>📲</b> 홈 화면에 앱으로 <small>인터넷 없어도 훈련</small>'; b.title='폰 홈 화면에 설치 — 지하철·대기실에서도 연습, 기록은 연결되면 자동으로 시트에'; row.appendChild(b);
+  b.addEventListener('click', async ()=>{ if(INSTALL_EVT){ INSTALL_EVT.prompt(); try{ const r=await INSTALL_EVT.userChoice; if(r&&r.outcome==='accepted'){ toast('📲 설치됐어요 — 홈 화면의 「틀린시연찾기」로 여세요'); b.remove(); } }catch(e){} INSTALL_EVT=null; return; }
+    const ios=/iphone|ipad|ipod/i.test(navigator.userAgent); toast(ios?'아이폰: 사파리 아래 공유 버튼(□↑) → "홈 화면에 추가"':'크롬 오른쪽 위 ⋮ → "홈 화면에 추가" 또는 "앱 설치"'); }); }
+function renderNetBadge(){ if(!ON_WEB) return; let el=$('netBadge'); if(!el){ el=document.createElement('div'); el.id='netBadge'; el.className='netbadge'; document.body.appendChild(el); } el.hidden=navigator.onLine; el.textContent='📴 오프라인 — 훈련은 계속, 기록은 연결되면 자동 전송'; }
+window.addEventListener('online', ()=>{ renderNetBadge(); toast('🛜 다시 연결됐어요 — 쌓인 기록을 보내는 중'); try{ flushOutbox(); }catch(e){} });
+window.addEventListener('offline', renderNetBadge); setTimeout(renderNetBadge, 800);
 
 /* 초기화 */
 loadStars(); S.profile = loadProfile(); if(S.profile) S.name = S.profile.name;
