@@ -2955,14 +2955,14 @@ async function teamWritable(){ if(SHEETS.url) return true; if(TEAMW!==null) retu
 async function teamAdd(col, doc, fromOutbox){ if(SHEETS.url){ try{ await shPost(col, doc); if(!fromOutbox) setTimeout(flushOutbox, 400); return 'sheets'; }catch(e){} } const db=await getDB(); if(db && (await teamWritable())){ try{ await db.collection(col).add(doc); if(!fromOutbox) setTimeout(flushOutbox, 400); return 'db'; }catch(e){ TEAMW=false; } }
   if(!fromOutbox){ const l=outbox(); const k=docKey(col,doc); if(!l.some(x=>x.k===k)){ l.push({ k, col, doc }); outboxSet(l); } renderSync(); } return 'local'; }
 let FLUSHING=false;
-async function flushOutbox(){ if(FLUSHING) return; const l=outbox(); if(!l.length) return; if(!(await teamWritable())) { renderSync(); return; } FLUSHING=true; const left=[]; for(const x of l){ const r=await teamAdd(x.col, x.doc, true); if(r!=='db') left.push(x); } outboxSet(left); FLUSHING=false; renderSync(); if(l.length>left.length) toast(`☁ 이 기기에 쌓여 있던 ${l.length-left.length}건을 팀 저장소로 보냈어요`); }
+async function flushOutbox(){ if(FLUSHING) return; const l=outbox(); if(!l.length) return; if(!(await teamWritable())) { renderSync(); return; } FLUSHING=true; const left=[]; for(const x of l){ const r=await teamAdd(x.col, x.doc, true); if(r==='local') left.push(x); } outboxSet(left); FLUSHING=false; renderSync(); if(l.length>left.length) toast(`☁ 이 기기에 쌓여 있던 ${l.length-left.length}건을 팀 저장소로 보냈어요`); }
 /* 미션 화면 저장 상태 줄 */
 function renderSync(){ const cork=document.querySelector('#map .cork'); if(!cork) return; let el=$('syncBar'); if(!el){ el=document.createElement('div'); el.id='syncBar'; el.className='syncbar'; const n=$('notice'); if(n) n.after(el); else cork.prepend(el); }
   const n=outbox().length; teamWritable().then(w=>{ if(w&&!n){ el.className='syncbar ok'; el.innerHTML=`<span>☁ 기록·의견이 <b>팀 저장소</b>에 바로 쌓이고 있어요</span>`; return; }
     el.className='syncbar warn'; el.innerHTML=`<span>📱 ${w?`팀 저장소 연결 대기 — <b>${n}건</b>이 이 기기에 쌓여 있어요(자동 재전송)`:`이 기기에서는 팀 저장소에 쓸 수 없어요 — 기록·의견 <b>${n}건</b>이 이 기기에만 있어요`}</span>${w?'':'<button type="button" class="g-btn sm" id="syncSend">📤 팀장님께 보내기</button>'}<small>${w?'':'공유 코드를 카톡으로 보내면 팀장님 현황표에서 합쳐져 팀 전체에 쌓입니다'}</small>`;
     const b=$('syncSend'); if(b) b.addEventListener('click', openShareOut); }); }
 /* 공유 코드로 합친 기록 → 팀 저장소에도 올림(팀장님 기기에서) */
-async function pushMergedToTeam(added){ if(!(await teamWritable())) return 0; let n=0; for(const [col, d] of added){ const r=await teamAdd(col, d, true); if(r==='db') n++; } return n; }
+async function pushMergedToTeam(added){ if(!(await teamWritable())) return 0; let n=0; for(const [col, d] of added){ const r=await teamAdd(col, d, true); if(r!=='local') n++; } return n; }
 /* 로드: 팀 저장소 + 이 기기(합친 코드·보내기함) 합치기, 중복 제거 */
 function mergeRows(rows, local){ const seen=new Set((rows||[]).map(r=>(r.name||'')+'|'+(r.at||''))); const out=(rows||[]).slice(); (local||[]).forEach(r=>{ const k=(r.name||'')+'|'+(r.at||''); if(!seen.has(k)){ seen.add(k); out.push(r); } }); return out.sort((a,b)=>(b.at||'').localeCompare(a.at||'')); }
 

@@ -27,7 +27,7 @@ function doPost(e){
     try{
       const sh=sheet_(col); const idf=UPSERT[col];
       if(idf && d[idf]){ const ids=sh.getRange(2,1,Math.max(0,sh.getLastRow()-1),1).getValues().map(r=>String(r[0])); const i=ids.indexOf(String(d[idf])); if(i>=0){ sh.getRange(i+2,1,1,row.length).setValues([row]); return out_({ok:true,upd:true}); } }
-      if(!idf && d.at){ const last=sh.getLastRow(); if(last>1){ const from=Math.max(2,last-499); const v=sh.getRange(from,1,last-from+1,2).getValues(); const at=String(d.at), nm=String(d.name||''); for(let i=0;i<v.length;i++){ const a=v[i][0] instanceof Date ? v[i][0].toISOString() : String(v[i][0]); if(a===at && String(v[i][1])===nm) return out_({ok:true,dup:true}); } } }
+      if(!idf && d.at){ const last=sh.getLastRow(); if(last>1){ const ji=SHEETS[col].indexOf('json')+1; const from=Math.max(2,last-299); const v=sh.getRange(from,ji,last-from+1,1).getValues(); const at=String(d.at), nm=String(d.name||''); for(let i=0;i<v.length;i++){ try{ const o=JSON.parse(v[i][0]); if(String(o.at)===at && String(o.name||'')===nm) return out_({ok:true,dup:true}); }catch(_){} } } }
       sh.appendRow(row);
     } finally { lock.releaseLock(); }
     return out_({ok:true});
