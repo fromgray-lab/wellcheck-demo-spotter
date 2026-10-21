@@ -782,6 +782,11 @@ body[data-screen="loop"] .sunburst{--sun-1:#ffe9b8;--sun-2:#ffd27a}
 .movebar .g-btn{margin-left:auto;text-decoration:none}
 .netbadge{position:fixed;left:50%;bottom:10px;transform:translateX(-50%);z-index:9999;background:#1d2140;color:#ffd93b;font-weight:800;font-size:12px;padding:6px 14px;border-radius:999px;box-shadow:0 4px 0 rgba(0,0,0,.25);pointer-events:none}
 .tchip.install b{background:#22b573!important;color:#fff!important}
+
+/* ── v31: 자유자재 지수 ── */
+.flu{background:#fff;border:3px solid var(--ink);border-radius:14px;padding:8px 12px;margin:0 0 10px;text-align:left} .flu.ok{border-color:#1f9d55;background:#effcf3} .flu.mid{border-color:#d97706;background:#fff8e7} .flu.low{border-color:#c43e3e;background:#fff1f1}
+.flu .fhead{display:flex;flex-wrap:wrap;gap:4px 10px;align-items:baseline} .flu .fhead b{font-family:var(--display);font-size:18px;color:var(--ink)} .flu .fhead span{font-size:12px;color:var(--dim);font-weight:700}
+.flu .fslow{margin:6px 0 0;padding-left:20px;font-size:13px;display:grid;gap:3px} .flu .fslow small{color:#c43e3e;font-weight:800;margin-left:4px} .flu .fall{font-size:13px;color:#1f9d55;font-weight:800;margin-top:4px}
 </style>
 
 <div class="sunburst" aria-hidden="true"></div>
@@ -1024,7 +1029,7 @@ body[data-screen="loop"] .sunburst{--sun-1:#ffe9b8;--sun-2:#ffd27a}
     <div class="corner"><button type="button" class="g-btn" id="btnBoard">마스터 현황표</button><button type="button" class="g-btn" id="btnRecords">기록실</button></div>
     <button type="button" class="g-btn tail" id="btnHow">게임방법</button>
     <button type="button" class="g-btn tail green" id="btnStart">▶ 게임시작</button>
-    <div class="credit">틀린시연찾기 · 공식 메뉴얼 + 체험존 기반 · 신사업전략팀 · <span id="verTag" title="업데이트 노트는 게임방법 안에">v42</span></div>
+    <div class="credit">틀린시연찾기 · 공식 메뉴얼 + 체험존 기반 · 신사업전략팀 · <span id="verTag" title="업데이트 노트는 게임방법 안에">v43</span></div>
   </div>
 </section>
 
@@ -1258,16 +1263,17 @@ body[data-screen="loop"] .sunburst{--sun-1:#ffe9b8;--sun-2:#ffd27a}
       <div class="rule"><div class="ic">🎯</div><b>약점 집중 훈련 · 🧬 실수 DNA</b>숙련도 낮은 10스텝만 골라 반복하고 훈련 전후 숙련도 변화를 봅니다. 성적표의 실수 DNA는 오클릭 위치로 위치 미세/메뉴 혼동/흐름 혼동/망설임/힌트 의존을 분류해 코칭 한 줄을 줍니다</div>
       <div class="rule"><div class="ic">🏅</div><b>인증서 · 🎵 BGM</b>자격 칩 → 🏅 인증서 저장(정식·마스터). BGM은 견우 노래 「라면을 먹으면」 — 열자마자 타이틀·미션·성적표에서 흐르고 플레이 중엔 쉽니다(🔇로 끄면 기억)</div>
       <div class="rule"><div class="ic">🔀</div><b>사이트 이동 퀴즈</b>사이트가 바뀌는 지점에서 보드가 뜨기 전에 "다음 동작은 어디서?"를 먼저 묻습니다(실전·단독 모드, 쉬움 난이도 제외, 스테이지당 최대 2회). 오답은 인내심 −5, 실수 DNA의 🔀 사이트 이동에 기록</div>
-      <div class="rule"><div class="ic">🏁</div><b>주간 챌린지 · 🩺 응대 특훈</b>매주 전 팀원에게 같은 12스텝(😈 압박 고정)이 나오고 주간 보드에 최고점이 올라갑니다. 응대 특훈은 보드 없이 질문 카드 10장 연속 — 정답률이 MR 자격(응대 80%)에 반영</div>
-      <div class="rule"><div class="ic">🧭</div><b>입문 7단계 코스</b>신규 MR 첫 주 추천 순서(시범 → 따라하기 → 실전 단독 → 응대 특훈 → 전체 완주 → 오늘의 10문제 3일 → 체험존 완주). 기록으로 자동 체크, 칩에서 다음 단계 바로 시작</div>
+      <div class="rule"><div class="ic">🏁</div><b>주간 챌린지</b>매주 전 팀원에게 같은 12스텝(😈 압박 고정)이 나오고 주간 보드에 최고점이 올라갑니다</div><div class="rule"><div class="ic">🧭</div><b>자유자재 지수</b>오답·찬스·시간초과 없이 8초 안에 정답을 누른 스텝의 비율. 성적표 맨 위에 지수와 머뭇거린 곳 TOP3가 나옵니다 — 이 게임의 최종 목표는 지수 90% 이상</div>
+      <div class="rule"><div class="ic">🧭</div><b>입문 7단계 코스</b>신규 MR 첫 주 추천 순서(시범 → 따라하기 → 실전 단독 → 순서 맞추기 → 전체 완주 → 오늘의 10문제 3일 → 체험존 완주). 기록으로 자동 체크, 칩에서 다음 단계 바로 시작</div>
       <div class="rule"><div class="ic">📣</div><b>팀 공지</b>관리자가 현황표에서 쓴 공지가 미션 화면 맨 위에 뜹니다(공유 저장소가 있으면 팀 전체)</div>
       <div class="rule"><div class="ic">👨‍⚕️</div><b>원장님 3명</b>김정호(이미 일만사 중·심화 질문) · 박서연(처음 듣는·기초 질문) · 최민호(바쁜 원장·심화 질문·타이머 25% 짧음). 설정에서 🎲 다른 원장님으로 바꿀 수 있어요</div>
       <div class="rule"><div class="ic">📤</div><b>기록 공유 코드</b>공유 저장소가 없어도 기록실 → 📤 공유 코드를 복사해 카톡으로 보내면, 팀장님이 현황표 📥 코드 합치기로 합칩니다(지난 공유 이후 기록만, 중복 제외)</div>
-      <div class="rule"><div class="ic">🧮</div><b>수가 계산기 · 🔢 숫자 특훈 · ⏱ 10분 페이스</b>미션 화면 🧰 도구의 계산기는 원장님 숫자(환자 수·횟수·위험군)로 연 수가를 바로 계산해 복사합니다(26년 수가표, 재진진찰료 별도). 숫자 특훈은 원장님이 현장에서 검산할 수 있는 수가·횟수·기한·포인트만 10문제. 체험존 전체 시연은 HUD에 🐇/🐢 예상 시간이 떠서 "10분 안에" 약속을 지켰는지 성적표에 남습니다</div><div class="rule"><div class="ic">📜</div><b>시연 대본</b>미션 화면의 📜 시연 대본에서 경로·할 일·멘트·응대를 한 번에 보고 복사/저장</div>
+      <div class="rule"><div class="ic">📜</div><b>시연 대본</b>미션 화면의 📜 시연 대본에서 경로·할 일·멘트·응대를 한 번에 보고 복사/저장</div>
     </div>
     <div class="sites" id="siteLegend"></div>
     <p class="kbd" style="margin:10px 0 0">전체 완주 점수 = 100 − 오답×5 − 찬스×8. S 100 · A 90↑ · B 75↑ · C 60↑ · D · F(원장님 퇴장). 시간 초과도 오답 1회. 👀 시범은 정답과 멘트를 보여주는 자동 재생.</p>
     <details class="changelog"><summary>🆕 업데이트 노트 (최근)</summary><ul>
+      <li><b>v43</b> 목적 집중: 수가 계산기·숫자 특훈·응대 카드북·응대 특훈·오답 노트 칩 제외(제안·말하기는 루피 몫) · 🧭 자유자재 지수 신설(오답·찬스·시간초과 없이 8초 안 정답 비율 + 머뭇거린 곳 TOP3, 스테이지 클리어·성적표) · 입문 코스의 응대 특훈 → 순서 맞추기 M0~M3</li>
       <li><b>v42</b> 🎙 멘트 말하기 제외 — 제안 말하기 평가는 루피(알피왕)에서, 이 게임은 시연 조작·응대에 집중</li>
       <li><b>v40</b> 📲 웹 버전을 폰 홈 화면에 앱으로 설치 · 오프라인에서도 훈련(화면·이미지·BGM 저장), 연결되면 기록 자동 전송 · 오프라인 표시 · 현황표 📊 구글 시트 바로가기</li>
       <li><b>v39</b> 🚚 새 주소로 이사: 예전 claude.ai 버전 미션 화면에서 "내 기록 들고 새 주소로" 한 번 누르면 이 기기의 기록·의견·평가가 웹 버전으로 넘어가 구글 시트에 쌓임</li>
@@ -1590,7 +1596,7 @@ function renderMap(){
     if(!st.locked){ b.addEventListener('click', e=>{ if(e.target.closest('[data-order]')){ openOrder(st.id); return; } const isGuide = !!e.target.closest('[data-guide]'); const isDemo = !isGuide && !!e.target.closest('.demo'); SFX.go(); startRun('one', st.id, isGuide?'guide':isDemo?'demo':''); }); }
     g.appendChild(b);
   });
-  renderTodo(); renderDailyChip(); renderFocusChip(); renderWeeklyChip(); renderQDrillChip(); renderWrongQChip(); renderNumChip(); renderPathChip(); layoutTodo(); renderTools(); renderMastery(); renderWeekly(); renderNotice(); renderSync(); flushOutbox(); renderMoveBar(); renderInstallChip();
+  renderTodo(); renderDailyChip(); renderFocusChip(); renderWeeklyChip(); renderPathChip(); layoutTodo(); renderMastery(); renderWeekly(); renderNotice(); renderSync(); flushOutbox(); renderMoveBar(); renderInstallChip();
 }
 $('playAll').addEventListener('click', ()=>{ SFX.go(); startRun('all'); });
 
@@ -1778,7 +1784,7 @@ function stageClear(){
   const prev=S.stars[id]; if(!prev || res.stars>prev.stars || (res.stars===prev.stars && res.wrong<prev.wrong)){ S.stars[id]={stars:res.stars,wrong:res.wrong,chance:res.chance,secs:res.secs}; saveStars(); }
   if(S.mode==='one' && !S.demo){ saveRun({ ...(S.profile||{name:S.name}), persona:S.persona.key, mode:'one', course:S.course, stage:id, grade:'', score:Math.max(0,100-W_WRONG*res.wrong-W_CHANCE*res.chance), wrong:res.wrong, chance:res.chance, tips:res.tips, secs:res.secs, at:new Date().toISOString(), over:false, stars:{[id]:res.stars}, steps:compactSteps(res.steps), q:qSummary(), siteq:siteSummary(), diff:S.diff }); }
   const last = S.qi>=S.queue.length-1;
-  const host=$('overlayHost'); host.innerHTML=`<div class="overlay" style="pointer-events:auto"><div class="g-panel"><svg class="ovchar r" viewBox="0 0 280 330" aria-hidden="true"><use href="#chDocYes"/></svg><div class="banner">STAGE CLEAR!</div><div style="font-family:var(--display);color:var(--dim)">${stageCode(S.stage)} · ${S.stage.title}</div>${starsHtml(0,true)}<div class="tally"><div><small>오답</small><b>${res.wrong}</b></div><div><small>찬스</small><b>${res.chance}</b></div><div><small>시간</small><b>${fmtTime(res.secs)}</b></div></div>${recapHtml()}${S.demo?'':fbCardHtml()}<div class="btn-row">${S.mode==='all' ? (last?`<button type="button" class="g-btn big green" id="nextStageBtn">동의서 받기 ✍</button>`:`<button type="button" class="g-btn big green" id="nextStageBtn">다음 스테이지 ▶</button>`) : `<button type="button" class="g-btn green" id="nextStageBtn">맵으로</button><button type="button" class="g-btn gray" id="retryBtn">다시</button>`}</div></div></div>`;
+  const host=$('overlayHost'); host.innerHTML=`<div class="overlay" style="pointer-events:auto"><div class="g-panel"><svg class="ovchar r" viewBox="0 0 280 330" aria-hidden="true"><use href="#chDocYes"/></svg><div class="banner">STAGE CLEAR!</div><div style="font-family:var(--display);color:var(--dim)">${stageCode(S.stage)} · ${S.stage.title}</div>${starsHtml(0,true)}<div class="tally"><div><small>오답</small><b>${res.wrong}</b></div><div><small>찬스</small><b>${res.chance}</b></div><div><small>시간</small><b>${fmtTime(res.secs)}</b></div></div>${S.demo||S.guide?'':fluHtml(S.stepLog.filter(l=>l.st===S.stage.id))}${recapHtml()}${S.demo?'':fbCardHtml()}<div class="btn-row">${S.mode==='all' ? (last?`<button type="button" class="g-btn big green" id="nextStageBtn">동의서 받기 ✍</button>`:`<button type="button" class="g-btn big green" id="nextStageBtn">다음 스테이지 ▶</button>`) : `<button type="button" class="g-btn green" id="nextStageBtn">맵으로</button><button type="button" class="g-btn gray" id="retryBtn">다시</button>`}</div></div></div>`;
   const stars=host.querySelectorAll('.bigstars i'); for(let i=0;i<res.stars;i++){ setTimeout(()=>{ stars[i].classList.add('on'); SFX.star(); }, 500+i*380); }
   bindFb(host,'clear',res);
   $('nextStageBtn').addEventListener('click', ()=>{ host.innerHTML=''; if(S.mode==='all'){ if(last) finish(false); else { S.qi++; startStage(); } } else { exitFullscreen(); renderMap(); show('map'); } });
@@ -1814,7 +1820,7 @@ function finish(over){
   if(over){ c.classList.add('refused'); stamp.textContent='보류'; $('cSig').textContent='(서명 없음)'; }
   else { c.classList.add('signed'); stamp.textContent = biz ? ((g==='S'||g==='A') ? '수료' : '조건부 수료') : ((g==='S'||g==='A') ? '동의' : '조건부 동의'); stamp.classList.toggle('long', stamp.textContent.length>3); $('cSig').textContent = biz ? '신사업전략팀' : S.persona.name.split(' ')[0]; }
   $('grade').textContent=g; $('grade').className='grade '+g; $('gTitle').textContent=GRADE_TXT[g][0]; $('gDesc').textContent=GRADE_TXT[g][1];
-  $('sScore').textContent=total; $('sWrong').textContent=S.wrong; try{ const qs=qSummary(); const lab=$('sWrong').previousElementSibling; if(lab) lab.textContent = qs.total && (qs.total-qs.ok)>0 ? `오답 (응대 ${qs.total-qs.ok} 포함)` : '오답'; }catch(e){} $('sChance').textContent=S.chance; $('sTips').textContent=S.tips; $('sTime').textContent=fmtTime(secs); setTimeout(()=>{ try{ paceResult(secs); }catch(e){} },0);
+  $('sScore').textContent=total; $('sWrong').textContent=S.wrong; try{ const qs=qSummary(); const lab=$('sWrong').previousElementSibling; if(lab) lab.textContent = qs.total && (qs.total-qs.ok)>0 ? `오답 (응대 ${qs.total-qs.ok} 포함)` : '오답'; }catch(e){} $('sChance').textContent=S.chance; $('sTips').textContent=S.tips; $('sTime').textContent=fmtTime(secs); setTimeout(()=>{ try{ paceResult(secs); fluAll(); }catch(e){} },0);
   const rows=$('stageRows'); rows.innerHTML = S.queue.map(id=>{ const st=STAGES.find(s=>s.id===id), r=S.stageRes[id]; if(!r) return ''; const sc=r.cleared?Math.max(0,100-W_WRONG*r.wrong-W_CHANCE*r.chance):0; return `<div class="srow"><span>${stageCode(st)} ${st.title}</span><div class="bar"><i data-w="${sc}"></i></div><span>${starsHtml(r.stars||0)}</span></div>`; }).join('');
   requestAnimationFrame(()=>requestAnimationFrame(()=>rows.querySelectorAll('i[data-w]').forEach(i=>i.style.width=i.dataset.w+'%')));
   const bad=S.results.filter(r=>r.wrong>0||r.chance); S.lastBad=bad.map(r=>r.id); $('reviewBtn').hidden=!bad.length; $('reviewBtn').textContent='🔁 틀린 것만 복습 ('+bad.length+')'; clearResume();
@@ -2290,9 +2296,9 @@ function openScript(stageId){ const host=$('overlayHost2')||(()=>{ const d=docum
     $('scTabs').innerHTML=sts.map(s=>`<button type="button" class="ctab ${s.id===cur?'on':''}" data-st="${s.id}">${stageCode(s)}</button>`).join('');
     $('scBody').innerHTML=`<h3 style="margin:0 0 6px">${stageCode(st)} ${esc(st.title)} <small style="color:var(--dim);font-weight:400">${esc(st.sub)}</small></h3><ol class="sclist">${steps.map(s=>{ const site=siteOf(s); return `<li><div class="scpath" style="--sc:${site.c}">${site.ic} ${esc(site.n)}${s.path?' › '+esc(s.path):''}</div><div class="sctask">${s.task}</div>${s.who&&s.say?`<div class="scsay">${esc(s.who)} ${esc(s.say)}</div>`:''}${s.tip&&s.tip.say?`<div class="sctip">🗣 ${esc(s.tip.say)}</div>`:''}${s.tip&&s.tip.note?`<div class="scnote">※ ${s.tip.note}</div>`:''}</li>`; }).join('')}</ol>${qs.length?`<div class="scq"><b>🩺 원장님 질문 응대</b>${qs.map(q=>`<div class="scqi"><div>Q. ${esc(q.q)}</div><div class="a">A. ${esc(q.opts[q.ans])} <span class="src">(매뉴얼 ${esc(q.page||'')})</span></div></div>`).join('')}</div>`:''}`;
     $('scTabs').querySelectorAll('[data-st]').forEach(b=>b.addEventListener('click', ()=>{ listenStop(); cur=b.dataset.st; render(); SFX.pop(); })); };
-  host.innerHTML=`<div class="modal on" id="scModal"><div class="g-panel" style="width:min(820px,100%)"><div class="eyebrow">📜 시연 대본 · ${esc(COURSES[course].long)}</div><div class="course-tabs" id="scTabs" style="margin:6px 0 10px"></div><div id="scBody" class="scbody"></div><div class="btn-row"><button type="button" class="g-btn sm" id="scCopy">전체 복사</button><button type="button" class="g-btn sm" id="scSave">📥 .md 저장</button><button type="button" class="g-btn sm" id="scPrint" title="A4 인쇄용 HTML — 열어서 인쇄/PDF 저장">🖨 인쇄용</button><button type="button" class="g-btn sm" id="scBook" title="질문 카드 전부(오답 보기까지) + 핵심 숫자 — A4 인쇄용">📖 카드북</button><button type="button" class="g-btn sm orange" id="scListen" title="이 스테이지 경로·멘트를 음성으로 순서대로">🔊 전체 듣기</button><button type="button" class="g-btn sm gray" id="scClose">닫기</button></div></div></div>`;
+  host.innerHTML=`<div class="modal on" id="scModal"><div class="g-panel" style="width:min(820px,100%)"><div class="eyebrow">📜 시연 대본 · ${esc(COURSES[course].long)}</div><div class="course-tabs" id="scTabs" style="margin:6px 0 10px"></div><div id="scBody" class="scbody"></div><div class="btn-row"><button type="button" class="g-btn sm" id="scCopy">전체 복사</button><button type="button" class="g-btn sm" id="scSave">📥 .md 저장</button><button type="button" class="g-btn sm" id="scPrint" title="A4 인쇄용 HTML — 열어서 인쇄/PDF 저장">🖨 인쇄용</button><button type="button" class="g-btn sm orange" id="scListen" title="이 스테이지 경로·멘트를 음성으로 순서대로">🔊 전체 듣기</button><button type="button" class="g-btn sm gray" id="scClose">닫기</button></div></div></div>`;
   render();
-  $('scClose').addEventListener('click', ()=>{ listenStop(); host.innerHTML=''; }); $('scListen').addEventListener('click', ()=>listenStage(cur)); $('scPrint').addEventListener('click', ()=>saveScriptHtml($('scPrint'))); $('scBook').addEventListener('click', ()=>saveCardbook($('scBook'))); $('scModal').addEventListener('click', e=>{ if(e.target.id==='scModal'){ listenStop(); host.innerHTML=''; } });
+  $('scClose').addEventListener('click', ()=>{ listenStop(); host.innerHTML=''; }); $('scListen').addEventListener('click', ()=>listenStage(cur)); $('scPrint').addEventListener('click', ()=>saveScriptHtml($('scPrint'))); $('scModal').addEventListener('click', e=>{ if(e.target.id==='scModal'){ listenStop(); host.innerHTML=''; } });
   $('scCopy').addEventListener('click', async ()=>{ const t=scriptText(course); try{ await navigator.clipboard.writeText(t); $('scCopy').textContent='복사됨 ✓'; }catch(e){ $('scCopy').textContent='복사 실패'; } setTimeout(()=>$('scCopy').textContent='전체 복사',1500); });
   $('scSave').addEventListener('click', async ()=>{ const t=scriptText(course); const fn=`웰체크_시연대본_${COURSES[course].name.replace(/\(.*?\)|\s/g,'')}.md`; const dl=await getDownloads(); $('scSave').disabled=true; try{ if(dl){ await dl.save({ filename:fn, data:t }); $('scSave').textContent='저장됨 ✓'; } else if(!window.claude){ const a=document.createElement('a'); a.href=URL.createObjectURL(new Blob([t],{type:'text/markdown'})); a.download=fn; document.body.appendChild(a); a.click(); setTimeout(()=>{ URL.revokeObjectURL(a.href); a.remove(); },1500); $('scSave').textContent='저장됨 ✓'; } else $('scSave').textContent='이 화면에선 저장 불가'; }catch(e){ $('scSave').textContent=e&&e.code==='declined'?'취소됨':'저장 실패'; } setTimeout(()=>{ $('scSave').textContent='📥 .md 저장'; $('scSave').disabled=false; },1800); });
   SFX.pop(); }
@@ -2688,7 +2694,7 @@ const PATH = [
   { id:'demo',   ic:'👀', n:'시범 보기 M0·M1·M2',           test:(s)=>['m0','m1','m2'].every(id=>s.demo.includes(id)),  next:(s)=>['m0','m1','m2'].find(id=>!s.demo.includes(id)),  go:(id)=>{ if(S.course!=='biz') setCourse('biz'); startRun('one', id, 'demo'); } },
   { id:'guide',  ic:'✋', n:'따라하기 M0·M1·M2',             test:(s)=>['m0','m1','m2'].every(id=>s.guide.includes(id)), next:(s)=>['m0','m1','m2'].find(id=>!s.guide.includes(id)), go:(id)=>{ if(S.course!=='biz') setCourse('biz'); startRun('one', id, 'guide'); } },
   { id:'one',    ic:'🎯', n:'실전 단독 M0~M3 별 2개 이상',     test:(s)=>['m0','m1','m2','m3'].every(id=>(s.stars[id]&&s.stars[id].stars||0)>=2), next:(s)=>['m0','m1','m2','m3'].find(id=>(s.stars[id]&&s.stars[id].stars||0)<2), go:(id)=>{ if(S.course!=='biz') setCourse('biz'); startRun('one', id); } },
-  { id:'qdrill', ic:'🩺', n:'응대 특훈 70% 이상',              test:(s)=>s.runs.some(r=>r.mode==='qdrill'&&r.score>=70), next:()=>null, go:()=>startQDrill() },
+  { id:'order', ic:'🔀', n:'순서 맞추기 M0~M3',               test:(s)=>['m0','m1','m2','m3'].every(id=>s.runs.some(r=>r.mode==='order'&&r.stage===id&&!r.over)), next:(s)=>['m0','m1','m2','m3'].find(id=>!s.runs.some(r=>r.mode==='order'&&r.stage===id&&!r.over)), go:(id)=>{ if(S.course!=='biz') setCourse('biz'); openOrder(id||'m0'); } },
   { id:'all',    ic:'▶',  n:'실무 8단계 완주 B 이상',           test:(s)=>s.runs.some(r=>r.mode==='all'&&r.course==='biz'&&!r.over&&'SAB'.includes(r.grade)), next:()=>null, go:()=>{ if(S.course!=='biz') setCourse('biz'); startRun('all'); } },
   { id:'daily',  ic:'🎲', n:'오늘의 10문제 3일 연속',          test:(s)=>Math.max(s.daily.streak||0, s.daily.max||0)>=3, next:()=>null, go:()=>startDaily() },
   { id:'zone',   ic:'🏥', n:'체험존 전체 시연 완주',            test:(s)=>s.runs.some(r=>r.mode==='all'&&r.course==='zone'&&!r.over), next:()=>null, go:()=>{ if(S.course!=='zone') setCourse('zone'); startRun('all'); } }
@@ -2735,7 +2741,7 @@ function openNoticeEditor(){ const host=$('overlayHost2')||(()=>{ const d=docume
 function pathLight(kind, stageId){ try{ saveRun({ ...(S.profile||{name:S.name}), persona:S.persona?S.persona.key:'', mode:kind, course:S.course, stage:stageId, grade:'', score:null, wrong:0, chance:0, tips:0, secs:0, at:new Date().toISOString(), over:false, stars:{}, steps:{} }); }catch(e){} }
 function pathFromRuns(runs){ const r=runs||[]; const has=(mode,st)=>r.some(x=>x.mode===mode&&x.stage===st); const starOf=(st)=>Math.max(0,...r.map(x=>(x.stars&&x.stars[st])||0));
   const dailyDays=new Set(r.filter(x=>x.mode==='daily').map(x=>(x.at||'').slice(0,10))).size;
-  const items=[ ['m0','m1','m2'].every(st=>has('demo',st)), ['m0','m1','m2'].every(st=>has('guide',st)), ['m0','m1','m2','m3'].every(st=>starOf(st)>=2), r.some(x=>x.mode==='qdrill'&&x.score>=70), r.some(x=>x.mode==='all'&&x.course==='biz'&&!x.over&&'SAB'.includes(x.grade)), dailyDays>=3, r.some(x=>x.mode==='all'&&x.course==='zone'&&!x.over) ];
+  const items=[ ['m0','m1','m2'].every(st=>has('demo',st)), ['m0','m1','m2'].every(st=>has('guide',st)), ['m0','m1','m2','m3'].every(st=>starOf(st)>=2), ['m0','m1','m2','m3'].every(st=>r.some(x=>x.mode==='order'&&x.stage===st&&!x.over)), r.some(x=>x.mode==='all'&&x.course==='biz'&&!x.over&&'SAB'.includes(x.grade)), dailyDays>=3, r.some(x=>x.mode==='all'&&x.course==='zone'&&!x.over) ];
   return { done:items.filter(Boolean).length, total:items.length, items }; }
 function pathBadge(p){ const pr=pathFromRuns(p.runs); return pr.done>=pr.total ? '🎓 입문 완료' : `🧭 입문 ${pr.done}/${pr.total}`; }
 
@@ -3002,12 +3008,24 @@ setTimeout(importFromHash, 600);
 let INSTALL_EVT=null; const IS_STANDALONE=(window.matchMedia&&matchMedia('(display-mode: standalone)').matches)||navigator.standalone===true;
 if(ON_WEB && 'serviceWorker' in navigator){ window.addEventListener('load', ()=>{ navigator.serviceWorker.register('sw.js').catch(()=>{}); }); }
 window.addEventListener('beforeinstallprompt', e=>{ e.preventDefault(); INSTALL_EVT=e; renderInstallChip(); });
-function renderInstallChip(){ if(!ON_WEB||IS_STANDALONE) return; const row=document.querySelector('#todo .trow.tools'); if(!row||row.querySelector('.tchip.install')) return; const b=document.createElement('button'); b.type='button'; b.className='tchip install'; b.innerHTML='<b>📲</b> 홈 화면에 앱으로 <small>인터넷 없어도 훈련</small>'; b.title='폰 홈 화면에 설치 — 지하철·대기실에서도 연습, 기록은 연결되면 자동으로 시트에'; row.appendChild(b);
+function renderInstallChip(){ if(!ON_WEB||IS_STANDALONE) return; const row=ensureToolsRow(); if(!row||row.querySelector('.tchip.install')) return; const b=document.createElement('button'); b.type='button'; b.className='tchip install'; b.innerHTML='<b>📲</b> 홈 화면에 앱으로 <small>인터넷 없어도 훈련</small>'; b.title='폰 홈 화면에 설치 — 지하철·대기실에서도 연습, 기록은 연결되면 자동으로 시트에'; row.appendChild(b);
   b.addEventListener('click', async ()=>{ if(INSTALL_EVT){ INSTALL_EVT.prompt(); try{ const r=await INSTALL_EVT.userChoice; if(r&&r.outcome==='accepted'){ toast('📲 설치됐어요 — 홈 화면의 「틀린시연찾기」로 여세요'); b.remove(); } }catch(e){} INSTALL_EVT=null; return; }
     const ios=/iphone|ipad|ipod/i.test(navigator.userAgent); toast(ios?'아이폰: 사파리 아래 공유 버튼(□↑) → "홈 화면에 추가"':'크롬 오른쪽 위 ⋮ → "홈 화면에 추가" 또는 "앱 설치"'); }); }
 function renderNetBadge(){ if(!ON_WEB) return; let el=$('netBadge'); if(!el){ el=document.createElement('div'); el.id='netBadge'; el.className='netbadge'; document.body.appendChild(el); } el.hidden=navigator.onLine; el.textContent='📴 오프라인 — 훈련은 계속, 기록은 연결되면 자동 전송'; }
 window.addEventListener('online', ()=>{ renderNetBadge(); toast('🛜 다시 연결됐어요 — 쌓인 기록을 보내는 중'); try{ flushOutbox(); renderSync(); }catch(e){} });
 window.addEventListener('offline', ()=>{ renderNetBadge(); try{ renderSync(); }catch(e){} }); setTimeout(renderNetBadge, 800);
+
+/* ═══════════════════════════════════════════ v31(v43): 목적 집중 — 🧭 자유자재 지수 (막힘 없이·망설임 없이) ═══════════════════════════════════════════ */
+/* 자유자재 스텝 = 오답 0 · 찬스 0 · 시간초과 0 · FLU_SEC초 안에 정답. 지수 = 자유자재 스텝 / 전체 스텝 */
+const FLU_SEC=8;
+function fluStats(logs){ const l=(logs||[]).filter(x=>x&&x.id); if(!l.length) return null; const isFlu=x=>!(x.w||0)&&!(x.c||0)&&!(x.to||0)&&(x.s||0)<=FLU_SEC; const flu=l.filter(isFlu).length; const slow=l.filter(x=>!isFlu(x)).map(x=>({ x, st:STEPS.find(s=>s.id===x.id) })).filter(o=>o.st).sort((a,b)=>((b.x.s||0)+(b.x.w||0)*6+(b.x.c||0)*8+(b.x.to||0)*10)-((a.x.s||0)+(a.x.w||0)*6+(a.x.c||0)*8+(a.x.to||0)*10)); const secs=l.reduce((a,x)=>a+(x.s||0),0);
+  return { n:l.length, flu, idx:Math.round(flu/l.length*100), avg:Math.round(secs/l.length*10)/10, slow:slow.slice(0,3) }; }
+function fluWhy(x){ const r=[]; if(x.w) r.push(`오답 ${x.w}`); if(x.c) r.push('찬스'); if(x.to) r.push('시간 초과'); if((x.s||0)>FLU_SEC) r.push(`${x.s}초 망설임`); return r.join(' · ')||`${x.s||0}초`; }
+function fluHtml(logs){ const f=fluStats(logs); if(!f) return ''; const lv=f.idx>=90?['자유자재','ok']:f.idx>=70?['거의 자유자재','mid']:['아직 더듬는 중','low'];
+  return `<div class="flu ${lv[1]}"><div class="fhead"><b>🧭 자유자재 지수 ${f.idx}%</b><span>${lv[0]} · 막힘 없이 ${FLU_SEC}초 안에 ${f.flu}/${f.n}스텝 · 스텝당 평균 ${f.avg}초</span></div>${f.slow.length?`<ol class="fslow">${f.slow.map(o=>`<li><b>${esc(stageCode(STAGES.find(s=>s.id===o.st.st)||{}))}</b> ${esc((o.st.task||'').replace(/<[^>]+>/g,''))} <small>${esc(fluWhy(o.x))}</small></li>`).join('')}</ol>`:'<div class="fall">모든 스텝을 막힘 없이 — 원장님 앞에서도 그대로</div>'}</div>`; }
+function fluAll(){ const box=$('review'); if(!box) return; const old=box.querySelector('.flu'); if(old) old.remove(); const h=fluHtml(S.stepLog); if(!h) return; const d=document.createElement('div'); d.innerHTML=h; box.prepend(d.firstChild); }
+/* 도구 줄: 이제 📲 설치만 (웹) */
+function ensureToolsRow(){ const el=$('todo'); if(!el) return null; let r=el.querySelector('.trow.tools'); if(!r){ r=document.createElement('div'); r.className='trow tools'; r.innerHTML='<span class="tl">🧰 도구</span>'; el.appendChild(r); } return r; }
 
 /* 초기화 */
 loadStars(); S.profile = loadProfile(); if(S.profile) S.name = S.profile.name;
