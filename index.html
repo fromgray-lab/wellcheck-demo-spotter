@@ -782,6 +782,20 @@ body[data-screen="loop"] .sunburst{--sun-1:#ffe9b8;--sun-2:#ffd27a}
 .movebar .g-btn{margin-left:auto;text-decoration:none}
 .netbadge{position:fixed;left:50%;bottom:10px;transform:translateX(-50%);z-index:9999;background:#1d2140;color:#ffd93b;font-weight:800;font-size:12px;padding:6px 14px;border-radius:999px;box-shadow:0 4px 0 rgba(0,0,0,.25);pointer-events:none}
 .tchip.install b{background:#22b573!important;color:#fff!important}
+
+/* ── v30: 멘트 말하기 ── */
+.vcard{max-width:680px;text-align:left}
+.vctx{display:grid;grid-template-columns:200px 1fr;gap:10px;margin:6px 0 8px} @media (max-width:560px){.vctx{grid-template-columns:1fr}}
+.vimg{border:2.5px solid var(--ink);border-radius:10px;background:#fff center/cover no-repeat;aspect-ratio:16/10;min-height:110px}
+.vdoc{font-family:var(--display);font-size:16px;color:#8b5cf6;margin-bottom:4px} .vtask{font-size:13px;font-weight:700;color:var(--ink)} .vhint{font-size:12px;color:var(--dim);margin-top:6px}
+.vlive{min-height:54px;background:#fff;border:2.5px dashed var(--ink);border-radius:12px;padding:8px 12px;font-size:15px;color:var(--dim)} .vlive.on{color:var(--ink);border-style:solid}
+.vmic{background:#e0177a!important;color:#fff!important} .vmic.rec{animation:vpulse 1s infinite} @keyframes vpulse{50%{transform:scale(1.04);box-shadow:0 0 0 8px rgba(224,23,122,.18)}}
+.vtype textarea{width:100%;font:inherit;font-size:15px;border:2.5px solid var(--ink);border-radius:10px;padding:8px;margin:6px 0}
+.vres{margin-top:8px} .vscore{font-family:var(--display);font-size:26px} .vscore.ok{color:#1f9d55} .vscore.mid{color:#d97706} .vscore.low{color:#c43e3e}
+.vkws{display:flex;flex-wrap:wrap;gap:6px;margin:6px 0} .vk{font-size:12px;font-weight:800;border-radius:999px;padding:2px 10px;border:2px solid var(--ink);background:#fff} .vk.hit{background:#d9f7e3;border-color:#1f9d55;color:#14683a} .vk.miss{background:#ffe1e1;border-color:#c43e3e;color:#8a1f1f} .vk.ghost{border:none;background:none;padding:0;color:#e0177a;letter-spacing:2px}
+.vmodel{background:#fff8e7;border:2px solid var(--ink);border-radius:10px;padding:6px 10px;font-size:14px} .vmodel small{display:block;color:var(--dim);font-weight:800;font-size:11px}
+.vmissall{margin:6px 0;display:flex;flex-wrap:wrap;gap:6px;align-items:center;font-size:13px}
+.tchip.voice b{background:#e0177a!important;color:#fff!important}
 </style>
 
 <div class="sunburst" aria-hidden="true"></div>
@@ -1024,7 +1038,7 @@ body[data-screen="loop"] .sunburst{--sun-1:#ffe9b8;--sun-2:#ffd27a}
     <div class="corner"><button type="button" class="g-btn" id="btnBoard">마스터 현황표</button><button type="button" class="g-btn" id="btnRecords">기록실</button></div>
     <button type="button" class="g-btn tail" id="btnHow">게임방법</button>
     <button type="button" class="g-btn tail green" id="btnStart">▶ 게임시작</button>
-    <div class="credit">틀린시연찾기 · 공식 메뉴얼 + 체험존 기반 · 신사업전략팀 · <span id="verTag" title="업데이트 노트는 게임방법 안에">v40</span></div>
+    <div class="credit">틀린시연찾기 · 공식 메뉴얼 + 체험존 기반 · 신사업전략팀 · <span id="verTag" title="업데이트 노트는 게임방법 안에">v41</span></div>
   </div>
 </section>
 
@@ -1263,11 +1277,12 @@ body[data-screen="loop"] .sunburst{--sun-1:#ffe9b8;--sun-2:#ffd27a}
       <div class="rule"><div class="ic">📣</div><b>팀 공지</b>관리자가 현황표에서 쓴 공지가 미션 화면 맨 위에 뜹니다(공유 저장소가 있으면 팀 전체)</div>
       <div class="rule"><div class="ic">👨‍⚕️</div><b>원장님 3명</b>김정호(이미 일만사 중·심화 질문) · 박서연(처음 듣는·기초 질문) · 최민호(바쁜 원장·심화 질문·타이머 25% 짧음). 설정에서 🎲 다른 원장님으로 바꿀 수 있어요</div>
       <div class="rule"><div class="ic">📤</div><b>기록 공유 코드</b>공유 저장소가 없어도 기록실 → 📤 공유 코드를 복사해 카톡으로 보내면, 팀장님이 현황표 📥 코드 합치기로 합칩니다(지난 공유 이후 기록만, 중복 제외)</div>
-      <div class="rule"><div class="ic">🧮</div><b>수가 계산기 · 🔢 숫자 특훈 · ⏱ 10분 페이스</b>미션 화면 🧰 도구의 계산기는 원장님 숫자(환자 수·횟수·위험군)로 연 수가를 바로 계산해 복사합니다(26년 수가표, 재진진찰료 별도). 숫자 특훈은 원장님이 현장에서 검산할 수 있는 수가·횟수·기한·포인트만 10문제. 체험존 전체 시연은 HUD에 🐇/🐢 예상 시간이 떠서 "10분 안에" 약속을 지켰는지 성적표에 남습니다</div><div class="rule"><div class="ic">📜</div><b>시연 대본</b>미션 화면의 📜 시연 대본에서 경로·할 일·멘트·응대를 한 번에 보고 복사/저장</div>
+      <div class="rule"><div class="ic">🧮</div><b>수가 계산기 · 🔢 숫자 특훈 · ⏱ 10분 페이스</b>미션 화면 🧰 도구의 계산기는 원장님 숫자(환자 수·횟수·위험군)로 연 수가를 바로 계산해 복사합니다(26년 수가표, 재진진찰료 별도). 숫자 특훈은 원장님이 현장에서 검산할 수 있는 수가·횟수·기한·포인트만 10문제. 체험존 전체 시연은 HUD에 🐇/🐢 예상 시간이 떠서 "10분 안에" 약속을 지켰는지 성적표에 남습니다</div><div class="rule"><div class="ic">🎙</div><b>멘트 말하기</b>화면과 원장님 대사를 보고, 원장님께 할 말을 실제로 소리 내어 말하면 받아 적어서 숫자·제도 용어 같은 핵심어를 몇 개 짚었는지 채점합니다(✓/✗ 표시 + 모범 멘트 듣기). 음성은 저장하지 않고 받아 적은 글자만 씁니다. 음성 인식이 안 되는 브라우저는 입력으로</div><div class="rule"><div class="ic">📜</div><b>시연 대본</b>미션 화면의 📜 시연 대본에서 경로·할 일·멘트·응대를 한 번에 보고 복사/저장</div>
     </div>
     <div class="sites" id="siteLegend"></div>
     <p class="kbd" style="margin:10px 0 0">전체 완주 점수 = 100 − 오답×5 − 찬스×8. S 100 · A 90↑ · B 75↑ · C 60↑ · D · F(원장님 퇴장). 시간 초과도 오답 1회. 👀 시범은 정답과 멘트를 보여주는 자동 재생.</p>
     <details class="changelog"><summary>🆕 업데이트 노트 (최근)</summary><ul>
+      <li><b>v41</b> 🎙 멘트 말하기 훈련: 화면을 보고 원장님께 할 말을 소리 내어 말하면 받아 적어 핵심어(숫자·제도 용어·강조어) 적중률로 채점 · 빠뜨린 말 ✗ 표시 · 모범 멘트 듣기 · 결과 카드 · 기록실·다이제스트·리포트 모드 반영</li>
       <li><b>v40</b> 📲 웹 버전을 폰 홈 화면에 앱으로 설치 · 오프라인에서도 훈련(화면·이미지·BGM 저장), 연결되면 기록 자동 전송 · 오프라인 표시 · 현황표 📊 구글 시트 바로가기</li>
       <li><b>v39</b> 🚚 새 주소로 이사: 예전 claude.ai 버전 미션 화면에서 "내 기록 들고 새 주소로" 한 번 누르면 이 기기의 기록·의견·평가가 웹 버전으로 넘어가 구글 시트에 쌓임</li>
       <li><b>v38</b> 웹 사이트(GitHub Pages) 버전 오픈 — 기록·의견·평가·공지가 구글 시트 「틀린시연찾기 DB」에 바로 쌓임(로그인·조직 무관), 실패 시 보내기함 재전송</li>
@@ -1589,7 +1604,7 @@ function renderMap(){
     if(!st.locked){ b.addEventListener('click', e=>{ if(e.target.closest('[data-order]')){ openOrder(st.id); return; } const isGuide = !!e.target.closest('[data-guide]'); const isDemo = !isGuide && !!e.target.closest('.demo'); SFX.go(); startRun('one', st.id, isGuide?'guide':isDemo?'demo':''); }); }
     g.appendChild(b);
   });
-  renderTodo(); renderDailyChip(); renderFocusChip(); renderWeeklyChip(); renderQDrillChip(); renderWrongQChip(); renderNumChip(); renderPathChip(); layoutTodo(); renderTools(); renderMastery(); renderWeekly(); renderNotice(); renderSync(); flushOutbox(); renderMoveBar(); renderInstallChip();
+  renderTodo(); renderDailyChip(); renderFocusChip(); renderWeeklyChip(); renderQDrillChip(); renderWrongQChip(); renderNumChip(); renderPathChip(); layoutTodo(); renderTools(); renderVoiceChip(); renderMastery(); renderWeekly(); renderNotice(); renderSync(); flushOutbox(); renderMoveBar(); renderInstallChip();
 }
 $('playAll').addEventListener('click', ()=>{ SFX.go(); startRun('all'); });
 
@@ -2564,7 +2579,7 @@ function digestText(){ const rows=BOARD.rows||[]; const wk=rows.filter(r=>weekId
   const avg=l=>l.length?Math.round(l.reduce((a,r)=>a+(r.score||0),0)/l.length):0; const modeN=(l,m)=>l.filter(r=>r.mode===m).length;
   const L=[`📰 틀린시연찾기 주간 다이제스트 · ${new Date().toLocaleDateString('ko-KR')} 기준 최근 7일`, ''];
   L.push(`👥 참여 ${people(wk)}명 (지난주 ${people(pw)}명) · 훈련 ${wk.length}건 (지난주 ${pw.length}건)`);
-  L.push(`   전체 완주 ${full(wk).length}건 · 단독 ${modeN(wk,'one')} · 오늘의 10문제 ${modeN(wk,'daily')} · 순서 ${modeN(wk,'order')} · 약점 집중 ${modeN(wk,'focus')} · 주간 챌린지 ${modeN(wk,'weekly')} · 응대 특훈 ${modeN(wk,'qdrill')} · 숫자 특훈 ${modeN(wk,'numdrill')} · 복습 ${modeN(wk,'review')}`);
+  L.push(`   전체 완주 ${full(wk).length}건 · 단독 ${modeN(wk,'one')} · 오늘의 10문제 ${modeN(wk,'daily')} · 순서 ${modeN(wk,'order')} · 약점 집중 ${modeN(wk,'focus')} · 주간 챌린지 ${modeN(wk,'weekly')} · 응대 특훈 ${modeN(wk,'qdrill')} · 숫자 특훈 ${modeN(wk,'numdrill')} · 멘트 말하기 ${modeN(wk,'voice')} · 복습 ${modeN(wk,'review')}`);
   const gd={}; full(wk).forEach(r=>{ gd[r.grade]=(gd[r.grade]||0)+1; }); L.push(`   완주 평균 ${avg(full(wk))}점 (지난주 ${avg(full(pw))}점) · 등급 ${['S','A','B','C','D'].filter(g=>gd[g]).map(g=>g+' '+gd[g]).join(' / ')||'—'}`);
   const best=l=>{ const m={}; l.forEach(r=>{ const k=key(r); if(!m[k]||r.score>m[k].score) m[k]=r; }); return Object.values(m).sort((a,b)=>b.score-a.score||(a.secs||0)-(b.secs||0)); };
   const top=best(full(wk)).slice(0,3); if(top.length) L.push('', `🏆 이번 주 TOP ${top.length}`, ...top.map((r,i)=>`   ${['🥇','🥈','🥉'][i]} ${r.name}${r.office?' ('+r.office+')':''} — ${r.grade} ${r.score}점 · ${fmtTime(r.secs||0)} · ${COURSES[r.course]?COURSES[r.course].name:r.course}`));
@@ -2611,7 +2626,7 @@ function coachAdvice(p, pm, dna, evs){ const out=[]; const sts=STAGES.filter(s=>
   if(evs.length){ const ax={}; EVAL_AXES.forEach(([k,l])=>{ const v=evs.map(e=>e[k]).filter(x=>x!=null); if(v.length) ax[l]=v.reduce((a,b)=>a+b,0)/v.length; }); const low=Object.entries(ax).sort((a,b)=>a[1]-b[1])[0]; if(low&&low[1]<3.5) out.push(`현장 평가 '${low[0]}' 평균 ${low[1].toFixed(1)}/5 — 동행 시 이 축 중심으로 피드백`); }
   return out.slice(0,5); }
 function coachReportHtml(p){ const e=esc; const evs=evalsFor(p); const pm=personMastery(p.runs.concat(evalsAsAttempts(evs))); const dna=errorDnaRuns(p.runs); const note=noteFor(p.key); const runs=p.runs.slice().sort((a,b)=>(b.at||'').localeCompare(a.at||'')).slice(0,15); const advice=coachAdvice(p, pm, dna, evs);
-  const modeN={all:'전체 완주',one:'단독',daily:'오늘의 10문제',order:'순서',focus:'약점 집중',weekly:'주간 챌린지',qdrill:'응대 특훈',numdrill:'숫자 특훈',review:'복습'}; const diffN={easy:'쉬움',normal:'보통',hard:'압박'}; const sts=STAGES.filter(s=>!s.locked).sort((a,b)=>(a.course==='biz'?0:1)-(b.course==='biz'?0:1));
+  const modeN={all:'전체 완주',one:'단독',daily:'오늘의 10문제',order:'순서',focus:'약점 집중',weekly:'주간 챌린지',qdrill:'응대 특훈',numdrill:'숫자 특훈',voice:'멘트 말하기',review:'복습'}; const diffN={easy:'쉬움',normal:'보통',hard:'압박'}; const sts=STAGES.filter(s=>!s.locked).sort((a,b)=>(a.course==='biz'?0:1)-(b.course==='biz'?0:1));
   return `<!doctype html><html lang="ko"><head><meta charset="utf-8"><title>코칭 리포트 · ${e(p.name)}</title><style>
   @page{size:A4;margin:14mm} body{font-family:'Noto Sans KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif;color:#1d2140;line-height:1.5;max-width:860px;margin:24px auto;padding:0 16px}
   h1{font-size:24px;margin:0 0 2px} .meta{color:#5b6383;font-size:13px;margin-bottom:14px} h2{font-size:16px;margin:18px 0 8px;border-left:5px solid #ffd93b;padding-left:8px}
@@ -2786,7 +2801,7 @@ function openShareIn(){ const host=$('overlayHost2')||(()=>{ const d=document.cr
   $('shMerge').addEventListener('click', async ()=>{ try{ const d=await parseShareCode($('shIn').value); const { nr, ne, nf }=mergeShared(d); toast(`합쳐짐 — ${esc(d.by||'')} 시연 +${nr} · 평가 +${ne} · 의견 +${nf||0}`); host.innerHTML=''; if(document.body.dataset.screen==='board') openBoard(true); }catch(e){ toast('코드를 읽을 수 없어요 — DSG로 시작하는 코드 전체를 붙여넣어 주세요'); } }); SFX.pop(); }
 
 /* ── 2) 기록실 모드별 보기 ── */
-const REC_MODES=[['all','전체 완주'],['one','단독'],['daily','오늘의 10문제'],['weekly','주간 챌린지'],['focus','약점 집중'],['qdrill','응대 특훈'],['numdrill','숫자 특훈'],['order','순서']];
+const REC_MODES=[['all','전체 완주'],['one','단독'],['daily','오늘의 10문제'],['weekly','주간 챌린지'],['focus','약점 집중'],['qdrill','응대 특훈'],['numdrill','숫자 특훈'],['voice','멘트 말하기'],['order','순서']];
 let REC_MODE='all';
 function recModeBar(){ return `<div class="recmodes">${REC_MODES.map(([k,l])=>`<button type="button" class="ctab ${k===REC_MODE?'on':''}" data-rm="${k}">${l}</button>`).join('')}<button type="button" class="g-btn sm" id="myReport" style="margin-left:auto" title="내 숙련도·실수 DNA·기록을 A4 인쇄용으로">🖨 내 리포트</button><button type="button" class="g-btn sm" id="shareOut">📤 공유 코드</button></div>`; }
 function bindRecModes(el){ el.querySelectorAll('[data-rm]').forEach(b=>b.addEventListener('click', ()=>{ REC_MODE=b.dataset.rm; SFX.pop(); renderRecords(el); })); const so=el.querySelector('#shareOut'); if(so) so.addEventListener('click', openShareOut); const mr=el.querySelector('#myReport'); if(mr){ getDownloads().then(dl=>{ if(!dl && window.claude) mr.hidden=true; }); mr.addEventListener('click', ()=>saveMyReport(mr)); } }
@@ -2817,7 +2832,7 @@ function layoutTodo(){ const el=$('todo'); if(!el||el.querySelector('.trow')) re
 let BM_DAYS=0;
 function bmFilterRuns(rows){ if(!BM_DAYS) return rows; const since=Date.now()-BM_DAYS*864e5; return (rows||[]).filter(r=>Date.parse(r.at)>=since); }
 /* ── 3) 개인 패널 기록 행: 모드 라벨 ── */
-function modeLabel(r){ const M={all:'전체',one:'',daily:'10문제',weekly:'주간',focus:'약점',qdrill:'특훈',numdrill:'숫자',order:'순서',review:'복습',demo:'시범',guide:'따라하기'}; const st=STAGES.find(s=>s.id===r.stage); const code=st?stageCode(st):''; const m=M[r.mode]!=null?M[r.mode]:(r.mode||''); return [m,code].filter(Boolean).join(' ')||'?'; }
+function modeLabel(r){ const M={all:'전체',one:'',daily:'10문제',weekly:'주간',focus:'약점',qdrill:'특훈',numdrill:'숫자',voice:'말하기',order:'순서',review:'복습',demo:'시범',guide:'따라하기'}; const st=STAGES.find(s=>s.id===r.stage); const code=st?stageCode(st):''; const m=M[r.mode]!=null?M[r.mode]:(r.mode||''); return [m,code].filter(Boolean).join(' ')||'?'; }
 
 /* ═══════════════════════════════════════════ v22: 복습 카드 → 이 스텝만 연습 · 🩺 응대 오답 노트 ═══════════════════════════════════════════ */
 /* ── 1) 복습 카드에서 바로 그 스텝만 다시 (복습 모드, 1스텝) ── */
@@ -3008,10 +3023,69 @@ function renderNetBadge(){ if(!ON_WEB) return; let el=$('netBadge'); if(!el){ el
 window.addEventListener('online', ()=>{ renderNetBadge(); toast('🛜 다시 연결됐어요 — 쌓인 기록을 보내는 중'); try{ flushOutbox(); renderSync(); }catch(e){} });
 window.addEventListener('offline', ()=>{ renderNetBadge(); try{ renderSync(); }catch(e){} }); setTimeout(renderNetBadge, 800);
 
+/* ═══════════════════════════════════════════ v30(v41): 🎙 멘트 말하기 훈련 — 말한 멘트를 받아 적고 핵심어로 채점 ═══════════════════════════════════════════ */
+/* 원리: 각 스텝의 모범 멘트(tip.say)에서 핵심어(숫자·제도 용어·강조어)를 뽑고, MR이 말한(또는 입력한) 문장에 몇 개가 들어갔는지 본다.
+   음성 인식은 브라우저(크롬·사파리) 내장 기능 — 녹음 파일은 어디에도 저장하지 않고, 받아 적은 글자만 쓴다. */
+const VTERMS=['심평원','요양기관업무포털','임시저장','작성완료','케어플랜','포괄평가','계획수립','점검평가','점검','교육상담','환자관리','환자관리료','본인부담','경감','건생','건강생활실천지원금','포인트','차감','대리 신청','정보마당','주상병','고혈압','당뇨','콜레스테롤','HbA1c','당화혈색소','문진','문진표','임상검사','일괄 업데이트','EMR','Agent','공동인증서','요양기관기호','보안프로그램','작업표시줄','초대장','초대 문자','동의서','개인정보','담당의사','주치의','주치의 메시지','교육자료','쌍방소통','수가','재진진찰료','AX001','AX004','IB023','API','웰체크','의사웹','관리자','승인','증빙서류','서류 3종','위임장','신분증','작성','전송','출력','앱','엑셀','10분','20분'];
+const VSTOP=new Set(['원장님','합니다','됩니다','있습니다','입니다','하시면','여기서','이렇게','그리고','바로','정도','하나','다음','먼저','이제','통해','에서','으로','하고','해서','하면','저희','우리','병원','환자분','환자','반드시','아직','얼마나','따라','참여','순서','선택','자동','최대','항목','기능']);
+function vNorm(s){ return String(s||'').replace(/<[^>]+>/g,'').replace(/(\d),(?=\d{3})/g,'$1').replace(/(\d)\.(\d)/g,'$1\u2024$2').replace(/[“”"'‘’.,!?·…()\[\]{}:;~\-—/]/g,' ').replace(/\u2024/g,'.').replace(/\s+/g,' ').trim().toLowerCase(); }
+function vDigits(s){ return String(s||'').replace(/[,\s]/g,''); }
+/* 한글 수사 → 숫자(인식기가 "삼십오" 등으로 받아 적을 때 대비, 기본 범위) */
+function vKoNum(s){ const D={영:0,공:0,일:1,이:2,삼:3,사:4,오:5,육:6,칠:7,팔:8,구:9}; const U={십:10,백:100,천:1000}; return String(s||'').replace(/[영공일이삼사오육칠팔구십백천만]+(?=\s*(원|분|회|개월|명|일|주|년|%|퍼센트|포인트|p))/g, w=>{ let total=0, sec=0, num=0; for(const ch of w){ if(ch in D) num=D[ch]; else if(ch in U){ sec+=(num||1)*U[ch]; num=0; } else if(ch==='만'){ total+=(sec+num||1)*10000; sec=0; num=0; } } const v=total+sec+num; return v?String(v):w; }); }
+function vKeywords(st){ const say=String((st.tip&&st.tip.say)||''); const txt=say.replace(/<[^>]+>/g,''); const out=[];
+  const add=(k,kind)=>{ k=k.trim(); if(!k||k.length<2) return; if(out.some(x=>x.k===k||x.k.includes(k)||k.includes(x.k))) return; out.push({ k, kind }); };
+  (txt.match(/(?<![A-Za-z\d])\d[\d,.]*\d?\s*(원|분|회|개월|명|일|주|년|%|p|포인트|mmHg|만원|만 원|만p|억)?/g)||[]).forEach(m=>{ m=m.replace(/\s+/g,'').replace(/[,.]+$/,''); const d=vDigits(m); if(d.length>=1&&!/^0+$/.test(d)) add(m,'num'); });
+  VTERMS.forEach(t=>{ if(txt.includes(t)) add(t,'term'); });
+  ((st.tip&&st.tip.note)||'').replace(/<b>(.*?)<\/b>/g,(m,b)=>{ const t=b.replace(/<[^>]+>/g,'').trim(); if(t.length<=12&&txt.includes(t)) add(t,'bold'); return m; });
+  if(out.length<3){ txt.split(/\s+/).map(w=>w.replace(/[^가-힣A-Za-z0-9]/g,'')).filter(w=>!/(다|요|고|면|서|며|죠|던|니|야|라|대|시|게|지|해|하|한|된|할|될|은|는|인데|거나|나|도|직|으니|이라|에선|온다|해야)$/.test(w)).map(w=>w.replace(/(은|는|이|가|을|를|에|의|도|로|과|와|만|까지|부터)$/,'')).filter(w=>w.length>=2&&!VSTOP.has(w)).sort((a,b)=>b.length-a.length).forEach(w=>{ if(out.length<4) add(w,'word'); }); }
+  return out.slice(0,6); }
+function vHit(kw, said){ const s=vNorm(said), sd=vDigits(vNorm(vKoNum(said))); const k=kw.k;
+  if(kw.kind==='num'){ const kd=vDigits(k).replace(/[^\d.]/g,''); if(!kd) return false; if(sd.includes(kd)) return true; const n=Number(kd); if(n>=10000&&n%10000===0&&s.includes((n/10000)+'만')) return true; if(n>=10000&&sd.includes(String(Math.round(n/10000))+'만')) return true; return false; }
+  const kn=vNorm(k), ks=kn.replace(/\s/g,''), ss=s.replace(/\s/g,''); if(ss.includes(ks)) return true;
+  if(ks.length>=4){ const bg=w=>{ const a=new Set(); for(let i=0;i<w.length-1;i++) a.add(w.slice(i,i+2)); return a; }; const A=bg(ks); let best=0; for(let i=0;i+ks.length<=ss.length+1;i++){ const B=bg(ss.slice(i,i+ks.length)); let inter=0; A.forEach(x=>{ if(B.has(x)) inter++; }); best=Math.max(best, inter/Math.max(1,A.size)); } return best>=0.67; }
+  return false; }
+function vScore(st, said){ const kws=vKeywords(st); const res=kws.map(kw=>({ ...kw, hit:vHit(kw,said) })); const n=res.length||1; const got=res.filter(r=>r.hit).length; const lenOk=vNorm(said).length>=Math.min(12, vNorm(st.tip&&st.tip.say).length*0.3); return { res, cov:Math.round(got/n*100), lenOk }; }
+/* 음성 인식 */
+const ASR={ C:window.SpeechRecognition||window.webkitSpeechRecognition, rec:null, on:false };
+function asrStart(onText, onEnd){ if(!ASR.C) return false; try{ const r=new ASR.C(); r.lang='ko-KR'; r.interimResults=true; r.continuous=true; r.maxAlternatives=1; let finalT=''; r.onresult=e=>{ let interim=''; for(let i=e.resultIndex;i<e.results.length;i++){ const t=e.results[i][0].transcript; if(e.results[i].isFinal) finalT+=t+' '; else interim+=t; } onText(finalT+interim, false); }; r.onerror=e=>{ ASR.on=false; onEnd(finalT, e.error||'error'); }; r.onend=()=>{ ASR.on=false; onEnd(finalT, null); }; ASR.rec=r; ASR.on=true; try{ const b=BGM_CUSTOM&&BGM_CUSTOM.audio; if(b) b.volume=0.08; }catch(e){} r.start(); return true; }catch(e){ ASR.on=false; return false; } }
+function asrStop(){ try{ if(ASR.rec) ASR.rec.stop(); }catch(e){} try{ const b=BGM_CUSTOM&&BGM_CUSTOM.audio; if(b) b.volume=0.45; }catch(e){} }
+/* 출제: 핵심어 3개 이상 스텝 중 숙련도 낮은 순 가중 + 무작위, 8문제 */
+function voicePick(n){ const pool=STEPS.filter(s=>{ const st=STAGES.find(x=>x.id===s.st); return st&&st.course===S.course&&!st.locked&&!st.bonus&&!s.synth&&s.tip&&s.tip.say&&String(s.tip.say).length>=18&&(!s.branch||s.branch===((S.persona&&(S.persona.branch||S.persona.key))||'yes')); }).map(s=>({ s, kw:vKeywords(s).length })).filter(x=>x.kw>=3);
+  const m=(MASTERY&&MASTERY.step)||{}; const ranked=pool.map(x=>({ s:x.s, k:(100-(m[x.s.id]||0))/100+Math.random()*0.9 })).sort((a,b)=>b.k-a.k).slice(0,n||8).map(x=>x.s); const order=new Map(STEPS.map((s,i)=>[s.id,i])); return ranked.sort((a,b)=>order.get(a.id)-order.get(b.id)); }
+function startVoice(){ const steps=voicePick(8); if(steps.length<3){ toast('이 코스엔 말하기 문제가 부족해요'); return; } const log=[]; let i=0; const t0=Date.now(); const canMic=!!ASR.C;
+  const host=$('overlayHost2')||(()=>{ const d=document.createElement('div'); d.id='overlayHost2'; document.body.appendChild(d); return d; })();
+  const finish=()=>{ asrStop(); const avg=Math.round(log.reduce((a,x)=>a+x.cov,0)/(log.length||1)); const g=avg>=95?'S':avg>=85?'A':avg>=70?'B':avg>=55?'C':'D'; const secs=Math.round((Date.now()-t0)/1000); const miss={}; log.forEach(x=>x.miss.forEach(k=>{ miss[k]=(miss[k]||0)+1; })); const topMiss=Object.entries(miss).sort((a,b)=>b[1]-a[1]).slice(0,6).map(x=>x[0]);
+    saveRun({ ...(S.profile||{name:S.name}), persona:S.persona?S.persona.key:'', mode:'voice', course:S.course, stage:'voice', diff:S.diff, grade:g, score:avg, wrong:log.filter(x=>x.cov<70).length, chance:0, tips:0, secs, at:new Date().toISOString(), over:false, stars:{}, steps:{}, vq:{ total:log.length, avg, mic:log.filter(x=>x.mic).length, items:log.map(x=>({ id:x.id, cov:x.cov, miss:x.miss })) } }).then(w=>saveStatus(w)); SFX.clear();
+    const card={ title:'🎙 멘트 말하기', sub:`${COURSES[S.course].name} · ${log.length}문제 · 핵심어 적중`, g, name:(S.profile&&S.profile.name)||S.name||'', line:`평균 핵심어 ${avg}% · ${fmtTime(secs)}`, stats:[['핵심어',avg+'%'],['70%↑',log.filter(x=>x.cov>=70).length+'/'+log.length],['음성',log.filter(x=>x.mic).length+'회'],['시간',fmtTime(secs)]], msg:avg>=85?'원장님 앞에서 막힘 없이 말함':avg>=70?'핵심은 짚었어요 — 숫자 한 번 더':'모범 멘트를 소리 내어 3번', fn:'틀린시연찾기_멘트말하기.png', c1:'#ffd6ec', c2:'#e0177a' };
+    host.innerHTML=`<div class="modal on" id="vcModal"><div class="g-panel" style="width:min(680px,100%)"><div class="banner ${avg>=85?'':'blue'}">멘트 말하기 ${avg}%</div><div class="tally"><div><small>핵심어 평균</small><b>${avg}%</b></div><div><small>등급</small><b>${g}</b></div><div><small>시간</small><b>${fmtTime(secs)}</b></div></div>${topMiss.length?`<div class="vmissall"><b>자주 빠뜨린 말</b> ${topMiss.map(k=>`<span class="vk miss">${esc(k)}</span>`).join('')}</div>`:''}<div class="qrlist" style="max-height:38vh;overflow:auto;text-align:left">${log.map(x=>{ const st=STEPS.find(s=>s.id===x.id); const stg=st&&STAGES.find(s=>s.id===st.st); return `<div class="qr"><div class="qrq">${esc(stg?stageCode(stg):'')} ${esc((st.task||'').replace(/<[^>]+>/g,''))} — <b>${x.cov}%</b></div><div class="qrmine">내 말: ${esc(x.said||'(없음)')}</div><div class="qrok">모범: ${esc(String(st.tip.say).replace(/<[^>]+>/g,''))}</div></div>`; }).join('')}</div><div class="btn-row"><button type="button" class="g-btn green" id="vcAgain">🎙 한 번 더</button>${cardBtnHtml()}<button type="button" class="g-btn gray" id="vcClose">닫기</button></div></div></div>`;
+    bindCardBtn(host, card); $('vcClose').addEventListener('click', ()=>{ host.innerHTML=''; renderVoiceChip(true); }); $('vcAgain').addEventListener('click', ()=>{ host.innerHTML=''; startVoice(); }); };
+  const ask=()=>{ const st=steps[i]; const stg=STAGES.find(s=>s.id===st.st); const kws=vKeywords(st); let said=''; let usedMic=false; let graded=false;
+    host.innerHTML=`<div class="modal on" id="vcModal"><div class="g-panel vcard" style="position:relative"><button type="button" class="g-btn sm gray qdquit" id="vcQuit" title="그만하기">✕</button><div class="eyebrow">🎙 멘트 말하기 ${i+1}/${steps.length} · ${esc(stageCode(stg))} ${esc(stg.title)}</div>
+      <div class="vctx"><div class="vimg" style="background-image:url(${IMG[st.img]})"></div><div class="vsit">${st.who&&st.say?`<div class="vdoc">${esc(st.who)} ${esc(st.say)}</div>`:''}<div class="vtask">이 화면: ${esc((st.task||'').replace(/<[^>]+>/g,''))}</div><div class="vhint">원장님께 <b>이 화면에서 할 말</b>을 소리 내어 말해 보세요 · 핵심어 ${kws.length}개 <span class="vk ghost">${kws.map(()=> '●').join(' ')}</span></div></div></div>
+      <div class="vlive" id="vcLive">${canMic?'🎙 버튼을 누르고 말하세요 — 다 말하면 다시 눌러 채점':'이 브라우저는 음성 인식이 안 돼요 — 아래에 말할 멘트를 입력하세요'}</div>
+      ${canMic?`<div class="btn-row"><button type="button" class="g-btn big vmic" id="vcMic">🎙 말하기</button><button type="button" class="g-btn sm gray" id="vcType">⌨ 입력으로</button></div>`:''}
+      <div class="vtype" id="vcTypeBox" ${canMic?'hidden':''}><textarea id="vcText" rows="3" placeholder="원장님께 할 말을 그대로 적어 보세요"></textarea><button type="button" class="g-btn green" id="vcSubmit">채점</button></div>
+      <div class="vres" id="vcRes" hidden></div><div class="btn-row" id="vcRow" hidden><button type="button" class="g-btn" id="vcListen">🔊 모범 멘트 듣기</button><button type="button" class="g-btn sm gray" id="vcRetry">↺ 다시 말하기</button><button type="button" class="g-btn green" id="vcNext">${i<steps.length-1?'다음 ▶':'결과 보기'}</button></div></div></div>`;
+    const grade=(text)=>{ if(graded) return; graded=true; said=(text||'').trim(); const r=vScore(st, said); const cov=r.lenOk?r.cov:Math.min(r.cov,40); const miss=r.res.filter(x=>!x.hit).map(x=>x.k); log.push({ id:st.id, cov, said, miss, mic:usedMic }); if(cov>=70) SFX.good(); else SFX.wrong();
+      $('vcRes').innerHTML=`<div class="vscore ${cov>=85?'ok':cov>=70?'mid':'low'}">핵심어 ${cov}%</div><div class="vkws">${r.res.map(x=>`<span class="vk ${x.hit?'hit':'miss'}">${x.hit?'✓':'✗'} ${esc(x.k)}</span>`).join('')}</div><div class="vmodel"><small>모범 멘트</small>${esc(String(st.tip.say).replace(/<[^>]+>/g,''))}</div>${r.lenOk?'':'<div class="src">너무 짧아요 — 한 문장 이상으로 말해 보세요(최대 40%)</div>'}`;
+      $('vcRes').hidden=false; $('vcRow').hidden=false; const mb=$('vcMic'); if(mb) mb.disabled=true; try{ $('vcNext').focus({preventScroll:true}); }catch(e){} };
+    const live=$('vcLive');
+    const mic=$('vcMic'); if(mic) mic.addEventListener('click', ()=>{ if(ASR.on){ asrStop(); mic.textContent='채점 중…'; return; } usedMic=true; const ok=asrStart(t=>{ said=t; live.textContent='“'+t+'”'; live.classList.add('on'); }, (fin, err)=>{ mic.classList.remove('rec'); if(err&&err!=='no-speech'&&err!=='aborted'){ live.textContent=err==='not-allowed'?'마이크 권한이 꺼져 있어요 — 주소창 🔒에서 허용하거나 ⌨ 입력으로':'음성 인식 오류 — ⌨ 입력으로 해 주세요'; mic.textContent='🎙 말하기'; return; } grade(said||fin); }); if(ok){ mic.classList.add('rec'); mic.textContent='⏹ 다 말했어요'; live.textContent='듣는 중… 원장님께 말하듯이'; } else { live.textContent='음성 인식을 시작할 수 없어요 — ⌨ 입력으로'; } });
+    const tb=$('vcType'); if(tb) tb.addEventListener('click', ()=>{ asrStop(); $('vcTypeBox').hidden=false; try{ $('vcText').focus(); }catch(e){} });
+    $('vcSubmit').addEventListener('click', ()=>grade($('vcText').value)); $('vcText').addEventListener('keydown', e=>{ e.stopPropagation(); if(e.key==='Enter'&&(e.ctrlKey||e.metaKey)) grade($('vcText').value); });
+    $('vcListen').addEventListener('click', ()=>{ const wasOn=TTS.on; TTS.on=true; speak(String(st.tip.say)); TTS.on=wasOn; });
+    $('vcRetry').addEventListener('click', ()=>{ log.pop(); ask(); });
+    $('vcNext').addEventListener('click', ()=>{ i++; if(i<steps.length) ask(); else finish(); });
+    $('vcQuit').addEventListener('click', ()=>{ asrStop(); host.innerHTML=''; }); };
+  SFX.pop(); ask(); }
+function voiceBest(){ const me=(S.profile&&S.profile.name)||S.name||''; return localRuns().filter(r=>(r.name||'')===me&&r.mode==='voice'&&r.course===S.course).reduce((a,r)=>Math.max(a,r.score||0),-1); }
+function renderVoiceChip(replace){ const el=$('todo'); if(!el) return; const old=el.querySelector('.tchip.voice'); if(old){ if(!replace) return; old.remove(); } const best=voiceBest(); const chip=document.createElement('button'); chip.type='button'; chip.className='tchip voice'+(best>=85?' done':''); chip.innerHTML=`<b>🎙</b> 멘트 말하기 <small>소리 내어 말하면 핵심어 채점${best>=0?` · 내 최고 ${best}%`:''}</small>`; chip.title='화면을 보고 원장님께 할 말을 실제로 말하면, 숫자·제도 용어 같은 핵심어를 몇 개 짚었는지 채점합니다(음성은 저장하지 않음)'; chip.addEventListener('click', ()=>{ SFX.go(); startVoice(); });
+  const row=el.querySelector('.trow.modes'); if(row) row.appendChild(chip); else el.prepend(chip); }
+
 /* 초기화 */
 loadStars(); S.profile = loadProfile(); if(S.profile) S.name = S.profile.name;
 loadCourse(); ['s01','s02','s03'].forEach(k=>{ const i=new Image(); i.src=IMG[k]; });
-window.__DSG = { get S(){ return S; }, STEPS, STAGES, IMG, IMGA, PERSONAS, COURSES, setCourse, loadFeedback, loadEvals, get QCARDS(){ return QCARDS; }, get MASTERY(){ return MASTERY; }, get BGM(){ return BGM; }, get BGM_CUSTOM(){ return BGM_CUSTOM; }, get RANK(){ return RANK; }, setRank(r){ RANK=r; }, RANKS, errorDna, errorDnaRuns, saveCertImage, localRuns, openBoard, renderMap, show, focusPick, digestText, bgmCycle, siteSummary, coachReportHtml, startQDrill, startWeekly, weekKey, pathProgress, pathMark, saveCardImage, openNoticeEditor, renderNotice, pathFromRuns, loadNotice, reviewMarks, listenStage, cropPos, get LIMIT(){ return LIMIT; }, makeShareCode, parseShareCode, mergeShared, renderRecords, myPerson, growthSvg, saveMyReport, layoutTodo, wrongQIds, startReviewIds };
+window.__DSG = { vKeywords, vScore, get S(){ return S; }, STEPS, STAGES, IMG, IMGA, PERSONAS, COURSES, setCourse, loadFeedback, loadEvals, get QCARDS(){ return QCARDS; }, get MASTERY(){ return MASTERY; }, get BGM(){ return BGM; }, get BGM_CUSTOM(){ return BGM_CUSTOM; }, get RANK(){ return RANK; }, setRank(r){ RANK=r; }, RANKS, errorDna, errorDnaRuns, saveCertImage, localRuns, openBoard, renderMap, show, focusPick, digestText, bgmCycle, siteSummary, coachReportHtml, startQDrill, startWeekly, weekKey, pathProgress, pathMark, saveCardImage, openNoticeEditor, renderNotice, pathFromRuns, loadNotice, reviewMarks, listenStage, cropPos, get LIMIT(){ return LIMIT; }, makeShareCode, parseShareCode, mergeShared, renderRecords, myPerson, growthSvg, saveMyReport, layoutTodo, wrongQIds, startReviewIds };
 })();
 </script>
 </body></html>
