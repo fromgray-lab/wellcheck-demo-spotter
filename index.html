@@ -1018,7 +1018,7 @@ body[data-screen="loop"] .sunburst{--sun-1:#ffe9b8;--sun-2:#ffd27a}
     <div class="corner"><button type="button" class="g-btn" id="btnBoard">마스터 현황표</button><button type="button" class="g-btn" id="btnRecords">기록실</button></div>
     <button type="button" class="g-btn tail" id="btnHow">게임방법</button>
     <button type="button" class="g-btn tail green" id="btnStart">▶ 게임시작</button>
-    <div class="credit">틀린시연찾기 · 공식 메뉴얼 + 체험존 기반 · 신사업전략팀 · <span id="verTag" title="업데이트 노트는 게임방법 안에">v37</span></div>
+    <div class="credit">틀린시연찾기 · 공식 메뉴얼 + 체험존 기반 · 신사업전략팀 · <span id="verTag" title="업데이트 노트는 게임방법 안에">v38</span></div>
   </div>
 </section>
 
@@ -1262,6 +1262,7 @@ body[data-screen="loop"] .sunburst{--sun-1:#ffe9b8;--sun-2:#ffd27a}
     <div class="sites" id="siteLegend"></div>
     <p class="kbd" style="margin:10px 0 0">전체 완주 점수 = 100 − 오답×5 − 찬스×8. S 100 · A 90↑ · B 75↑ · C 60↑ · D · F(원장님 퇴장). 시간 초과도 오답 1회. 👀 시범은 정답과 멘트를 보여주는 자동 재생.</p>
     <details class="changelog"><summary>🆕 업데이트 노트 (최근)</summary><ul>
+      <li><b>v38</b> 웹 사이트(GitHub Pages) 버전 오픈 — 기록·의견·평가·공지가 구글 시트 「틀린시연찾기 DB」에 바로 쌓임(로그인·조직 무관), 실패 시 보내기함 재전송</li>
       <li><b>v37</b> 다 쌓이게: 팀 저장소에 못 쓴 기록·의견·평가는 이 기기 보내기함에 모아 자동 재전송 · 미션 화면에 저장 상태 줄(☁ 팀 저장 / 📱 이 기기에만 n건 → 📤 팀장님께 보내기) · 팀장님이 공유 코드를 합치면 팀 저장소에도 올라감 · 의견 제출 문구를 실제 저장 위치대로 · 이 기기 기록 보관 60→1,500건</li>
       <li><b>v36</b> M0 보안프로그램을 2문항으로 분리(① 포털 첫 화면 확대 → 하단 보안프로그램 ② 설치 내역 창 → 필수 SSO·PKI 다운로드) · 작업표시줄 확인 스텝: 시계 옆 작은 심평원 아이콘도 정답, 문구를 "화면 오른쪽 아래 작업표시줄(시계 옆)"로 · 📤 공유 코드에 👍👎 의견도 담아 팀장 기기 개선 루프에 합쳐짐</li>
       <li><b>v35</b> M1에서 관리자 페이지 승인 2스텝(병원 관리·의료진 관리) 삭제 — 엠서클팀 업무. 승인 주체는 M1 증빙서류·로그인 팁에 안내</li>
@@ -2967,7 +2968,7 @@ function mergeRows(rows, local){ const seen=new Set((rows||[]).map(r=>(r.name||'
 
 /* ═══════════════════════════════════════════ v28(v38): 구글 시트 저장소 (GitHub Pages 배포용) ═══════════════════════════════════════════ */
 /* SHEETS.url = Apps Script 웹앱 /exec 주소. 비어 있으면 기존(아티팩트 팀 저장소 → 보내기함) 그대로. */
-const SHEETS={ url:'', key:'dsg-7Kq2-wellcheck' };
+const SHEETS={ url:(location.hostname.endsWith('github.io')?'https://script.google.com/macros/s/AKfycbzRcdMgrOHbuwK4A7VZIg_LgJbRp4RVNtM64Cyao9yBABVWValb6rOs_ErDtZjaxiqP8w/exec':''), key:'dsg-7Kq2-wellcheck' };
 async function shPost(col, doc){ const r=await fetch(SHEETS.url,{ method:'POST', headers:{'Content-Type':'text/plain;charset=utf-8'}, body:JSON.stringify({ k:SHEETS.key, col, doc }) }); const j=await r.json(); if(!j.ok) throw new Error(j.err||'sheets'); return j; }
 async function shGet(col){ const r=await fetch(SHEETS.url+'?k='+encodeURIComponent(SHEETS.key)+'&col='+col+'&limit=3000'); const j=await r.json(); if(!j.ok) throw new Error(j.err||'sheets'); return j.rows||[]; }
 
