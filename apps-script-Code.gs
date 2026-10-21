@@ -1,0 +1,53 @@
+/** 틀린시연찾기 — 구글 시트 저장소 (Apps Script 웹앱)
+ *  배포: 배포 > 새 배포 > 웹 앱 / 실행: 나 / 액세스: 모든 사용자
+ *  게임은 POST(text/plain JSON)로 쓰고 GET으로 읽는다. KEY가 맞아야 동작(가벼운 보호).
+ */
+const KEY = 'dsg-7Kq2-wellcheck';
+const SHEETS = {
+  runs:      ['at','name','office','mode','course','stage','grade','score','wrong','chance','tips','secs','diff','persona','week','json'],
+  feedback:  ['at','name','office','course','stage','mode','result','thumbs','tags','text','stars','wrong','json'],
+  evals:     ['at','name','office','evaluator','course','total','memo','json'],
+  notes:     ['id','key','text','by','at','json'],
+  overrides: ['id','at','status','field','stepId','value','json']
+};
+const UPSERT = { notes:'id', overrides:'id' };
+
+function sheet_(col){ const ss=SpreadsheetApp.getActive(); let sh=ss.getSheetByName(col); if(!sh){ sh=ss.insertSheet(col); sh.appendRow(SHEETS[col]); sh.setFrozenRows(1); sh.getRange(1,1,1,SHEETS[col].length).setFontWeight('bold').setBackground('#e8eaf0'); } return sh; }
+function out_(o){ return ContentService.createTextOutput(JSON.stringify(o)).setMimeType(ContentService.MimeType.JSON); }
+function cell_(v){ if(v==null) return ''; if(Array.isArray(v)) return v.join(', '); if(typeof v==='object') return JSON.stringify(v); const s=String(v); return s.length>2000?s.slice(0,2000):s; }
+
+function doPost(e){
+  try{
+    const raw=(e.parameter&&e.parameter.payload)||(e.postData&&e.postData.contents)||'{}'; const b=JSON.parse(raw);
+    if(b.k!==KEY) return out_({ok:false,err:'key'});
+    const col=b.col; if(!SHEETS[col]) return out_({ok:false,err:'col'});
+    const d=b.doc||{}; const js=JSON.stringify(d); if(js.length>45000) return out_({ok:false,err:'size'});
+    const row=SHEETS[col].map(h=>h==='json'?js:cell_(d[h]));
+    const lock=LockService.getScriptLock(); lock.waitLock(20000);
+    try{
+      const sh=sheet_(col); const idf=UPSERT[col];
+      if(idf && d[idf]){ const ids=sh.getRange(2,1,Math.max(0,sh.getLastRow()-1),1).getValues().map(r=>String(r[0])); const i=ids.indexOf(String(d[idf])); if(i>=0){ sh.getRange(i+2,1,1,row.length).setValues([row]); return out_({ok:true,upd:true}); } }
+      if(!idf && d.at){ const last=sh.getLastRow(); if(last>1){ const from=Math.max(2,last-499); const v=sh.getRange(from,1,last-from+1,2).getValues(); const at=String(d.at), nm=String(d.name||''); for(let i=0;i<v.length;i++){ const a=v[i][0] instanceof Date ? v[i][0].toISOString() : String(v[i][0]); if(a===at && String(v[i][1])===nm) return out_({ok:true,dup:true}); } } }
+      sh.appendRow(row);
+    } finally { lock.releaseLock(); }
+    return out_({ok:true});
+  }catch(err){ return out_({ok:false,err:String(err)}); }
+}
+
+function doGet(e){
+  const p=e.parameter||{};
+  const res=get_(p);
+  if(p.cb && /^[A-Za-z_$][\w$.]*$/.test(p.cb)) return ContentService.createTextOutput(p.cb+'('+JSON.stringify(res)+')').setMimeType(ContentService.MimeType.JAVASCRIPT);
+  return out_(res);
+}
+function get_(p){
+  if(p.k!==KEY) return {ok:false,err:'key'};
+  const col=p.col; if(!SHEETS[col]) return {ok:false,err:'col'};
+  const sh=sheet_(col); const n=sh.getLastRow()-1; if(n<1) return {ok:true,rows:[]};
+  const lim=Math.min(Number(p.limit)||3000, 5000); const start=Math.max(2, sh.getLastRow()-lim+1);
+  const hdr=SHEETS[col]; const ji=hdr.indexOf('json');
+  const vals=sh.getRange(start,1,sh.getLastRow()-start+1,hdr.length).getValues();
+  const rows=[]; vals.forEach(v=>{ try{ rows.push(JSON.parse(v[ji])); }catch(_){} });
+  rows.reverse();
+  return {ok:true,rows};
+}
