@@ -2966,7 +2966,7 @@ let FLUSHING=false;
 async function flushOutbox(){ if(FLUSHING) return; const l=outbox(); if(!l.length) return; if(!(await teamWritable())) { renderSync(); return; } FLUSHING=true; const left=[]; for(const x of l){ const r=await teamAdd(x.col, x.doc, true); if(r==='local') left.push(x); } outboxSet(left); FLUSHING=false; renderSync(); if(l.length>left.length) toast(`☁ 이 기기에 쌓여 있던 ${l.length-left.length}건을 팀 저장소로 보냈어요`); }
 /* 미션 화면 저장 상태 줄 */
 function renderSync(){ const cork=document.querySelector('#map .cork'); if(!cork) return; let el=$('syncBar'); if(!el){ el=document.createElement('div'); el.id='syncBar'; el.className='syncbar'; const n=$('notice'); if(n) n.after(el); else cork.prepend(el); }
-  const n=outbox().length; teamWritable().then(w=>{ if(w&&!n){ el.className='syncbar ok'; el.innerHTML=`<span>☁ 기록·의견이 <b>팀 저장소</b>에 바로 쌓이고 있어요</span>`; return; }
+  const n=outbox().length; if(!navigator.onLine){ el.className='syncbar warn'; el.innerHTML=`<span>📴 오프라인 — 훈련은 그대로 하세요. ${n?`기록·의견 <b>${n}건</b>이 기다리는 중, `:''}연결되면 자동으로 시트에 올라가요</span>`; return; } teamWritable().then(w=>{ if(w&&!n){ el.className='syncbar ok'; el.innerHTML=`<span>☁ 기록·의견이 <b>팀 저장소</b>에 바로 쌓이고 있어요</span>`; return; }
     el.className='syncbar warn'; el.innerHTML=`<span>📱 ${w?`팀 저장소 연결 대기 — <b>${n}건</b>이 이 기기에 쌓여 있어요(자동 재전송)`:`이 기기에서는 팀 저장소에 쓸 수 없어요 — 기록·의견 <b>${n}건</b>이 이 기기에만 있어요`}</span>${w?'':'<button type="button" class="g-btn sm" id="syncSend">📤 팀장님께 보내기</button>'}<small>${w?'':'공유 코드를 카톡으로 보내면 팀장님 현황표에서 합쳐져 팀 전체에 쌓입니다'}</small>`;
     const b=$('syncSend'); if(b) b.addEventListener('click', openShareOut); }); }
 /* 공유 코드로 합친 기록 → 팀 저장소에도 올림(팀장님 기기에서) */
@@ -3005,8 +3005,8 @@ function renderInstallChip(){ if(!ON_WEB||IS_STANDALONE) return; const row=docum
   b.addEventListener('click', async ()=>{ if(INSTALL_EVT){ INSTALL_EVT.prompt(); try{ const r=await INSTALL_EVT.userChoice; if(r&&r.outcome==='accepted'){ toast('📲 설치됐어요 — 홈 화면의 「틀린시연찾기」로 여세요'); b.remove(); } }catch(e){} INSTALL_EVT=null; return; }
     const ios=/iphone|ipad|ipod/i.test(navigator.userAgent); toast(ios?'아이폰: 사파리 아래 공유 버튼(□↑) → "홈 화면에 추가"':'크롬 오른쪽 위 ⋮ → "홈 화면에 추가" 또는 "앱 설치"'); }); }
 function renderNetBadge(){ if(!ON_WEB) return; let el=$('netBadge'); if(!el){ el=document.createElement('div'); el.id='netBadge'; el.className='netbadge'; document.body.appendChild(el); } el.hidden=navigator.onLine; el.textContent='📴 오프라인 — 훈련은 계속, 기록은 연결되면 자동 전송'; }
-window.addEventListener('online', ()=>{ renderNetBadge(); toast('🛜 다시 연결됐어요 — 쌓인 기록을 보내는 중'); try{ flushOutbox(); }catch(e){} });
-window.addEventListener('offline', renderNetBadge); setTimeout(renderNetBadge, 800);
+window.addEventListener('online', ()=>{ renderNetBadge(); toast('🛜 다시 연결됐어요 — 쌓인 기록을 보내는 중'); try{ flushOutbox(); renderSync(); }catch(e){} });
+window.addEventListener('offline', ()=>{ renderNetBadge(); try{ renderSync(); }catch(e){} }); setTimeout(renderNetBadge, 800);
 
 /* 초기화 */
 loadStars(); S.profile = loadProfile(); if(S.profile) S.name = S.profile.name;
