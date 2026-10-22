@@ -1029,7 +1029,7 @@ body[data-screen="loop"] .sunburst{--sun-1:#ffe9b8;--sun-2:#ffd27a}
     <div class="corner"><button type="button" class="g-btn" id="btnBoard">마스터 현황표</button><button type="button" class="g-btn" id="btnRecords">기록실</button></div>
     <button type="button" class="g-btn tail" id="btnHow">게임방법</button>
     <button type="button" class="g-btn tail green" id="btnStart">▶ 게임시작</button>
-    <div class="credit">틀린시연찾기 · 공식 메뉴얼 + 체험존 기반 · 신사업전략팀 · <span id="verTag" title="업데이트 노트는 게임방법 안에">v51</span></div>
+    <div class="credit">틀린시연찾기 · 공식 메뉴얼 + 체험존 기반 · 신사업전략팀 · <span id="verTag" title="업데이트 노트는 게임방법 안에">v52</span></div>
   </div>
 </section>
 
@@ -1286,6 +1286,7 @@ body[data-screen="loop"] .sunburst{--sun-1:#ffe9b8;--sun-2:#ffd27a}
     <div class="sites" id="siteLegend"></div>
     <p class="kbd" style="margin:10px 0 0">전체 완주 점수 = 100 − 오답×5 − 찬스×8. S 100 · A 90↑ · B 75↑ · C 60↑ · D · F(원장님 퇴장). 시간 초과도 오답 1회. 👀 시범은 정답과 멘트를 보여주는 자동 재생.</p>
     <details class="changelog"><summary>🆕 업데이트 노트 (최근)</summary><ul>
+      <li><b>v52</b> 🛠 직원 기록 누락 수정 — 시트 저장소가 '나만' 접근이라 다른 사람 기록이 저장되지 않던 문제(배포 권한 '모든 사용자'로 변경) · 시트에 못 쓰면 '보냈다'고 착각하지 않고 이 기기 보내기함에 보관 · 연결되면 이 기기에 남은 기록·의견·평가를 자동 재전송(중복 없음)</li>
       <li><b>v51</b> 쌓인 기록 기반 개선 — M10에 '추천 환자 탭' 스텝 분리(실제 오클릭이 탭에 몰림), M0 Agent 로그인 '① 왼쪽 그림' 명시(오른쪽 그림 오클릭 4건), M6 문진표 발송 '웹 팝업' 명시(옆 폰 화면 오클릭)</li>
       <li><b>v50</b> 군더더기 제거·정확도 — 정상일 땐 저장 상태 줄 숨김 · '오늘 할 것' 추천 1개만 · 미션 카드 썸네일의 정답 동그라미(스포일러) 제거 · 코스 이름 '8단계 + 보너스 4' · M9~M11 독립 사실 검수 반영 14건(카트비피 보정 휴식 1분, 근거 없는 배터리 수치 삭제, 리브레 추천 대상 권소라로 정답 이동, 의사랑 공구 아이콘 힌트, 검사코드 질문↔당화혈색소 정답 등) · 원장님 질문 카드 10장 추가(M9 3 · M10 3 · M11 4)</li>
       <li><b>v49</b> 📝 스테이지(챕터) 클리어 의견 카드 개편 — 한 줄 칸·태그 대신 <b>👍 좋았던 점 / 🔧 개선사항</b> 넓은 칸 2개에 자유 기재, 보내면 '🙏 소중한 의견 감사합니다!'. 시트 feedback 탭 의견 열에 두 내용이 함께, 원본 json에 따로 저장</li>
@@ -3088,8 +3089,8 @@ let TEAMW=null; /* true=팀 저장 가능, false=불가, null=모름 */
 function outbox(){ try{ return JSON.parse(localStorage.getItem(OUTBOX_KEY)||'[]'); }catch(e){ return []; } }
 function outboxSet(l){ try{ localStorage.setItem(OUTBOX_KEY, JSON.stringify(l.slice(-1500))); }catch(e){} }
 function docKey(col, d){ return col+'|'+(d.name||'')+'|'+(d.at||'')+'|'+(d.mode||d.kind||'')+'|'+(d.stage||''); }
-async function teamWritable(){ if(SHEETS.url) return true; if(TEAMW!==null) return TEAMW; const db=await getDB(); if(!db){ TEAMW=false; return false; } try{ const u=window.claude&&window.claude.use?await window.claude.use('user'):null; const c=u&&u.can?await u.can('data.write'):null; TEAMW = c===false?false:true; }catch(e){ TEAMW=true; } return TEAMW; }
-async function teamAdd(col, doc, fromOutbox){ if(SHEETS.url){ try{ await shPost(col, doc); if(!fromOutbox) setTimeout(flushOutbox, 400); return 'sheets'; }catch(e){} } const db=await getDB(); if(db && (await teamWritable())){ try{ await db.collection(col).add(doc); if(!fromOutbox) setTimeout(flushOutbox, 400); return 'db'; }catch(e){ TEAMW=false; } }
+async function teamWritable(){ if(SHEETS.url) return await shHealth(); if(TEAMW!==null) return TEAMW; const db=await getDB(); if(!db){ TEAMW=false; return false; } try{ const u=window.claude&&window.claude.use?await window.claude.use('user'):null; const c=u&&u.can?await u.can('data.write'):null; TEAMW = c===false?false:true; }catch(e){ TEAMW=true; } return TEAMW; }
+async function teamAdd(col, doc, fromOutbox){ if(SHEETS.url && (await shHealth())){ try{ await shPost(col, doc); markSent(col, doc); if(!fromOutbox) setTimeout(flushOutbox, 400); return 'sheets'; }catch(e){} } const db=await getDB(); if(db && (await teamWritable())){ try{ await db.collection(col).add(doc); if(!fromOutbox) setTimeout(flushOutbox, 400); return 'db'; }catch(e){ TEAMW=false; } }
   if(!fromOutbox){ const l=outbox(); const k=docKey(col,doc); if(!l.some(x=>x.k===k)){ l.push({ k, col, doc }); outboxSet(l); } renderSync(); } return 'local'; }
 let FLUSHING=false;
 async function flushOutbox(){ if(FLUSHING) return; const l=outbox(); if(!l.length) return; if(!(await teamWritable())) { renderSync(); return; } FLUSHING=true; const left=[]; for(const x of l){ const r=await teamAdd(x.col, x.doc, true); if(r==='local') left.push(x); } outboxSet(left); FLUSHING=false; renderSync(); if(l.length>left.length) toast(`☁ 이 기기에 쌓여 있던 ${l.length-left.length}건을 팀 저장소로 보냈어요`); }
@@ -3158,6 +3159,18 @@ function openIdea(){ let cat=IDEA_CATS[0]; const cats=$('ideaCats'); cats.innerH
     $('ideaSend').disabled=true; try{ await saveFeedback({ kind:'idea', ...(S.profile||{name:S.name}), course:st?st.course:S.course, stage:sid, mode:'idea', result:'idea', thumbs:'', tags:[cat], text, at:new Date().toISOString() }); toast('고마워요! 의견이 접수됐어요 ✓'); closeModal('ideaModal'); }catch(e){ toast('전송에 실패했어요 — 잠시 뒤 다시 보내 주세요'); } $('ideaSend').disabled=false; };
   $('ideaClose').onclick=()=>closeModal('ideaModal'); openModal('ideaModal'); setTimeout(()=>$('ideaText').focus(),60); }
 $('mapIdea').addEventListener('click', openIdea);
+let SH_OK=null, SH_AT=0, SH_P=null;
+function markSent(c,d){ if(!d||!d.at) return; try{ const s=JSON.parse(localStorage.getItem('dsg_sent')||'[]'); const k=c+'|'+(d.name||'')+'|'+d.at; if(!s.includes(k)){ s.push(k); localStorage.setItem('dsg_sent', JSON.stringify(s.slice(-3000))); } }catch(e){} }
+async function shHealth(){ if(!SHEETS.url) return false; if(SH_OK===true) return true; if(SH_OK===false && Date.now()-SH_AT<60000) return false; if(SH_P) return SH_P;
+  SH_P=shGet('notes').then(()=>true).catch(()=>false).then(ok=>{ SH_OK=ok; SH_AT=Date.now(); SH_P=null; return ok; }); return SH_P; }
+/* 이 기기에 남아 있는 기록·의견·평가 중 시트로 확인 전송된 적 없는 것 재전송 (서버가 name+at 중복 제거) */
+async function resendLocalToSheet(){ if(!SHEETS.url || !(await shHealth())) return 0; let sent; try{ sent=new Set(JSON.parse(localStorage.getItem('dsg_sent')||'[]')); }catch(e){ sent=new Set(); }
+  const ls=k=>{ try{ return JSON.parse(localStorage.getItem(k)||'[]'); }catch(e){ return []; } };
+  const items=[...localRuns().map(d=>['runs',d]), ...ls('dsg_fb').map(d=>['feedback',d]), ...ls('dsg_evals').map(d=>['evals',d])].filter(([c,d])=>d&&d.at&&!sent.has(c+'|'+(d.name||'')+'|'+d.at));
+  let n=0; for(const [c,d] of items.slice(-200)){ try{ await shPost(c,d); sent.add(c+'|'+(d.name||'')+'|'+d.at); n++; }catch(e){ break; } }
+  try{ localStorage.setItem('dsg_sent', JSON.stringify([...sent].slice(-3000))); }catch(e){}
+  if(n) toast(`☁ 이 기기 기록 ${n}건을 구글 시트로 보냈어요`); return n; }
+if(SHEETS.url) setTimeout(async()=>{ try{ await flushOutbox(); }catch(e){} await resendLocalToSheet(); try{ renderSync(); }catch(e){} }, 3000);
 /* 초기화 */
 loadStars(); S.profile = loadProfile(); if(S.profile) S.name = S.profile.name;
 loadCourse(); ['s01','s02','s03'].forEach(k=>{ const i=new Image(); i.src=IMG[k]; });
