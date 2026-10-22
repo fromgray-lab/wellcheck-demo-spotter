@@ -1,0 +1,10 @@
+# v19: 내 코칭 리포트 · 성장 그래프  (build.py가 exec, build_v18 뒤)
+src = rep(src, "\n/* 초기화 */", parts('v19.js') + "\n/* 초기화 */")
+# 코칭 리포트에 성장 그래프 섹션 (코칭 포인트 아래)
+src = rep(src, "<section><h2>📊 스테이지별 숙련도</h2>", "${growthSvg(p.runs)?`<section><h2>📈 점수 추이</h2>${growthSvg(p.runs)}</section>`:''}\n  <section><h2>📊 스테이지별 숙련도</h2>")
+# noteFor 안전화 (현황표 밖에서 호출될 때)
+src = rep(src, "function noteFor(key){ return Object.values(BOARD.notes).find(n=>n.key===key); }", "function noteFor(key){ return Object.values(BOARD.notes||{}).find(n=>n.key===key); }")
+# 기록실: 내 리포트 버튼
+src = rep(src, '<button type="button" class="g-btn sm" id="shareOut" style="margin-left:auto">📤 공유 코드</button></div>`; }', '<button type="button" class="g-btn sm" id="myReport" style="margin-left:auto" title="내 숙련도·실수 DNA·기록을 A4 인쇄용으로">🖨 내 리포트</button><button type="button" class="g-btn sm" id="shareOut">📤 공유 코드</button></div>`; }')
+src = rep(src, "const so=el.querySelector('#shareOut'); if(so) so.addEventListener('click', openShareOut); }", "const so=el.querySelector('#shareOut'); if(so) so.addEventListener('click', openShareOut); const mr=el.querySelector('#myReport'); if(mr){ getDownloads().then(dl=>{ if(!dl && window.claude) mr.hidden=true; }); mr.addEventListener('click', ()=>saveMyReport(mr)); } }")
+src = rep(src, "makeShareCode, parseShareCode, mergeShared, renderRecords };", "makeShareCode, parseShareCode, mergeShared, renderRecords, myPerson, growthSvg, saveMyReport };")

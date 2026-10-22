@@ -1,0 +1,13 @@
+# v27(v37): 다 쌓이게 — outbox · 저장 상태 · 합친 코드 팀 저장  (build.py가 exec, build_v26 뒤)
+src = rep(src, "</style>", parts('v27.css') + "</style>")
+src = rep(src, "\n/* 초기화 */", parts('v27.js') + "\n/* 초기화 */")
+src = rep(src, "localStorage.setItem('dsg_runs',JSON.stringify(l.slice(0,60)));", "localStorage.setItem('dsg_runs',JSON.stringify(l.slice(0,1500)));")
+src = rep(src, "const db=await getDB(); if(!db) return 'local'; try{ await db.collection('runs').add(run); return 'db'; }catch(e){ return 'local'; }", "return teamAdd('runs', run);")
+src = rep(src, "const db=await getDB(); if(db){ try{ await db.collection('feedback').add(fb); return 'db'; }catch(e){} } return 'local'; }", "return teamAdd('feedback', fb); }")
+src = rep(src, "const db=await getDB(); if(db){ try{ await db.collection('evals').add(ev); return 'db'; }catch(e){} } return 'local'; }", "return teamAdd('evals', ev); }")
+src = rep(src, "return { rows:snap.docs.map(d=>({id:d.id,...d.data()})), src:'팀 공유 기록' };", "return { rows:mergeRows(snap.docs.map(d=>({id:d.id,...d.data()})), localRuns()), src:'팀 공유 기록' };")
+src = rep(src, "const snap=await db.collection('feedback').orderBy('at','desc').limit(2000).get(); return snap.docs.map(d=>({id:d.id,...d.data()}));", "const snap=await db.collection('feedback').orderBy('at','desc').limit(2000).get(); return mergeRows(snap.docs.map(d=>({id:d.id,...d.data()})), localList('dsg_fb'));")
+src = rep(src, "const snap=await db.collection('evals').orderBy('at','desc').limit(2000).get(); return snap.docs.map(d=>({id:d.id,...d.data()}));", "const snap=await db.collection('evals').orderBy('at','desc').limit(2000).get(); return mergeRows(snap.docs.map(d=>({id:d.id,...d.data()})), localList('dsg_evals'));")
+src = rep(src, "card.innerHTML='<div class=\"ok\">고마워요! 의견이 개선 루프에 들어갔어요 ✓</div>'; SFX.star(); await saveFeedback(fb); }); }",
+               "card.innerHTML='<div class=\"ok\">저장 중…</div>'; SFX.star(); const w=await saveFeedback(fb); card.innerHTML = w==='local' ? '<div class=\"ok\">고마워요! 의견이 <b>이 기기</b>에 저장됐어요 — 미션 화면 위 <b>📤 팀장님께 보내기</b>로 보내면 팀 개선 루프에 쌓여요</div>' : '<div class=\"ok\">고마워요! 의견이 팀 개선 루프에 쌓였어요 ✓</div>'; }); }")
+src = rep(src, "renderMastery(); renderWeekly(); renderNotice();", "renderMastery(); renderWeekly(); renderNotice(); renderSync(); flushOutbox();")

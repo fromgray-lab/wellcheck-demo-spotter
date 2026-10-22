@@ -1,0 +1,62 @@
+<!-- ═════════ 임무판 (스테이지 선택) ═════════ -->
+<section id="map" class="screen" aria-label="시연 미션">
+  <div class="mapwrap">
+    <div class="maphead">
+      <div class="wood">🎯 시연 미션</div>
+      <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">
+        <span class="player-chip" id="mapPlayerChip" title="로그인 정보"><span class="av">🧑‍💼</span><span id="mapPlayer">시연자</span></span>
+        <span class="player-chip" id="mapDoctor"><span class="av">👨‍⚕️</span><span>원장님</span></span>
+        <button type="button" class="g-btn sm" id="mapSetup">설정</button>
+        <button type="button" class="g-btn sm" id="mapHome">타이틀</button>
+      </div>
+    </div>
+    <div class="cork">
+      <div class="course-tabs" id="courseTabs"><button type="button" class="ctab on" data-course="biz">📘 웰체크 실무 · 메뉴얼 8단계</button><button type="button" class="ctab" data-course="zone">🏥 체험존(Patient Care Room) 시연 · 5단계</button></div>
+      <div class="stage-grid" id="stageGrid"></div>
+      <div class="map-all">
+        <button type="button" class="g-btn big green" id="playAll">▶ 전체 완주</button>
+        <button type="button" class="g-btn" id="btnBoard2">마스터 현황표</button>
+        <button type="button" class="g-btn" id="btnRecords2">기록실</button>
+      </div>
+    </div>
+    <p class="map-note" id="mapNote"></p>
+  </div>
+</section>
+
+<!-- ═════════ 플레이 ═════════ -->
+<section id="play" class="screen" aria-label="플레이">
+  <div class="hud">
+    <div class="wood" id="stageBadge">STAGE 1</div>
+    <div class="mood" title="원장님 인내심">
+      <svg class="face docface" viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="34" r="26" fill="#ffe0c2"/><path d="M8 32 Q10 8 32 8 Q54 8 56 32 Q50 22 32 20 Q14 22 8 32Z" fill="#4b5563"/><path class="docBrowL" d="M16 27 Q23 23 30 27" fill="none" stroke="#1d2140" stroke-width="2.5" stroke-linecap="round"/><path class="docBrowR" d="M34 27 Q41 23 48 27" fill="none" stroke="#1d2140" stroke-width="2.5" stroke-linecap="round"/><circle cx="23" cy="36" r="3" fill="#1d2140"/><circle cx="41" cy="36" r="3" fill="#1d2140"/><rect x="15" y="31" width="14" height="10" rx="3" fill="none" stroke="#1d2140" stroke-width="2"/><rect x="35" y="31" width="14" height="10" rx="3" fill="none" stroke="#1d2140" stroke-width="2"/><path d="M29 36 L35 36" stroke="#1d2140" stroke-width="2"/><path class="docMouth" d="M26 47 Q32 51 38 47" stroke="#1d2140" stroke-width="2.5" fill="none" stroke-linecap="round"/><path class="docSweat" d="M53 26 Q58 33 54 36 Q50 35 50 31 Q50 28 53 26Z" fill="#7fe0ff" stroke="#1d2140" stroke-width="1.5" style="display:none"/><path class="docAnger" d="M6 18 l6 3 M12 15 l-3 6 M8 10 l4 4" stroke="#ff3b3b" stroke-width="2.5" stroke-linecap="round" style="display:none"/></svg>
+      <div class="life"><span class="heart" id="heart">❤️</span><div class="lbar" id="lbar"><i id="lfill"></i><b id="ltext">인내심 100%</b></div></div>
+    </div>
+    <div class="clock" title="단계 타이머">
+      <svg class="ck" viewBox="0 0 64 64" aria-hidden="true"><rect x="26" y="2" width="12" height="8" rx="2" fill="#ff3b3b" stroke="#1d2140" stroke-width="3"/><circle cx="32" cy="36" r="24" fill="#fff" stroke="#1d2140" stroke-width="4"/><circle cx="32" cy="36" r="19" fill="none" stroke="#1d2140" stroke-width="1.5" stroke-dasharray="2 7"/><path id="clockHand" d="M32 36 L32 20" stroke="#1d2140" stroke-width="4" stroke-linecap="round"/><circle cx="32" cy="36" r="2.5" fill="#1d2140"/></svg>
+      <div class="tbar" id="tbar" hidden><i id="tfill"></i></div>
+      <span class="chip" id="timer">00:00</span>
+    </div>
+    <span class="chip" id="stepChip">1 / 10</span>
+    <div class="hud-r">
+      <button type="button" class="chip btn" id="soundBtn" title="소리">🔊</button>
+      <button type="button" class="chip btn" id="fsBtn" title="전체화면">⛶</button>
+      <button type="button" class="chip btn" id="quitBtn" title="미션으로">✕</button>
+    </div>
+  </div>
+  <div class="prog" id="prog"></div>
+  <div class="arena" id="arena">
+    <div class="ambient" id="ambient"></div>
+    <div class="layer" id="layer"><img class="shot" id="shot" alt="시연 화면" draggable="false"><div id="fx"></div></div>
+    <div id="arenaUi" style="position:absolute;inset:0;pointer-events:none;z-index:5"></div>
+    <div class="zoomctl" id="zoomctl"><button type="button" id="zin" title="확대">＋</button><button type="button" id="zout" title="축소">－</button><button type="button" class="fit" id="zfit" title="화면에 맞춤">맞춤</button></div>
+    <div id="overlayHost" style="position:absolute;inset:0;z-index:7;pointer-events:none"></div>
+  </div>
+  <div class="dialog" id="dialog">
+    <svg class="face docface" viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="34" r="26" fill="#ffe0c2"/><path d="M8 32 Q10 8 32 8 Q54 8 56 32 Q50 22 32 20 Q14 22 8 32Z" fill="#4b5563"/><path class="docBrowL" d="M16 27 Q23 23 30 27" fill="none" stroke="#1d2140" stroke-width="2.5" stroke-linecap="round"/><path class="docBrowR" d="M34 27 Q41 23 48 27" fill="none" stroke="#1d2140" stroke-width="2.5" stroke-linecap="round"/><circle cx="23" cy="36" r="3" fill="#1d2140"/><circle cx="41" cy="36" r="3" fill="#1d2140"/><rect x="15" y="31" width="14" height="10" rx="3" fill="none" stroke="#1d2140" stroke-width="2"/><rect x="35" y="31" width="14" height="10" rx="3" fill="none" stroke="#1d2140" stroke-width="2"/><path d="M29 36 L35 36" stroke="#1d2140" stroke-width="2"/><path class="docMouth" d="M26 47 Q32 51 38 47" stroke="#1d2140" stroke-width="2.5" fill="none" stroke-linecap="round"/><path class="docSweat" d="M53 26 Q58 33 54 36 Q50 35 50 31 Q50 28 53 26Z" fill="#7fe0ff" stroke="#1d2140" stroke-width="1.5" style="display:none"/><path class="docAnger" d="M6 18 l6 3 M12 15 l-3 6 M8 10 l4 4" stroke="#ff3b3b" stroke-width="2.5" stroke-linecap="round" style="display:none"/></svg>
+    <div class="line"><span class="who" id="dWho"></span><span class="task" id="dTask">…</span><div class="hint" id="dHint"></div></div>
+    <div class="items">
+      <button type="button" class="item" id="tipBtn" title="이 화면에서 할 말·알아둘 것 (감점 없음)"><svg viewBox="0 0 64 64" aria-hidden="true"><use href="#symBulb"/></svg>팁</button>
+      <button type="button" class="item chance" id="chanceBtn" title="정답 위치를 짚어줌 (감점 8)"><svg viewBox="0 0 64 64" aria-hidden="true"><use href="#symMag"/></svg>찬스<span class="n" id="chanceN">3</span></button>
+    </div>
+  </div>
+</section>

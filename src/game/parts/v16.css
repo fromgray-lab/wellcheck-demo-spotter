@@ -1,0 +1,9 @@
+
+/* ── v16: 복습 카드 오클릭 표시 · 대본 듣기 ── */
+.rcard .crop .rbox{position:absolute;border:3px solid #22b573;border-radius:6px;box-shadow:0 0 0 2px rgba(255,255,255,.75);pointer-events:none}
+.rcard .crop .rdot{position:absolute;width:18px;height:18px;margin:-9px 0 0 -9px;border-radius:50%;background:#ff3b3b;border:2px solid #fff;box-shadow:0 0 0 2px #c43e3e;color:#fff;font:900 11px/14px var(--body);text-align:center;font-style:normal;pointer-events:none}
+.rcard .crop .rout{position:absolute;right:4px;bottom:4px;background:rgba(29,33,64,.85);color:#fff;border-radius:6px;padding:1px 6px;font-size:10px}
+.rcard .legend{display:flex;gap:10px;font-size:10px;color:var(--dim);padding:0 8px 4px} .rcard .legend i{display:inline-block;width:10px;height:10px;border-radius:50%;background:#ff3b3b;vertical-align:middle;margin-right:3px} .rcard .legend b{display:inline-block;width:12px;height:9px;border:2px solid #22b573;border-radius:3px;vertical-align:middle;margin-right:3px}
+.sclist li.say{background:#fff3a8;border-radius:8px;outline:2px solid #ffb347}
+
+.rcard .crop::after{display:none}

@@ -1,0 +1,4 @@
+
+/* ── v20: 훈련 칩 두 줄 ── */
+.todo .trow{display:flex;flex-wrap:wrap;gap:6px;align-items:center;width:100%} .todo .trow+.trow{margin-top:6px;padding-top:6px;border-top:1px dashed rgba(29,33,64,.25)}
+.todo .trow .tl{margin-right:2px}

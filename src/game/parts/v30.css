@@ -1,0 +1,14 @@
+
+/* ── v30: 멘트 말하기 ── */
+.vcard{max-width:680px;text-align:left}
+.vctx{display:grid;grid-template-columns:200px 1fr;gap:10px;margin:6px 0 8px} @media (max-width:560px){.vctx{grid-template-columns:1fr}}
+.vimg{border:2.5px solid var(--ink);border-radius:10px;background:#fff center/cover no-repeat;aspect-ratio:16/10;min-height:110px}
+.vdoc{font-family:var(--display);font-size:16px;color:#8b5cf6;margin-bottom:4px} .vtask{font-size:13px;font-weight:700;color:var(--ink)} .vhint{font-size:12px;color:var(--dim);margin-top:6px}
+.vlive{min-height:54px;background:#fff;border:2.5px dashed var(--ink);border-radius:12px;padding:8px 12px;font-size:15px;color:var(--dim)} .vlive.on{color:var(--ink);border-style:solid}
+.vmic{background:#e0177a!important;color:#fff!important} .vmic.rec{animation:vpulse 1s infinite} @keyframes vpulse{50%{transform:scale(1.04);box-shadow:0 0 0 8px rgba(224,23,122,.18)}}
+.vtype textarea{width:100%;font:inherit;font-size:15px;border:2.5px solid var(--ink);border-radius:10px;padding:8px;margin:6px 0}
+.vres{margin-top:8px} .vscore{font-family:var(--display);font-size:26px} .vscore.ok{color:#1f9d55} .vscore.mid{color:#d97706} .vscore.low{color:#c43e3e}
+.vkws{display:flex;flex-wrap:wrap;gap:6px;margin:6px 0} .vk{font-size:12px;font-weight:800;border-radius:999px;padding:2px 10px;border:2px solid var(--ink);background:#fff} .vk.hit{background:#d9f7e3;border-color:#1f9d55;color:#14683a} .vk.miss{background:#ffe1e1;border-color:#c43e3e;color:#8a1f1f} .vk.ghost{border:none;background:none;padding:0;color:#e0177a;letter-spacing:2px}
+.vmodel{background:#fff8e7;border:2px solid var(--ink);border-radius:10px;padding:6px 10px;font-size:14px} .vmodel small{display:block;color:var(--dim);font-weight:800;font-size:11px}
+.vmissall{margin:6px 0;display:flex;flex-wrap:wrap;gap:6px;align-items:center;font-size:13px}
+.tchip.voice b{background:#e0177a!important;color:#fff!important}

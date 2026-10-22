@@ -1,0 +1,14 @@
+
+/* ── v12: 사이트 이동 퀴즈 ── */
+.sqcard{max-width:560px;text-align:left}
+.sqprev{font-size:13px;color:var(--dim);margin:4px 0 10px}
+.sqprev span{display:inline-block;background:#fff;border:2px solid var(--sc,#1d2140);color:var(--sc,#1d2140);border-radius:999px;padding:1px 9px;font-weight:800}
+.sqopts{display:grid;gap:8px}
+.sqopt{display:flex;align-items:center;gap:10px;text-align:left;background:#fff8e7;border:3px solid var(--ink);border-radius:14px;padding:8px 12px;font:inherit;font-size:15px;font-weight:800;color:var(--ink);box-shadow:0 4px 0 var(--ink);cursor:pointer;transition:transform .08s,box-shadow .08s;line-height:1.25}
+.sqopt:not([disabled]):hover{background:#fff1c7} .sqopt:not([disabled]):active{transform:translateY(3px);box-shadow:0 1px 0 var(--ink)}
+.sqopt b{flex:none;width:26px;height:26px;border-radius:50%;background:var(--ink);color:#ffd93b;display:flex;align-items:center;justify-content:center;font-family:var(--impact);font-size:14px}
+.sqopt .ic{flex:none;width:34px;height:34px;border-radius:10px;background:var(--sc,#1d2140);color:#fff;display:flex;align-items:center;justify-content:center;font-size:18px}
+.sqopt .nm{display:flex;flex-direction:column;min-width:0} .sqopt .nm small{font-weight:600;color:var(--dim);font-size:11px}
+.sqopt.ok{background:#d9ffe3;border-color:#15803d;box-shadow:0 4px 0 #15803d} .sqopt.bad{background:#ffe0e0;border-color:#c43e3e;opacity:.92} .sqopt[disabled]{cursor:default}
+.sqwhy{margin-top:10px;background:#eef6ff;border:2.5px solid #1e78ff;border-radius:12px;padding:8px 12px;font-size:14px;color:#1d2140;line-height:1.45} .sqwhy .btn-row{margin-top:6px}
+@media (max-height:480px){ .sqopts{gap:5px} .sqopt{padding:4px 9px;font-size:12.5px;border-width:2px;box-shadow:0 2px 0 var(--ink)} .sqopt .ic{width:26px;height:26px;font-size:14px} .sqprev{margin:2px 0 6px} .sqwhy{font-size:12px;padding:5px 9px;margin-top:6px} }

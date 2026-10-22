@@ -1,0 +1,7 @@
+# v21: 업데이트 노트  (build.py가 exec, build_v20 뒤)
+src = rep(src, '    <div class="btn-row"><button type="button" class="g-btn" id="howClose">닫기</button></div>', parts('changelog.html') + '    <div class="btn-row"><button type="button" class="g-btn" id="howClose">닫기</button></div>')
+src = rep(src, "</style>", ".changelog{margin:10px 0 0;border:2px dashed #cfd3e3;border-radius:10px;padding:6px 10px;font-size:12px;text-align:left} .changelog summary{cursor:pointer;font-weight:800;color:var(--ink)} .changelog ul{margin:6px 0 0;padding-left:16px;display:grid;gap:3px;color:var(--dim)} .changelog li b{color:var(--ink)}</style>")
+src = rep(src, "<td>${r.course==='biz'?'실무':'체험존'} ${r.mode==='all'?'전체':(()=>{ const st=STAGES.find(s=>s.id===r.stage); return st?stageCode(st):'?'; })()}</td><td>${r.over?'퇴장':(r.grade||'—')}</td><td>${r.score}</td><td>${r.wrong}</td><td>${r.chance}</td>", "<td>${r.course==='biz'?'실무':'체험존'} ${modeLabel(r)}</td><td>${r.over?'퇴장':(r.grade||'—')}</td><td>${r.score!=null?r.score:'—'}</td><td>${r.wrong!=null?r.wrong:'—'}</td><td>${r.chance!=null?r.chance:'—'}</td>")
+# 엑셀 복사: 입문 코스 진행 열
+src = rep(src, "'자격','실무숙련도','체험존숙련도','응대정답','최근','코칭플래그','코칭메모'", "'자격','실무숙련도','체험존숙련도','응대정답','입문코스','최근','코칭플래그','코칭메모'")
+src = rep(src, "p.pm.R.n,p.pm.mBiz,p.pm.mZone,p.pm.qText,p.lastAt?p.lastAt.slice(0,10):''", "p.pm.R.n,p.pm.mBiz,p.pm.mZone,p.pm.qText,(()=>{ const pr=pathFromRuns(p.runs); return pr.done+'/'+pr.total; })(),p.lastAt?p.lastAt.slice(0,10):''")

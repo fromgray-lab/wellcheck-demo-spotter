@@ -1,0 +1,6 @@
+
+/* ── v27: 저장 상태 줄 ── */
+.syncbar{display:flex;flex-wrap:wrap;gap:6px 10px;align-items:center;margin:0 0 10px;padding:6px 12px;border:2.5px solid var(--ink);border-radius:12px;font-size:13px;font-weight:700;background:#fff}
+.syncbar.ok{background:#e6f9ee;border-color:#1f9d55;color:#14683a;padding:4px 12px;font-size:12px}
+.syncbar.warn{background:#fff3d6;border-color:#d97706;color:#7a4300}
+.syncbar small{flex-basis:100%;font-weight:600;color:#8a5a12;font-size:11px}

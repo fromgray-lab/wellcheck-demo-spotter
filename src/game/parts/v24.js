@@ -1,0 +1,10 @@
+
+/* ═══════════════════════════════════════════ v24: 현황표 팀 8주 추이(참여 인원 · 완주 평균 점수) ═══════════════════════════════════════════ */
+function teamTrendSvg(people){ const runs=[]; (people||[]).forEach(p=>p.runs.forEach(r=>runs.push(r))); if(!runs.length) return '';
+  const wk=new Array(WEEKS).fill(0).map(()=>({ names:new Set(), scores:[] })); runs.forEach(r=>{ const w=weekIdx(r.at); if(w<0||w>=WEEKS) return; wk[w].names.add((r.name||'')+'|'+(r.office||'')); if(r.mode==='all'&&!r.over&&typeof r.score==='number') wk[w].scores.push(r.score); });
+  const data=wk.slice().reverse(); const W=520,H=120,pl=30,pr=30,pt=12,pb=20; const n=data.length; const x=i=>pl+(W-pl-pr)*(i/(n-1)); const maxP=Math.max(1,...data.map(d=>d.names.size)); const yP=v=>pt+(H-pt-pb)*(1-v/maxP); const yS=v=>pt+(H-pt-pb)*(1-v/100);
+  const bars=data.map((d,i)=>`<rect x="${x(i)-10}" y="${yP(d.names.size)}" width="20" height="${(H-pb)-yP(d.names.size)}" fill="#bfe9ff" stroke="#2b9bff" stroke-width="1"><title>${i===n-1?'이번 주':(n-1-i)+'주 전'} 참여 ${d.names.size}명</title></rect>`).join('');
+  const pts=data.map((d,i)=>d.scores.length?[x(i), yS(d.scores.reduce((a,b)=>a+b,0)/d.scores.length), Math.round(d.scores.reduce((a,b)=>a+b,0)/d.scores.length), d.scores.length]:null);
+  const line=`<polyline fill="none" stroke="#e0177a" stroke-width="2" points="${pts.filter(Boolean).map(p=>p[0]+','+p[1]).join(' ')}"/>`+pts.map((p,i)=>p?`<circle cx="${p[0]}" cy="${p[1]}" r="3.5" fill="#e0177a"><title>${i===n-1?'이번 주':(n-1-i)+'주 전'} 완주 평균 ${p[2]}점 (${p[3]}건)</title></circle>`:'').join('');
+  const labels=data.map((d,i)=>`<text x="${x(i)}" y="${H-6}" font-size="9" text-anchor="middle" fill="#8a90ab">${i===n-1?'이번주':'-'+(n-1-i)+'주'}</text>`).join('');
+  return `<svg viewBox="0 0 ${W} ${H}" width="100%" style="max-height:140px;display:block" role="img" aria-label="팀 8주 추이"><text x="${pl}" y="9" font-size="9" fill="#2b9bff">■ 참여 인원</text><text x="${pl+70}" y="9" font-size="9" fill="#e0177a">● 완주 평균 점수</text>${bars}${line}${labels}</svg>`; }

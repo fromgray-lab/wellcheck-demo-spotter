@@ -1,0 +1,18 @@
+# v14: 입문 7일 코스 · 결과 카드 이미지  (build.py가 exec, build_v13 뒤)
+src = rep(src, "</style>", parts('v14.css') + "</style>")
+src = rep(src, "\n/* 초기화 */", parts('v14.js') + "\n/* 초기화 */")
+# 경로 기록: 시범/따라하기 완료
+src = rep(src, "function demoEnd(){ stopStepTimer(); demoStop();", "function demoEnd(){ stopStepTimer(); demoStop(); try{ pathMark('demo', S.stage.id); }catch(e){}")
+src = rep(src, "function practiceEnd(kind){ stopStepTimer(); SFX.clear(); const id=S.stage.id;", "function practiceEnd(kind){ stopStepTimer(); SFX.clear(); const id=S.stage.id; if(kind==='guide') try{ pathMark('guide', id); }catch(e){}")
+src = rep(src, "renderTodo(); renderDailyChip(); renderFocusChip(); renderWeeklyChip(); renderQDrillChip(); renderMastery(); renderWeekly();", "renderTodo(); renderDailyChip(); renderFocusChip(); renderWeeklyChip(); renderQDrillChip(); renderPathChip(); renderMastery(); renderWeekly();")
+# 결과 카드: 오늘의 10문제
+src = rep(src, 'id="nextStageBtn">맵으로</button></div></div></div>`;\n  bindFb(host,\'clear\',res); $(\'nextStageBtn\').addEventListener(\'click\', ()=>{ host.innerHTML=\'\'; exitFullscreen(); renderMap(); show(\'map\'); }); }',
+          'id="nextStageBtn">맵으로</button>${cardBtnHtml()}</div></div></div>`;\n  bindFb(host,\'clear\',res); bindCardBtn(host, { title:\'오늘의 10문제\', sub:`${dailyKey()} · ${COURSES[S.course].name} · ${diffOf().n}`, g, name:(S.profile&&S.profile.name)||S.name||\'시연자\', line:`🔥 ${d.streak||1}일 연속 · ${res.wrong===0&&res.chance===0?\'무결점\':\'복습 \'+(res.wrong+res.chance)+\'곳\'}`, stats:[[\'점수\',score],[\'오답\',res.wrong],[\'찬스\',res.chance],[\'시간\',fmtTime(res.secs)]], msg:(res.wrong===0&&res.chance===0)?\'무결점 — 내일도 10문제!\':g===\'A\'||g===\'B\'?\'틀린 곳만 복습하면 S!\':\'약점 집중 훈련으로 다시 도전\', fn:`오늘의10문제_${(S.profile&&S.profile.name)||S.name||\'시연자\'}_${dailyKey()}.png`, c1:\'#ffd23f\', c2:\'#ff8a00\' }); $(\'nextStageBtn\').addEventListener(\'click\', ()=>{ host.innerHTML=\'\'; exitFullscreen(); renderMap(); show(\'map\'); }); }')
+# 결과 카드: 주간 챌린지
+src = rep(src, 'id="weeklyAgain">🏁 한 번 더</button></div></div></div>`;\n  bindFb(host,\'clear\',res);', 'id="weeklyAgain">🏁 한 번 더</button>${cardBtnHtml()}</div></div></div>`;\n  bindFb(host,\'clear\',res); bindCardBtn(host, { title:\'주간 챌린지\', sub:`${weekKey()} · 😈 압박 · ${COURSES[S.course].name}`, g, name:(S.profile&&S.profile.name)||S.name||\'시연자\', line:`이 기기 ${myIdx>=0?myIdx+1:\'-\'}위 · 12스텝`, stats:[[\'점수\',score],[\'오답\',res.wrong],[\'찬스\',res.chance],[\'시간\',fmtTime(res.secs)]], msg:g===\'S\'?\'압박 모드 무결점 — 주간 1위 도전!\':\'압박 모드 완주 — 이번 주 보드 확인\', fn:`주간챌린지_${(S.profile&&S.profile.name)||S.name||\'시연자\'}_${weekKey()}.png`, c1:\'#ffe0a3\', c2:\'#b45309\' });')
+# 결과 카드: 응대 특훈
+src = rep(src, 'id="qdClose">닫기</button></div></div></div>`;\n    $(\'qdClose\')', 'id="qdClose">닫기</button>${cardBtnHtml()}</div></div></div>`;\n    bindCardBtn(host, { title:\'응대 특훈\', sub:`${COURSES[S.course].name} · 원장님 질문 ${log.length}장`, g, name:(S.profile&&S.profile.name)||S.name||\'시연자\', line:`정답률 ${score}%`, stats:[[\'정답\',ok+\'/\'+log.length],[\'등급\',g],[\'시간\',fmtTime(secs)]], msg:score>=80?\'원장님 질문에 막힘 없음\':\'모범 답을 소리 내어 읽고 재도전\', fn:`응대특훈_${(S.profile&&S.profile.name)||S.name||\'시연자\'}.png`, c1:\'#bfe9ff\', c2:\'#0f766e\' });\n    $(\'qdClose\')')
+# 게임방법
+src = rep(src, '<div class="rule"><div class="ic">📜</div><b>시연 대본</b>', '<div class="rule"><div class="ic">🧭</div><b>입문 7단계 코스</b>신규 MR 첫 주 추천 순서(시범 → 따라하기 → 실전 단독 → 응대 특훈 → 전체 완주 → 오늘의 10문제 3일 → 체험존 완주). 기록으로 자동 체크, 칩에서 다음 단계 바로 시작</div>\n      <div class="rule"><div class="ic">📜</div><b>시연 대본</b>')
+# 테스트 훅
+src = rep(src, "startQDrill, startWeekly, weekKey };", "startQDrill, startWeekly, weekKey, pathProgress, pathMark, saveCardImage };")

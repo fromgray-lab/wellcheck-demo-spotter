@@ -1,0 +1,5 @@
+
+/* ── v15: 팀 공지 ── */
+.notice{display:flex;align-items:flex-start;gap:10px;background:#fff3a8;border:3px solid var(--ink);border-radius:14px;padding:8px 12px;margin:0 0 10px;box-shadow:0 4px 0 var(--ink);text-align:left}
+.notice .nic{font-size:22px;line-height:1} .notice .ntx{flex:1;font-weight:700;font-size:14px;line-height:1.4;color:var(--ink)} .notice .nby{color:var(--dim);font-size:11px;white-space:nowrap;align-self:flex-end}
+@media (max-width:640px){ .notice{flex-wrap:wrap} .notice .nby{width:100%;text-align:right} }

@@ -1,0 +1,4 @@
+
+/* ── v22: 이 스텝만 연습 · 오답 노트 ── */
+.rcard .dsp [data-practice]{background:var(--lemon);border-color:var(--ink);color:var(--ink)}
+.tchip.wrongq b{color:#c43e3e}
