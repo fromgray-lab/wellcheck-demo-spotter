@@ -787,7 +787,7 @@ body[data-screen="loop"] .sunburst{--sun-1:#ffe9b8;--sun-2:#ffd27a}
 .flu{background:#fff;border:3px solid var(--ink);border-radius:14px;padding:8px 12px;margin:0 0 10px;text-align:left} .flu.ok{border-color:#1f9d55;background:#effcf3} .flu.mid{border-color:#d97706;background:#fff8e7} .flu.low{border-color:#c43e3e;background:#fff1f1}
 .flu .fhead{display:flex;flex-wrap:wrap;gap:4px 10px;align-items:baseline} .flu .fhead b{font-family:var(--display);font-size:18px;color:var(--ink)} .flu .fhead span{font-size:12px;color:var(--dim);font-weight:700}
 .flu .fslow{margin:6px 0 0;padding-left:20px;font-size:13px;display:grid;gap:3px} .flu .fslow small{color:#c43e3e;font-weight:800;margin-left:4px} .flu .fall{font-size:13px;color:#1f9d55;font-weight:800;margin-top:4px}
-</style>
+.prog:has(i:nth-child(17)){gap:3px;padding:4px 8px} .prog:has(i:nth-child(17)) i{width:11px;height:11px;border-width:2px} .prog:has(i:nth-child(17)) i.done::after{inset:1px;border-width:1.5px} .prog:has(i:nth-child(17)) i.wrong::after{font-size:7px;line-height:8px} .chtoast{position:fixed;left:50%;top:118px;transform:translateX(-50%);z-index:60;background:#1d2140;color:#fff;border:3px solid #ffd23f;border-radius:999px;padding:7px 18px;display:flex;gap:10px;align-items:baseline;box-shadow:0 6px 0 rgba(0,0,0,.25);animation:chin .35s cubic-bezier(.2,1.4,.4,1);pointer-events:none;white-space:nowrap;max-width:92vw} .chtoast small{color:#ffd23f;font-weight:900;font-size:12px} .chtoast b{font-size:15px} .chtoast.out{opacity:0;transition:opacity .45s} @keyframes chin{from{transform:translate(-50%,-14px);opacity:0}to{transform:translate(-50%,0);opacity:1}} @media (prefers-reduced-motion:reduce){.chtoast{animation:none}}</style>
 
 <div class="sunburst" aria-hidden="true"></div>
 
@@ -1029,7 +1029,7 @@ body[data-screen="loop"] .sunburst{--sun-1:#ffe9b8;--sun-2:#ffd27a}
     <div class="corner"><button type="button" class="g-btn" id="btnBoard">마스터 현황표</button><button type="button" class="g-btn" id="btnRecords">기록실</button></div>
     <button type="button" class="g-btn tail" id="btnHow">게임방법</button>
     <button type="button" class="g-btn tail green" id="btnStart">▶ 게임시작</button>
-    <div class="credit">틀린시연찾기 · 공식 메뉴얼 + 체험존 기반 · 신사업전략팀 · <span id="verTag" title="업데이트 노트는 게임방법 안에">v45</span></div>
+    <div class="credit">틀린시연찾기 · 공식 메뉴얼 + 체험존 기반 · 신사업전략팀 · <span id="verTag" title="업데이트 노트는 게임방법 안에">v46</span></div>
   </div>
 </section>
 
@@ -1273,6 +1273,7 @@ body[data-screen="loop"] .sunburst{--sun-1:#ffe9b8;--sun-2:#ffd27a}
     <div class="sites" id="siteLegend"></div>
     <p class="kbd" style="margin:10px 0 0">전체 완주 점수 = 100 − 오답×5 − 찬스×8. S 100 · A 90↑ · B 75↑ · C 60↑ · D · F(원장님 퇴장). 시간 초과도 오답 1회. 👀 시범은 정답과 멘트를 보여주는 자동 재생.</p>
     <details class="changelog"><summary>🆕 업데이트 노트 (최근)</summary><ul>
+      <li><b>v46</b> 검수 반영: M10·M11 보드 정답 버튼 주변 번짐(지운 빨간 점선 흔적) 제거 — 점선 방향으로 복원 · 의사랑 도구모음 화면의 정답 화살표·확인 박스 제거 · 의사랑 런처 화면 확대(창만 잘라 2.4배) · 긴 스테이지에 챕터 띠(①②③…) · 진행 점 17개 이상이면 작게(폰 한 줄) · M11 이름 '카트비피 연속혈압'</li>
       <li><b>v45</b> 📈 디지털 헬스케어 보너스 2종 신설 — <b>M10 리브레 연속혈당</b>(11스텝: 실시간 혈당 · 리포트 생성 · 교육 자료로 보내기 → 교육상담 발송 → 심평원 · 추천 환자 · 환자 앱 연동) · <b>M11 카트비피 프로 연속혈압</b>(16스텝: 의료진 앱 연결·보정·측정·데이터 전송 → 카트비피 웹 PDF → 웰체크 검사 설정·동의 → PDF 보고서 · 앱 발송 → 환자 앱). 통합 매뉴얼 화면에서 빨간 표시를 지운 보드</li>
       <li><b>v44</b> 🩺 실무 코스 보너스 <b>M9 의사랑 EMR 연동</b> 신설 — 의사랑 연동 매뉴얼의 실제 화면 24장·28스텝: 웰체크 EMR 지정 → 의사랑 환경설정(부가2·웰체크 연동) → 도구모음 W 아이콘 → 검사코드 매칭 → 원무 일만사 접수 → 검사결과 전송 → 환자 호출 → 포괄평가 EMR 결과 가져오기 → 심평원 작성완료 → 점검/평가. 보너스지만 흐름 전체를 순서대로</li>
       <li><b>v43</b> 목적 집중: 수가 계산기·숫자 특훈·응대 카드북·응대 특훈·오답 노트 칩 제외(제안·말하기는 루피 몫) · 🧭 자유자재 지수 신설(오답·찬스·시간초과 없이 8초 안 정답 비율 + 머뭇거린 곳 TOP3, 스테이지 클리어·성적표) · 입문 코스의 응대 특훈 → 순서 맞추기 M0~M3</li>
@@ -1520,34 +1521,34 @@ STEPS_M.push(
 
 /* ── 보너스 M9 · 의사랑 EMR 연동: 「웰체크 EMR 연동(의사랑) 클릭형 프로토타입 매뉴얼」(promo.well-check.co.kr) 화면·좌표 기반. 원본 1920×1080 → % 좌표 ── */
 const IMG_Y = ['launcher','env1','env2','c1base','c1menu','c2','c3','tb','r_new','r2','r3','r4','r5','hp','wcall','w1','w2','w3','w5','hira','wcall2','v4','hira2'];
-IMG_Y.forEach(k=>{ IMG['y_'+k]='img/ysr/'+k+'.webp'; IMGA['y_'+k]=1456/819; });
+IMG_Y.forEach(k=>{ IMG['y_'+k]='img/ysr/'+k+'.webp'; IMGA['y_'+k]=1456/819; }); IMGA.y_launcher=934/777; /* 런처는 창 부분만 잘라 확대 */
 const YP=(x1,y1,x2,y2,pad)=>{ pad=pad==null?0.4:pad; return R(+(x1/19.2-pad).toFixed(2), +(y1/10.8-pad).toFixed(2), +((x2-x1)/19.2+pad*2).toFixed(2), +((y2-y1)/10.8+pad*2).toFixed(2)); };
 STAGES_M.push({ id:'my', course:'biz', n:9, bonus:true, full:true, title:'의사랑 EMR 연동', sub:'연동 세팅 · 검사코드 매칭 · 일만사 접수 · 검사결과 전송 · 포괄평가/점검평가 가져오기', color:'#c2410c', page:'의사랑 연동 매뉴얼' });
 STEPS_M.push(
   // ── ① 연동 환경 세팅 (웰체크)
-  { st:'my', id:'ya1', img:'y_hp', who:'원장님', say:'"우리는 의사랑 쓰는데, 웰체크랑 연동돼요?"', task:'[웰체크] 병원 프로필 — <b>사용 차트 종류(EMR)</b>를 의사랑으로', rects:[YP(973,753,1384,804)], hint:'기본 정보 카드 맨 아래 선택 칸', chance:"'사용 차트 종류(EMR)' 선택 칸", tip:{ say:'네, 의사랑은 웰체크와 바로 연동됩니다. 먼저 웰체크 병원설정에서 사용 차트를 의사랑으로 지정해 두면 검사 결과를 EMR에서 그대로 받아옵니다.', note:'웰체크 › 병원 설정 › 병원 프로필 › 사용 차트 종류(EMR) = <b>의사랑</b>.' } },
+  { st:'my', id:'ya1', ch:'웰체크 — 사용 EMR 지정', img:'y_hp', who:'원장님', say:'"우리는 의사랑 쓰는데, 웰체크랑 연동돼요?"', task:'[웰체크] 병원 프로필 — <b>사용 차트 종류(EMR)</b>를 의사랑으로', rects:[YP(973,753,1384,804)], hint:'기본 정보 카드 맨 아래 선택 칸', chance:"'사용 차트 종류(EMR)' 선택 칸", tip:{ say:'네, 의사랑은 웰체크와 바로 연동됩니다. 먼저 웰체크 병원설정에서 사용 차트를 의사랑으로 지정해 두면 검사 결과를 EMR에서 그대로 받아옵니다.', note:'웰체크 › 병원 설정 › 병원 프로필 › 사용 차트 종류(EMR) = <b>의사랑</b>.' } },
   // ── ② 연동 환경 세팅 (의사랑)
-  { st:'my', id:'ya2', img:'y_launcher', who:'', task:'[의사랑] 런처에서 <b>환경설정</b>', rects:[YP(664,264,818,316)], hint:'런처 아이콘 중 톱니바퀴', chance:"'환경설정' 아이콘", tip:{ say:'의사랑 쪽에서도 연동을 켜야 합니다. 런처의 환경설정으로 들어갑니다.', note:'의사랑 런처 › 환경설정.' } },
+  { st:'my', id:'ya2', ch:'의사랑 — 웰체크 연동 켜기', img:'y_launcher', who:'', task:'[의사랑] 런처에서 <b>환경설정</b>', rects:[R(7.9,12.7,20.8,8.9)], hint:'런처 아이콘 중 톱니바퀴', chance:"'환경설정' 아이콘", tip:{ say:'의사랑 쪽에서도 연동을 켜야 합니다. 런처의 환경설정으로 들어갑니다.', note:'의사랑 런처 › 환경설정.' } },
   { st:'my', id:'ya3', img:'y_env1', who:'', task:'환경설정 — <b>부가2</b> 탭', rects:[YP(319,186,372,209,0.6)], hint:'위쪽 탭 줄', chance:"'부가2' 탭", tip:{ say:'웰체크 연동 옵션은 부가2 탭에 있습니다.', note:'환경설정 › 부가2.' } },
   { st:'my', id:'ya4', img:'y_env2', who:'', task:'<b>웰체크 연동</b> 체크', rects:[YP(127,622,217,647,0.6)], hint:'왼쪽 체크박스 목록', chance:"'웰체크 연동' 체크박스", tip:{ say:'웰체크 연동에 체크하면 의사랑 진료실에 웰체크 메뉴가 생깁니다.', note:'' } },
   { st:'my', id:'ya5', img:'y_env2', who:'', task:'아래 <b>저장</b>', rects:[YP(1621,964,1719,992)], hint:'창 오른쪽 아래', chance:"'저장(A)' 버튼", tip:{ say:'저장까지 해야 반영됩니다. 체크만 하고 닫으면 메뉴가 안 보여요.', note:'' } },
   { st:'my', id:'ya6', img:'y_tb', who:'', task:'진료실 도구모음 설정 — 표시 안 하는 버튼에서 <b>웰체크</b> 선택', rects:[YP(1113,342,1193,374)], hint:'오른쪽 목록', chance:"오른쪽 목록의 '웰체크' 아이콘", tip:{ say:'진료실 위쪽 도구모음에 웰체크 버튼을 올려 두면 진료 중에 한 번에 엽니다.', note:'진료실 › 도구(메뉴) › 도구모음 설정.' } },
   { st:'my', id:'ya7', img:'y_tb', who:'', task:'<b>왼쪽으로 이동</b>해 도구모음에 표시', rects:[YP(941,313,973,343,0.6)], hint:'가운데 화살표 버튼 4개 중 맨 위', chance:"'<' 버튼", tip:{ say:'왼쪽(표시할 버튼)으로 옮기고 확인을 누르면 도구모음에 W 아이콘이 생깁니다.', note:'이동 후 [확인].' } },
   // ── ③ 검사코드 매칭
-  { st:'my', id:'yb1', img:'y_c1base', who:'', task:'진료실 도구모음 — <b>웰체크 ▼</b> 메뉴 열기', rects:[YP(1198,54,1245,101)], hint:'도구모음 오른쪽 파란 W', chance:"파란 'W 웰체크' 아이콘", tip:{ say:'이 W 버튼 하나로 환자 호출, 검사 결과 전송, 검사코드 매칭을 다 합니다.', note:'웰체크 ▼ = 환자 호출 · 검사 결과 전송 · 검사코드 매칭설정.' } },
+  { st:'my', id:'yb1', ch:'검사코드 매칭(처음 한 번)', img:'y_c1base', who:'', task:'진료실 도구모음 — <b>웰체크 ▼</b> 메뉴 열기', rects:[YP(1198,54,1245,101)], hint:'도구모음 오른쪽 파란 W', chance:"파란 'W 웰체크' 아이콘", tip:{ say:'이 W 버튼 하나로 환자 호출, 검사 결과 전송, 검사코드 매칭을 다 합니다.', note:'웰체크 ▼ = 환자 호출 · 검사 결과 전송 · 검사코드 매칭설정.' } },
   { st:'my', id:'yb2', img:'y_c1menu', who:'', task:'처음 한 번 — <b>검사코드 매칭설정</b>', rects:[YP(1224,150,1338,169,0.6)], hint:'펼쳐진 메뉴 맨 아래', chance:"'검사코드 매칭설정'", tip:{ say:'병원마다 검사 처방코드가 달라서, 처음 한 번 웰체크 임상검사 항목과 우리 병원 코드를 연결해 둡니다.', note:'' } },
   { st:'my', id:'yb3', img:'y_c3', who:'원장님', say:'"우리 병원 코드가 다른데요?"', task:'혈압 항목 <b>수정</b>', rects:[YP(1187,242,1266,271)], hint:'첫 줄(혈압 수치) 오른쪽', chance:"혈압 수치 줄의 '수정'", tip:{ say:'이미 연결된 항목은 수정, 빈 항목은 추가하시면 됩니다. LDL과 eGFR은 다른 수치로 자동 계산돼 매칭할 필요가 없어요.', note:'LDL = 총콜·TG·HDL로 자동 계산 / eGFR = 크레아티닌·성별·나이로 자동 계산. 혈압은 기본 바이탈 BP1·BP2. 수정 → [등록된 기초자료]에서 처방코드 선택 → 저장 후 닫기.' } },
   // ── ④ 일만사 환자 접수 (원무과)
-  { st:'my', id:'yc1', img:'y_r_new', who:'', task:'[의사랑 원무] 신규 접수 — 추가정보 <b>상세</b>', rects:[YP(849,720,887,744,0.6)], hint:'보험정보 영역 오른쪽 아래', chance:"추가정보 줄의 '상세'", tip:{ say:'일만사 환자는 접수할 때 부가정보에서 만성질환관리 대상으로 표시해 둡니다. 재진 환자도 같은 자리예요.', note:'원무과 외래 › 신규/접수 › 추가정보 상세.' } },
+  { st:'my', id:'yc1', ch:'원무 — 일만사 환자 접수', img:'y_r_new', who:'', task:'[의사랑 원무] 신규 접수 — 추가정보 <b>상세</b>', rects:[YP(849,720,887,744,0.6)], hint:'보험정보 영역 오른쪽 아래', chance:"추가정보 줄의 '상세'", tip:{ say:'일만사 환자는 접수할 때 부가정보에서 만성질환관리 대상으로 표시해 둡니다. 재진 환자도 같은 자리예요.', note:'원무과 외래 › 신규/접수 › 추가정보 상세.' } },
   { st:'my', id:'yc2', img:'y_r2', who:'', task:'<b>일차의료 만성질환 관리</b> 체크', rects:[YP(397,473,557,495)], hint:'목록 가운데쯤', chance:"'일차의료 만성질환 관리' 체크박스", tip:{ say:'여기 체크하면 이 환자가 일만사 대상으로 표시되고 본인부담 경감이 적용됩니다.', note:'' } },
   { st:'my', id:'yc3', img:'y_r3', who:'', task:'옆 <b>상세</b>', rects:[YP(560,472,608,496,0.6)], hint:'방금 체크한 줄 오른쪽', chance:"'상세' 버튼", tip:{ say:'상세에서 참여 신청일을 넣으면 본인부담 경감 기간이 자동으로 잡힙니다.', note:'' } },
   { st:'my', id:'yc4', img:'y_r4', who:'', task:'만성질환 통합관리 상세 — <b>추가</b>', rects:[YP(1220,345,1320,369)], hint:'팝업 오른쪽 위', chance:"'추가' 버튼", tip:{ say:'자료제출시스템에서 환자 정보를 확인한 뒤 추가해서 입력합니다.', note:'' } },
   { st:'my', id:'yc5', img:'y_r5', who:'', task:'참여 신청일 확인 후 <b>저장</b>', rects:[YP(1135,689,1228,713)], hint:'팝업 아래쪽', chance:"'저장 (S)'", tip:{ say:'참여 신청일 기준으로 경감 기간 6개월이 자동 계산됩니다. 저장 → 확인 → 부가정보 저장 → 접수(F8) 순서예요.', note:'예: 신청일 2026-10-13 → 경감 2026-10-13 ~ 2027-04-12.' } },
   // ── ⑤ 검사결과 전송
-  { st:'my', id:'yd1', img:'y_c1menu', who:'원장님', say:'"검사 결과를 웰체크에 또 옮겨 적어야 해요?"', task:'진료실 웰체크 ▼ — <b>검사 결과 전송</b>', rects:[YP(1224,128,1316,147,0.6)], hint:'메뉴 두 번째 줄', chance:"'검사 결과 전송'", tip:{ say:'아니요, 진료실에서 이 환자 차트를 띄운 상태로 검사 결과 전송만 누르시면 최근 6개월 검사가 웰체크로 넘어갑니다.', note:'' } },
+  { st:'my', id:'yd1', ch:'진료실 — 검사 결과 전송', img:'y_c1menu', who:'원장님', say:'"검사 결과를 웰체크에 또 옮겨 적어야 해요?"', task:'진료실 웰체크 ▼ — <b>검사 결과 전송</b>', rects:[YP(1224,128,1316,147,0.6)], hint:'메뉴 두 번째 줄', chance:"'검사 결과 전송'", tip:{ say:'아니요, 진료실에서 이 환자 차트를 띄운 상태로 검사 결과 전송만 누르시면 최근 6개월 검사가 웰체크로 넘어갑니다.', note:'' } },
   { st:'my', id:'yd2', img:'y_c2', who:'', task:'"웰체크로 전송하시겠습니까?" — <b>예</b>', rects:[YP(1041,604,1138,632)], hint:'질문 창 아래 버튼 두 개', chance:"'예(Y)'", tip:{ say:'최근 6개월 검사 결과를 찾아서, 실시일자가 다르면 나눠서 전송합니다.', note:'예: "최근 6개월 검사 결과 9건 확인 · 실시일자 2개로 나누어 전송".' } },
   // ── ⑥ 포괄평가 계획수립
-  { st:'my', id:'ye1', img:'y_c1menu', who:'', task:'웰체크 ▼ — <b>환자 호출</b>', rects:[YP(1224,105,1300,126,0.6)], hint:'메뉴 맨 위', chance:"'환자 호출'", tip:{ say:'환자 호출을 누르면 진료실에 띄운 환자의 웰체크 화면이 바로 열립니다. 환자를 따로 검색할 필요가 없어요.', note:'' } },
+  { st:'my', id:'ye1', ch:'포괄평가 — EMR 값 가져오기', img:'y_c1menu', who:'', task:'웰체크 ▼ — <b>환자 호출</b>', rects:[YP(1224,105,1300,126,0.6)], hint:'메뉴 맨 위', chance:"'환자 호출'", tip:{ say:'환자 호출을 누르면 진료실에 띄운 환자의 웰체크 화면이 바로 열립니다. 환자를 따로 검색할 필요가 없어요.', note:'' } },
   { st:'my', id:'ye2', img:'y_wcall', who:'', task:'[웰체크] <b>포괄평가 계획수립</b> 탭', rects:[YP(411,260,582,306)], hint:'환자 이름 아래 탭 줄', chance:"'포괄평가 계획수립' 탭", tip:{ say:'포괄평가 탭에서 EMR 검사값을 불러옵니다.', note:'' } },
   { st:'my', id:'ye3', img:'y_w1', who:'', task:'<b>EMR 결과 가져오기 ▼</b>', rects:[YP(1585,146,1759,189)], hint:'오른쪽 위 버튼 줄', chance:"'EMR 결과 가져오기 ▼'", tip:{ say:'방법은 두 가지예요. 검사 결과 확인은 값을 보고 골라서 넣고, 일괄 반영은 최신값을 한 번에 채웁니다.', note:'▼ 검사 결과 확인 / 검사 결과 일괄 반영.' } },
   { st:'my', id:'ye4', img:'y_w2', who:'', task:'값을 보고 넣는 방법 — <b>검사 결과 확인</b>', rects:[YP(1590,196,1751,230)], hint:'펼쳐진 메뉴 첫 줄', chance:"'검사 결과 확인'", tip:{ say:'처음 시연할 땐 검사 결과 확인으로 어떤 값이 넘어왔는지 원장님께 보여 드리는 게 좋습니다.', note:'일괄 반영은 계획 수립 일자를 먼저 넣어야 함(빨간 테두리).' } },
@@ -1556,7 +1557,7 @@ STEPS_M.push(
   { st:'my', id:'ye7', img:'y_w5', who:'원장님', say:'"이걸로 심평원 제출까지 끝나요?"', task:'채운 뒤 심평원으로 — <b>심평원 바로가기</b>', rects:[YP(1441,142,1585,184)], hint:'오른쪽 위 검은 버튼', chance:"'심평원 바로가기'", tip:{ say:'임상검사 저장, 임시저장(심평원)까지 하고 심평원 바로가기로 넘어가 작성완료를 누르면 제출이 끝납니다.', note:'순서: 임상검사 저장 → 임시저장(심평원) → 심평원 바로가기 → 작성완료.' } },
   { st:'my', id:'ye8', img:'y_hira', who:'', task:'[심평원] 포괄평가 및 계획수립 — <b>작성완료</b>', rects:[YP(1614,253,1724,289)], hint:'오른쪽 버튼 세 개 중 마지막', chance:"'작성완료'", tip:{ say:'작성완료를 누르면 심평원 제출이 끝납니다. 이후엔 웰체크에서 수정이 안 되니 값을 한 번 더 확인하고 누르세요.', note:'<b>작성완료 후 웰체크 수정 불가</b>.' } },
   // ── ⑦ 점검/평가
-  { st:'my', id:'yf1', img:'y_wcall2', who:'', task:'6개월 뒤 — <b>점검/평가</b> 탭', rects:[YP(805,259,913,305)], hint:'탭 줄 맨 오른쪽', chance:"'점검/평가' 탭", tip:{ say:'점검평가도 같은 방식이에요. 환자 호출 → 점검/평가 탭 → EMR 결과 가져오기.', note:'' } },
+  { st:'my', id:'yf1', ch:'점검/평가', img:'y_wcall2', who:'', task:'6개월 뒤 — <b>점검/평가</b> 탭', rects:[YP(805,259,913,305)], hint:'탭 줄 맨 오른쪽', chance:"'점검/평가' 탭", tip:{ say:'점검평가도 같은 방식이에요. 환자 호출 → 점검/평가 탭 → EMR 결과 가져오기.', note:'' } },
   { st:'my', id:'yf2', img:'y_v4', who:'', task:'점검 차수 확인 후 <b>임상검사 세부내역 전송</b>', rects:[YP(917,953,1111,996)], hint:'팝업 맨 아래 파란 버튼', chance:"'임상검사 세부내역 전송'", tip:{ say:'1차·2차 점검평가 탭을 골라 전송하면 해당 차수 칸에 채워집니다. 2차는 1차 작성완료 뒤에 열려요.', note:'' } },
   { st:'my', id:'yf3', img:'y_hira2', who:'', task:'[심평원] 점검 및 평가 — <b>작성완료</b>', rects:[YP(1639,348,1751,384)], hint:'세부내역 위 버튼 세 개 중 마지막', chance:"'작성완료'", tip:{ say:'웰체크 임시저장 → 심평원 바로가기 → 작성완료로 점검평가 제출이 끝납니다.', note:'포괄평가와 같은 흐름. 작성완료 후 웰체크 수정 불가.' } }
 );
@@ -1566,25 +1567,25 @@ const IMG_D = { l_list:[2048,1000], l_send:[2048,1131], l_edu:[2048,1138], l_don
   c_conn:[1460,929], c_cal1:[1689,830], c_start:[1705,859], c_return:[1846,827], c_web:[1729,852], c_set:[2048,1251], c_menu:[2048,1258], c_pdf:[2048,771], c_list:[2048,1116], c_send:[2048,1348], c_app:[2048,1021] };
 Object.keys(IMG_D).forEach(k=>{ IMG[k]='img/dh/'+k+'.webp'; IMGA[k]=IMG_D[k][0]/IMG_D[k][1]; });
 STAGES_M.push({ id:'ml', course:'biz', n:10, bonus:true, full:true, title:'리브레 연속혈당', sub:'실시간 혈당 · 리포트 생성 · 교육자료로 발송(일만사 교육상담) · 추천 환자 · 환자 앱 연동', color:'#f5b800', page:'리브레 통합 매뉴얼' });
-STAGES_M.push({ id:'mc', course:'biz', n:11, bonus:true, full:true, title:'카트비피 프로 연속혈압', sub:'의료진 앱 연결·보정·측정 · 카트비피 웹 리포트 · 웰체크 설정 · 앱 발송 · 환자 앱', color:'#ff6b00', page:'카트비피 프로 통합 매뉴얼' });
+STAGES_M.push({ id:'mc', course:'biz', n:11, bonus:true, full:true, title:'카트비피 연속혈압', sub:'의료진 앱 연결·보정·측정 · 카트비피 웹 리포트 · 웰체크 설정 · 앱 발송 · 환자 앱', color:'#ff6b00', page:'카트비피 프로 통합 매뉴얼' });
 STEPS_M.push(
   // ── 리브레 (의료진 웹)
-  { st:'ml', id:'la1', img:'l_list', who:'원장님', say:'"지금 혈당 높은 환자 있어요?"', task:'리브레 연동 환자 — <b>실시간 혈당</b>이 고혈당인 환자', rects:[R(52.3,45.6,6.7,5)], hint:'실시간 혈당 열의 주황 배지', chance:"이서준 행 '고혈당 434'", tip:{ say:'리브레 센서 값이 실시간으로 들어와서, 지금 범위를 벗어난 환자를 목록에서 바로 보실 수 있습니다.', note:'디지털 헬스케어 › 리브레 › 연동 환자. 열: 연동 상태 · 실시간 혈당 · 리브레 리포트 · 앱 발송 · 다음 검사일.' } },
+  { st:'ml', id:'la1', ch:'의료진 웹 — 연동 환자', img:'l_list', who:'원장님', say:'"지금 혈당 높은 환자 있어요?"', task:'리브레 연동 환자 — <b>실시간 혈당</b>이 고혈당인 환자', rects:[R(52.3,45.6,6.7,5)], hint:'실시간 혈당 열의 주황 배지', chance:"이서준 행 '고혈당 434'", tip:{ say:'리브레 센서 값이 실시간으로 들어와서, 지금 범위를 벗어난 환자를 목록에서 바로 보실 수 있습니다.', note:'디지털 헬스케어 › 리브레 › 연동 환자. 열: 연동 상태 · 실시간 혈당 · 리브레 리포트 · 앱 발송 · 다음 검사일.' } },
   { st:'ml', id:'la2', img:'l_list', who:'', task:'박지민 환자 — 리브레 <b>리포트 생성하기</b>', rects:[R(67.1,38.9,5.3,3.6)], hint:'리브레 리포트 열, 첫 줄 파란 버튼', chance:"박지민 행 '생성하기 (0/5)'", tip:{ say:'리포트는 어제까지의 14일치로 만들어지고, 환자당 주 5회까지 생성할 수 있어요.', note:'기간: 어제 기준 14일 역산(10/22 생성 → 10/8~10/21). 5분 넘게 안 되면 재시도.' } },
   { st:'ml', id:'la3', img:'l_list', who:'', task:'리포트가 생성된 이서준 환자 — <b>앱 발송하기</b>', rects:[R(75.8,46,4.9,3.9)], hint:'앱 발송 열에서 유일하게 활성화된 버튼', chance:"이서준 행 '앱 발송하기'", tip:{ say:'만든 리포트를 환자 앱으로 보내면, 환자도 2주간 혈당 흐름을 같이 봅니다.', note:'' } },
-  { st:'ml', id:'la4', img:'l_send', who:'원장님', say:'"이걸로 교육상담 청구도 돼요?"', task:'일만사 환자 — <b>교육 자료로 보내기</b> 체크', rects:[R(39.8,85.6,18.5,3.4)], hint:'팝업 맨 아래 체크박스 두 개 중 오른쪽', chance:"'교육 자료로 보내기 (이번 주기 교육상담 3/10회)'", tip:{ say:'네, 일만사 환자는 교육 자료로 보내기를 체크하면 리브레 리포트 발송이 교육상담으로 이어지고 심평원 청구까지 연결됩니다.', note:'참여 주기 안에 교육상담 횟수가 남아 있을 때만 활성화.' } },
+  { st:'ml', id:'la4', ch:'일만사 교육상담으로 발송', img:'l_send', who:'원장님', say:'"이걸로 교육상담 청구도 돼요?"', task:'일만사 환자 — <b>교육 자료로 보내기</b> 체크', rects:[R(39.8,85.6,18.5,3.4)], hint:'팝업 맨 아래 체크박스 두 개 중 오른쪽', chance:"'교육 자료로 보내기 (이번 주기 교육상담 3/10회)'", tip:{ say:'네, 일만사 환자는 교육 자료로 보내기를 체크하면 리브레 리포트 발송이 교육상담으로 이어지고 심평원 청구까지 연결됩니다.', note:'참여 주기 안에 교육상담 횟수가 남아 있을 때만 활성화.' } },
   { st:'ml', id:'la5', img:'l_send', who:'', task:'<b>보내기</b>', rects:[R(81,85.6,4.8,4.4)], hint:'팝업 오른쪽 아래 파란 버튼', chance:"'보내기'", tip:{ say:'주치의 피드백과 다음 검사 추천(1·3·6개월 후)도 같이 넣어서 보낼 수 있어요.', note:'' } },
   { st:'ml', id:'la6', img:'l_edu', who:'', task:'교육상담 반영내용 확인 후 <b>발송</b>', rects:[R(54.3,70.3,4.4,4.5)], hint:'팝업 아래 가운데 파란 버튼', chance:"'발송'", tip:{ say:'질병이해와 자기관리가 기본 선택돼 있고, 발송하면 리포트와 교육 자료가 함께 가고 교육상담 내역이 심평원에 임시저장됩니다.', note:'교육상담 인정 기준: 의사 10분 이상, 의사 외(간호사·영양사 등) 20분 이상.' } },
   { st:'ml', id:'la7', img:'l_done', who:'', task:'전송 완료 — <b>심평원 이동</b>', rects:[R(56.7,56.5,9.3,5.5)], hint:'팝업 오른쪽 파란 버튼', chance:"'심평원 이동'", tip:{ say:'심평원에서 작성완료까지 확인해야 청구가 끝납니다.', note:'' } },
-  { st:'ml', id:'la8', img:'l_rec', who:'원장님', say:'"리브레 권할 만한 환자는 어떻게 골라요?"', task:'추천 환자 탭 — 첫 환자에게 <b>추천 메시지 보내기</b>', rects:[R(86.2,33.2,7.5,7.2)], hint:'맨 오른쪽 추천 메시지 열 첫 줄', chance:"첫 행 '추천 메시지 보내기'", tip:{ say:'병원이 정한 고혈당·저혈당 기준, 당뇨·당화혈색소처럼 지속 관리가 필요한 환자를 추천 환자로 모아 줍니다.', note:'디지털 헬스케어 › 리브레 › 추천 환자.' } },
+  { st:'ml', id:'la8', ch:'추천 환자', img:'l_rec', who:'원장님', say:'"리브레 권할 만한 환자는 어떻게 골라요?"', task:'추천 환자 탭 — 첫 환자에게 <b>추천 메시지 보내기</b>', rects:[R(86.2,33.2,7.5,7.2)], hint:'맨 오른쪽 추천 메시지 열 첫 줄', chance:"첫 행 '추천 메시지 보내기'", tip:{ say:'병원이 정한 고혈당·저혈당 기준, 당뇨·당화혈색소처럼 지속 관리가 필요한 환자를 추천 환자로 모아 줍니다.', note:'디지털 헬스케어 › 리브레 › 추천 환자.' } },
   { st:'ml', id:'la9', img:'l_recsend', who:'', task:'추천 메시지 작성 후 <b>보내기</b>', rects:[R(59.3,81.3,3.7,4.7)], hint:'팝업 오른쪽 아래 파란 버튼', chance:"'보내기'", tip:{ say:'보내면 환자 앱에 주치의 메시지로 리브레 안내가 도착합니다.', note:'' } },
   // ── 리브레 (환자 앱)
-  { st:'ml', id:'lb1', img:'l_app', who:'', task:'[환자 앱] 리브레 계정 연동 — <b>기기 연동하기</b>', rects:[R(46.7,39.4,17.7,7.4)], hint:'가운데 폰 더보기 화면의 파란 카드', chance:"더보기 화면 '기기 연동하기'", tip:{ say:'홈의 리브레 버튼으로도, 더보기 › 기기 연동하기 › 리브레 카드의 연동하기로도 시작할 수 있어요.', note:'리브레 링크 앱 설치·회원가입을 미리 해 두면 막힘 없이 진행.' } },
+  { st:'ml', id:'lb1', ch:'환자 앱 — 리브레 연동', img:'l_app', who:'', task:'[환자 앱] 리브레 계정 연동 — <b>기기 연동하기</b>', rects:[R(46.7,39.4,17.7,7.4)], hint:'가운데 폰 더보기 화면의 파란 카드', chance:"더보기 화면 '기기 연동하기'", tip:{ say:'홈의 리브레 버튼으로도, 더보기 › 기기 연동하기 › 리브레 카드의 연동하기로도 시작할 수 있어요.', note:'리브레 링크 앱 설치·회원가입을 미리 해 두면 막힘 없이 진행.' } },
   { st:'ml', id:'lb2', img:'l_app', who:'원장님', say:'"환자가 연동했는데 목록에 안 보여요"', task:'리브레 카드 — <b>연동하기</b>', rects:[R(78.7,42,8.1,5)], hint:'오른쪽 폰 맨 위 카드', chance:"리브레 Freestyle2 카드의 '연동하기'", tip:{ say:'웰체크에 연동한 리브레 계정이 지금 리브레 링크 앱에 로그인된 계정과 같아야 의료진 웹에 보입니다.', note:'매뉴얼 Q&A: 환자 정보가 안 보일 때.' } }
 );
 STEPS_M.push(
   // ── 카트비피 프로: 의료진 앱
-  { st:'mc', id:'ca1', img:'c_conn', who:'원장님', say:'"반지로 혈압을 잰다고요?"', task:'[카트비피 프로 의료진 앱] 대상 환자 <b>연결하기</b>', rects:[R(1.6,42.5,8.7,7.6)], hint:'첫 폰, 환자 카드 왼쪽 아래', chance:"0924오창헌 카드의 '연결하기'", tip:{ say:'카트링이라는 반지를 1~3일 끼고 있으면 24시간 연속 혈압이 측정됩니다. 의료진용 앱은 안드로이드만 지원해요.', note:'환자 선택 또는 새로 등록 → 연결하기 → 카트링 연결.' } },
+  { st:'mc', id:'ca1', ch:'의료진 앱 — 연결·보정·측정', img:'c_conn', who:'원장님', say:'"반지로 혈압을 잰다고요?"', task:'[카트비피 프로 의료진 앱] 대상 환자 <b>연결하기</b>', rects:[R(1.6,42.5,8.7,7.6)], hint:'첫 폰, 환자 카드 왼쪽 아래', chance:"0924오창헌 카드의 '연결하기'", tip:{ say:'카트링이라는 반지를 1~3일 끼고 있으면 24시간 연속 혈압이 측정됩니다. 의료진용 앱은 안드로이드만 지원해요.', note:'환자 선택 또는 새로 등록 → 연결하기 → 카트링 연결.' } },
   { st:'mc', id:'ca2', img:'c_conn', who:'', task:'근접 기기 — 폰에 <b>가장 가까운 카트링</b>', rects:[R(71.3,25,26.4,9.6)], hint:'오른쪽 폰 목록 맨 위', chance:"'C-B-1CEC' (맨 위)", tip:{ say:'근접 기기 등록에서는 폰에 가장 가까운 기기가 맨 위에 나옵니다. 배터리 50% 이상이어야 연결돼요.', note:'' } },
   { st:'mc', id:'ca3', img:'c_cal1', who:'', task:'커프 혈압계와 같이 착용 — <b>1차 보정 시작하기</b>', rects:[R(0,83.2,24.1,16.8)], hint:'첫 폰 아래 주황 버튼', chance:"'1차 보정 시작하기'", tip:{ say:'커프형 혈압계와 카트링을 동시에 차고 재서, 반지 신호를 실제 혈압에 맞추는 보정입니다.', note:'' } },
   { st:'mc', id:'ca4', img:'c_cal1', who:'', task:'커프 혈압계 값 입력 후 <b>저장</b>', rects:[R(37.4,86.9,23.6,13.1)], hint:'가운데 폰 아래 주황 버튼', chance:"'저장'", tip:{ say:'커프 혈압계에 뜬 수축기·이완기를 그대로 넣고, 1시간 휴식 뒤 같은 과정을 한 번 더 해서 2차 보정을 마칩니다.', note:'보정은 총 2회.' } },
@@ -1592,15 +1593,15 @@ STEPS_M.push(
   { st:'mc', id:'ca6', img:'c_return', who:'', task:'환자 기기 반납 — 대상 환자 <b>측정 중</b>', rects:[R(36.6,36.8,7.5,14.3)], hint:'첫 폰, 0924오창헌 카드 오른쪽', chance:"'측정 중' 버튼", tip:{ say:'반납받으면 측정 중 버튼으로 들어가 데이터를 보냅니다.', note:'' } },
   { st:'mc', id:'ca7', img:'c_return', who:'', task:'<b>데이터 전송</b>', rects:[R(51,89,21.1,11)], hint:'가운데 폰 아래 주황 버튼', chance:"'데이터 전송'", tip:{ say:'전송 완료 상태가 되면 카트비피 프로 웹에서 리포트를 발행할 수 있어요.', note:'' } },
   // ── 카트비피 프로 웹 → 웰체크
-  { st:'mc', id:'cb1', img:'c_web', who:'', task:'[카트비피 프로 웹] 리포트 발행 — <b>PDF 또는 JPG</b>', rects:[R(81.7,60,15.6,16.5)], hint:'오른쪽 아래 버튼 두 개', chance:"'PDF' 또는 'JPG'", tip:{ say:'누르면 리포트가 웰체크 의사웹으로 전송됩니다. JPG를 눌러도 웰체크에선 PDF로 보여요.', note:'cartabpm.com 로그인 → 대상 환자 선택 → PDF/JPG.' } },
-  { st:'mc', id:'cb2', img:'c_set', who:'원장님', say:'"웰체크엔 메뉴가 안 보이는데요?"', task:'[웰체크] 최초 1회 — 병원 설정 <b>검사 설정</b> 탭', rects:[R(43.6,14.5,8.6,3.6)], hint:'병원별 설정 탭 줄 오른쪽', chance:"'검사 설정' 탭", tip:{ say:'처음 한 번, 병원 설정에서 원내 보유 디바이스로 카트비피 프로를 체크하면 디지털 헬스케어 메뉴가 생깁니다.', note:'병원 설정 › 검사 설정 › 원내 보유 디바이스.' } },
+  { st:'mc', id:'cb1', ch:'카트비피 웹 → 웰체크', img:'c_web', who:'', task:'[카트비피 프로 웹] 리포트 발행 — <b>PDF 또는 JPG</b>', rects:[R(81.7,60,15.6,16.5)], hint:'오른쪽 아래 버튼 두 개', chance:"'PDF' 또는 'JPG'", tip:{ say:'누르면 리포트가 웰체크 의사웹으로 전송됩니다. JPG를 눌러도 웰체크에선 PDF로 보여요.', note:'cartabpm.com 로그인 → 대상 환자 선택 → PDF/JPG.' } },
+  { st:'mc', id:'cb2', ch:'웰체크 — 처음 한 번 설정', img:'c_set', who:'원장님', say:'"웰체크엔 메뉴가 안 보이는데요?"', task:'[웰체크] 최초 1회 — 병원 설정 <b>검사 설정</b> 탭', rects:[R(43.6,14.5,8.6,3.6)], hint:'병원별 설정 탭 줄 오른쪽', chance:"'검사 설정' 탭", tip:{ say:'처음 한 번, 병원 설정에서 원내 보유 디바이스로 카트비피 프로를 체크하면 디지털 헬스케어 메뉴가 생깁니다.', note:'병원 설정 › 검사 설정 › 원내 보유 디바이스.' } },
   { st:'mc', id:'cb3', img:'c_set', who:'', task:'원내 보유 디바이스 <b>카트비피 프로</b> 체크', rects:[R(15,22.5,8,4.5)], hint:'탭 아래 회색 안내 박스 안 체크박스', chance:"'카트비피 프로' 체크박스", tip:{ say:'체크 후 디바이스 저장을 누르세요.', note:'' } },
   { st:'mc', id:'cb4', img:'c_menu', who:'', task:'디지털 헬스케어 › <b>카트비피 프로</b> — 동의 후 <b>시작하기</b>', rects:[R(29,69.5,9.3,3.8)], hint:'동의 체크 목록 아래 버튼', chance:"'시작하기'", tip:{ say:'필요한 약관에 동의하면 다음 날 오전 9시에 병원 승인이 납니다.', note:'승인 전엔 리포트가 안 보일 수 있음 — 매일 오전 9시 순차 처리.' } },
-  { st:'mc', id:'cb5', img:'c_pdf', who:'', task:'매번 — 대상 환자 <b>PDF 보고서</b> 확인', rects:[R(45.4,48.5,5.8,3.5)], hint:'목록 첫 행, 가운데 오른쪽', chance:"첫 행 'PDF 보고서'", tip:{ say:'카트비피에서 보낸 24시간 혈압 리포트를 여기서 열어 봅니다.', note:'' } },
+  { st:'mc', id:'cb5', ch:'웰체크 — 리포트 앱 발송', img:'c_pdf', who:'', task:'매번 — 대상 환자 <b>PDF 보고서</b> 확인', rects:[R(45.4,48.5,5.8,3.5)], hint:'목록 첫 행, 가운데 오른쪽', chance:"첫 행 'PDF 보고서'", tip:{ say:'카트비피에서 보낸 24시간 혈압 리포트를 여기서 열어 봅니다.', note:'' } },
   { st:'mc', id:'cb6', img:'c_list', who:'원장님', say:'"환자가 목록에 없어요"', task:'대상 환자 행 — <b>앱 발송하기</b>', rects:[R(82.5,46,4.8,27)], hint:'오른쪽에서 두 번째 열 파란 버튼', chance:"'앱 발송하기' 버튼", tip:{ say:'안 보이면 환자 약관 미동의, 카트비피 웹에 휴대폰 번호 없음, 두 서비스 번호 불일치, 병원 승인 대기 중 하나입니다.', note:'카트비피 프로 웹 › 환자 › 더보기 › 수정에서 번호 확인. 고객센터 1599-1921.' } },
   { st:'mc', id:'cb7', img:'c_send', who:'', task:'주치의 피드백 작성 후 <b>환자 앱 발송하기</b>', rects:[R(46,79.6,7.6,4.4)], hint:'팝업 아래 파란 버튼', chance:"'환자 앱 발송하기'", tip:{ say:'발송하면 환자 스마트폰으로 푸시가 갑니다.', note:'' } },
   // ── 환자 앱
-  { st:'mc', id:'cc1', img:'c_app', who:'', task:'[환자 앱] 최초 1회 — <b>필수 항목 모두 동의</b>', rects:[R(34.2,92.3,12.5,6.6)], hint:'두 번째 폰 약관 동의 창 아래', chance:"'필수 항목 모두 동의'", tip:{ say:'의료진이 리포트를 보내면 홈 카드가 결과 보기 상태가 되고, 처음 한 번 약관 동의를 거칩니다.', note:'' } },
+  { st:'mc', id:'cc1', ch:'환자 앱 — 보고서 보기', img:'c_app', who:'', task:'[환자 앱] 최초 1회 — <b>필수 항목 모두 동의</b>', rects:[R(34.2,92.3,12.5,6.6)], hint:'두 번째 폰 약관 동의 창 아래', chance:"'필수 항목 모두 동의'", tip:{ say:'의료진이 리포트를 보내면 홈 카드가 결과 보기 상태가 되고, 처음 한 번 약관 동의를 거칩니다.', note:'' } },
   { st:'mc', id:'cc2', img:'c_app', who:'', task:'<b>연속 혈압 보고서 보기</b>', rects:[R(54,89,19,6.6)], hint:'세 번째 폰 아래 파란 버튼', chance:"'연속 혈압 보고서 보기'", tip:{ say:'24시간 연속 측정된 혈압 보고서를 환자도 앱에서 직접 봅니다.', note:'' } }
 );
 
@@ -1778,7 +1779,7 @@ function renderStep(){
   setBoard(st.img, false);
   $('dWho').textContent = st.who ? st.who+' '+(st.say||'') : ''; $('dTask').innerHTML = st.task; try{ $('shot').alt='시연 화면 — '+st.task.replace(/<[^>]+>/g,''); }catch(e){} if(st.who&&st.say&&!S.demo) speak(st.say);
   setMood('neutral'); renderHUD();
-  renderFrame(st); if(S.prevSite && st.site && st.site!==S.prevSite) siteToast(S.prevSite, st.site); S.prevSite=st.site||S.prevSite; $('zedit').hidden=!BOARD.admin; editClear();
+  renderFrame(st); if(S.prevSite && st.site && st.site!==S.prevSite) siteToast(S.prevSite, st.site); S.prevSite=st.site||S.prevSite; if(st.ch) chapterToast(st); $('zedit').hidden=!BOARD.admin; editClear();
   if(S.demo){ demoStep(st); return; }
   if(S.guide){ guideStep(st); return; }
   startStepTimer(); maybeOnboard(st);
@@ -3129,6 +3130,7 @@ function fluAll(){ const box=$('review'); if(!box) return; const old=box.querySe
 /* 도구 줄: 이제 📲 설치만 (웹) */
 function ensureToolsRow(){ const el=$('todo'); if(!el) return null; let r=el.querySelector('.trow.tools'); if(!r){ r=document.createElement('div'); r.className='trow tools'; r.innerHTML='<span class="tl">🧰 도구</span>'; el.appendChild(r); } return r; }
 
+function chapterToast(st){ const old=document.querySelector('.chtoast'); if(old) old.remove(); const all=STEPS.filter(s=>s.st===st.st&&s.ch); const i=all.indexOf(st); const t=document.createElement('div'); t.className='chtoast'; t.innerHTML=`<small>${i+1} / ${all.length}</small><b>${esc(st.ch)}</b>`; document.body.appendChild(t); setTimeout(()=>t.classList.add('out'),2100); setTimeout(()=>t.remove(),2600); }
 /* 초기화 */
 loadStars(); S.profile = loadProfile(); if(S.profile) S.name = S.profile.name;
 loadCourse(); ['s01','s02','s03'].forEach(k=>{ const i=new Image(); i.src=IMG[k]; });
