@@ -787,7 +787,7 @@ body[data-screen="loop"] .sunburst{--sun-1:#ffe9b8;--sun-2:#ffd27a}
 .flu{background:#fff;border:3px solid var(--ink);border-radius:14px;padding:8px 12px;margin:0 0 10px;text-align:left} .flu.ok{border-color:#1f9d55;background:#effcf3} .flu.mid{border-color:#d97706;background:#fff8e7} .flu.low{border-color:#c43e3e;background:#fff1f1}
 .flu .fhead{display:flex;flex-wrap:wrap;gap:4px 10px;align-items:baseline} .flu .fhead b{font-family:var(--display);font-size:18px;color:var(--ink)} .flu .fhead span{font-size:12px;color:var(--dim);font-weight:700}
 .flu .fslow{margin:6px 0 0;padding-left:20px;font-size:13px;display:grid;gap:3px} .flu .fslow small{color:#c43e3e;font-weight:800;margin-left:4px} .flu .fall{font-size:13px;color:#1f9d55;font-weight:800;margin-top:4px}
-.prog:has(i:nth-child(17)){gap:3px;padding:4px 8px} .prog:has(i:nth-child(17)) i{width:11px;height:11px;border-width:2px} .prog:has(i:nth-child(17)) i.done::after{inset:1px;border-width:1.5px} .prog:has(i:nth-child(17)) i.wrong::after{font-size:7px;line-height:8px} .chtoast{position:fixed;left:50%;top:118px;transform:translateX(-50%);z-index:60;background:#1d2140;color:#fff;border:3px solid #ffd23f;border-radius:999px;padding:7px 18px;display:flex;gap:10px;align-items:baseline;box-shadow:0 6px 0 rgba(0,0,0,.25);animation:chin .35s cubic-bezier(.2,1.4,.4,1);pointer-events:none;white-space:nowrap;max-width:92vw} .chtoast small{color:#ffd23f;font-weight:900;font-size:12px} .chtoast b{font-size:15px} .chtoast.out{opacity:0;transition:opacity .45s} @keyframes chin{from{transform:translate(-50%,-14px);opacity:0}to{transform:translate(-50%,0);opacity:1}} @media (prefers-reduced-motion:reduce){.chtoast{animation:none}}.sitetoast{color:var(--ink);animation:rise .35s cubic-bezier(.2,1.4,.4,1),fadeout .5s 2.8s forwards} .sitetoast .stb span{display:inline-flex;flex-direction:column;align-items:center;line-height:1.2;color:var(--ink)} .sitetoast .stb span small{font-size:11px;font-weight:800;color:var(--dim);font-family:inherit} .sitetoast .stb span.from{opacity:.7;font-size:.85em} .sitetoast .stb span.to{background:var(--sc);color:#fff;border-left-width:2.5px;font-size:1.15em;padding:4px 14px;box-shadow:0 3px 0 var(--ink)} .sitetoast .stb span.to small{color:rgba(255,255,255,.9)} .sitetoast .stb b{color:var(--ink);font-size:1.3em} .sitetoast .sts{font-size:13px;color:var(--ink)}</style>
+.prog:has(i:nth-child(17)){gap:3px;padding:4px 8px} .prog:has(i:nth-child(17)) i{width:11px;height:11px;border-width:2px} .prog:has(i:nth-child(17)) i.done::after{inset:1px;border-width:1.5px} .prog:has(i:nth-child(17)) i.wrong::after{font-size:7px;line-height:8px} .chtoast{position:fixed;left:50%;top:118px;transform:translateX(-50%);z-index:60;background:#1d2140;color:#fff;border:3px solid #ffd23f;border-radius:999px;padding:7px 18px;display:flex;gap:10px;align-items:baseline;box-shadow:0 6px 0 rgba(0,0,0,.25);animation:chin .35s cubic-bezier(.2,1.4,.4,1);pointer-events:none;white-space:nowrap;max-width:92vw} .chtoast small{color:#ffd23f;font-weight:900;font-size:12px} .chtoast b{font-size:15px} .chtoast.out{opacity:0;transition:opacity .45s} @keyframes chin{from{transform:translate(-50%,-14px);opacity:0}to{transform:translate(-50%,0);opacity:1}} @media (prefers-reduced-motion:reduce){.chtoast{animation:none}}.sitetoast{color:var(--ink);animation:rise .35s cubic-bezier(.2,1.4,.4,1),fadeout .5s 2.8s forwards} .sitetoast .stb span{display:inline-flex;flex-direction:column;align-items:center;line-height:1.2;color:var(--ink)} .sitetoast .stb span small{font-size:11px;font-weight:800;color:var(--dim);font-family:inherit} .sitetoast .stb span.from{opacity:.7;font-size:.85em} .sitetoast .stb span.to{background:var(--sc);color:#fff;border-left-width:2.5px;font-size:1.15em;padding:4px 14px;box-shadow:0 3px 0 var(--ink)} .sitetoast .stb span.to small{color:rgba(255,255,255,.9)} .sitetoast .stb b{color:var(--ink);font-size:1.3em} .sitetoast .sts{font-size:13px;color:var(--ink)}.ideacats{display:flex;flex-wrap:wrap;gap:6px;margin:4px 0 8px} .ideacats button{border:2.5px solid var(--ink);background:#fff;border-radius:999px;padding:5px 10px;font-weight:800;font-size:12.5px;cursor:pointer;color:var(--ink)} .ideacats button.on{background:var(--ink);color:#fff} #ideaModal textarea{width:100%;box-sizing:border-box;border:2.5px solid var(--ink);border-radius:12px;padding:8px 10px;font:inherit;font-size:14px;resize:vertical} #ideaModal select{width:100%}</style>
 
 <div class="sunburst" aria-hidden="true"></div>
 
@@ -1029,7 +1029,7 @@ body[data-screen="loop"] .sunburst{--sun-1:#ffe9b8;--sun-2:#ffd27a}
     <div class="corner"><button type="button" class="g-btn" id="btnBoard">마스터 현황표</button><button type="button" class="g-btn" id="btnRecords">기록실</button></div>
     <button type="button" class="g-btn tail" id="btnHow">게임방법</button>
     <button type="button" class="g-btn tail green" id="btnStart">▶ 게임시작</button>
-    <div class="credit">틀린시연찾기 · 공식 메뉴얼 + 체험존 기반 · 신사업전략팀 · <span id="verTag" title="업데이트 노트는 게임방법 안에">v47</span></div>
+    <div class="credit">틀린시연찾기 · 공식 메뉴얼 + 체험존 기반 · 신사업전략팀 · <span id="verTag" title="업데이트 노트는 게임방법 안에">v48</span></div>
   </div>
 </section>
 
@@ -1041,6 +1041,7 @@ body[data-screen="loop"] .sunburst{--sun-1:#ffe9b8;--sun-2:#ffd27a}
       <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">
         <span class="player-chip" id="mapPlayerChip" title="로그인 정보"><span class="av">🧑‍💼</span><span id="mapPlayer">시연자</span></span>
         <span class="player-chip" id="mapDoctor"><span class="av">👨‍⚕️</span><span>원장님</span></span>
+        <button type="button" class="g-btn sm blue" id="mapIdea" title="오류·개선 아이디어를 언제든 보내기">💬 의견</button>
         <button type="button" class="g-btn sm" id="mapSetup">설정</button>
         <button type="button" class="g-btn sm" id="mapHome">타이틀</button>
       </div>
@@ -1224,6 +1225,18 @@ body[data-screen="loop"] .sunburst{--sun-1:#ffe9b8;--sun-2:#ffd27a}
 </section>
 
 <!-- ═════════ 모달: 마스터키 ═════════ -->
+<div class="modal" id="ideaModal">
+  <div class="g-panel" style="width:min(460px,100%)">
+    <div class="eyebrow">개선 의견</div>
+    <h2 class="g">💬 의견 보내기</h2>
+    <p class="kbd" style="margin:0 0 6px">틀린 정답·안 맞는 화면·헷갈리는 문구·새 아이디어, 무엇이든 한 줄이면 됩니다. 모인 의견으로 다음 버전을 고칩니다.</p>
+    <div class="ideacats" id="ideaCats"></div>
+    <div class="field"><label for="ideaStage">어느 스테이지?</label><select id="ideaStage"></select></div>
+    <div class="field"><label for="ideaText">의견</label><textarea id="ideaText" rows="4" maxlength="600" placeholder="예) M10 리브레 4번째 — '교육 자료로 보내기' 체크박스가 너무 작아요"></textarea></div>
+    <div class="kbd" id="ideaDest" style="margin-top:2px"></div>
+    <div class="btn-row"><button type="button" class="g-btn blue" id="ideaSend">보내기</button><button type="button" class="g-btn gray" id="ideaClose">닫기</button></div>
+  </div>
+</div>
 <div class="modal" id="keyModal">
   <div class="g-panel" style="width:min(400px,100%)">
     <div class="eyebrow">마스터키</div>
@@ -1273,6 +1286,7 @@ body[data-screen="loop"] .sunburst{--sun-1:#ffe9b8;--sun-2:#ffd27a}
     <div class="sites" id="siteLegend"></div>
     <p class="kbd" style="margin:10px 0 0">전체 완주 점수 = 100 − 오답×5 − 찬스×8. S 100 · A 90↑ · B 75↑ · C 60↑ · D · F(원장님 퇴장). 시간 초과도 오답 1회. 👀 시범은 정답과 멘트를 보여주는 자동 재생.</p>
     <details class="changelog"><summary>🆕 업데이트 노트 (최근)</summary><ul>
+      <li><b>v48</b> 💬 상시 의견 보내기 — 미션 화면 위 [💬 의견] 버튼: 분류(오류·화면·문구·아이디어·기타) + 스테이지 + 한 줄 → 구글 시트 feedback 탭(구분 idea). 예전 claude.ai 버전 팀 저장소 기록 12건을 시트로 옮김</li>
       <li><b>v47</b> 🔁 사이트 이동 안내 버그 수정 — 사이트 이름이 흰 바탕에 흰 글씨라 안 보이던 문제. '방금 → 이제' 표시, 이동할 사이트는 사이트 색으로 크게, 안내 시간 2.6→3.3초</li>
       <li><b>v46</b> 검수 반영: M10·M11 보드 정답 버튼 주변 번짐(지운 빨간 점선 흔적) 제거 — 점선 방향으로 복원 · 의사랑 도구모음 화면의 정답 화살표·확인 박스 제거 · 의사랑 런처 화면 확대(창만 잘라 2.4배) · 긴 스테이지에 챕터 띠(①②③…) · 진행 점 17개 이상이면 작게(폰 한 줄) · M11 이름 '카트비피 연속혈압'</li>
       <li><b>v45</b> 📈 디지털 헬스케어 보너스 2종 신설 — <b>M10 리브레 연속혈당</b>(11스텝: 실시간 혈당 · 리포트 생성 · 교육 자료로 보내기 → 교육상담 발송 → 심평원 · 추천 환자 · 환자 앱 연동) · <b>M11 카트비피 프로 연속혈압</b>(16스텝: 의료진 앱 연결·보정·측정·데이터 전송 → 카트비피 웹 PDF → 웰체크 검사 설정·동의 → PDF 보고서 · 앱 발송 → 환자 앱). 통합 매뉴얼 화면에서 빨간 표시를 지운 보드</li>
@@ -3132,6 +3146,14 @@ function fluAll(){ const box=$('review'); if(!box) return; const old=box.querySe
 function ensureToolsRow(){ const el=$('todo'); if(!el) return null; let r=el.querySelector('.trow.tools'); if(!r){ r=document.createElement('div'); r.className='trow tools'; r.innerHTML='<span class="tl">🧰 도구</span>'; el.appendChild(r); } return r; }
 
 function chapterToast(st){ const old=document.querySelector('.chtoast'); if(old) old.remove(); const all=STEPS.filter(s=>s.st===st.st&&s.ch); const i=all.indexOf(st); const t=document.createElement('div'); t.className='chtoast'; t.innerHTML=`<small>${i+1} / ${all.length}</small><b>${esc(st.ch)}</b>`; document.body.appendChild(t); setTimeout(()=>t.classList.add('out'),2100); setTimeout(()=>t.remove(),2600); }
+const IDEA_CATS=['🐞 오류·정답 틀림','🖼 화면이 실제와 달라요','✏️ 문구·팁 수정','💡 새 아이디어','🙂 기타'];
+function openIdea(){ let cat=IDEA_CATS[0]; const cats=$('ideaCats'); cats.innerHTML=IDEA_CATS.map((c,i)=>`<button type="button" class="${i?'':'on'}" data-c="${esc(c)}">${esc(c)}</button>`).join(''); cats.querySelectorAll('button').forEach(b=>b.onclick=()=>{ cat=b.dataset.c; cats.querySelectorAll('button').forEach(x=>x.classList.toggle('on',x===b)); });
+  const sts=STAGES.filter(s=>!s.locked); $('ideaStage').innerHTML='<option value="">전체 · 특정 스테이지 아님</option>'+sts.map(s=>`<option value="${s.id}">${esc(stageCode(s)+' · '+s.title)}</option>`).join('');
+  $('ideaText').value=''; $('ideaDest').textContent = SHEETS.url ? '📄 보내면 구글 시트 「feedback」 탭에 바로 쌓입니다.' : '보내면 팀 저장소에 쌓입니다(연결이 안 되면 이 기기에 모아 두었다가 자동 재전송).';
+  $('ideaSend').onclick=async()=>{ const text=($('ideaText').value||'').trim(); if(!text){ $('ideaText').focus(); toast('의견을 한 줄 적어 주세요'); return; } const sid=$('ideaStage').value; const st=STAGES.find(s=>s.id===sid);
+    $('ideaSend').disabled=true; try{ await saveFeedback({ kind:'idea', ...(S.profile||{name:S.name}), course:st?st.course:S.course, stage:sid, mode:'idea', result:'idea', thumbs:'', tags:[cat], text, at:new Date().toISOString() }); toast('고마워요! 의견이 접수됐어요 ✓'); closeModal('ideaModal'); }catch(e){ toast('전송에 실패했어요 — 잠시 뒤 다시 보내 주세요'); } $('ideaSend').disabled=false; };
+  $('ideaClose').onclick=()=>closeModal('ideaModal'); openModal('ideaModal'); setTimeout(()=>$('ideaText').focus(),60); }
+$('mapIdea').addEventListener('click', openIdea);
 /* 초기화 */
 loadStars(); S.profile = loadProfile(); if(S.profile) S.name = S.profile.name;
 loadCourse(); ['s01','s02','s03'].forEach(k=>{ const i=new Image(); i.src=IMG[k]; });
