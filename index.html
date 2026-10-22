@@ -1029,7 +1029,7 @@ body[data-screen="loop"] .sunburst{--sun-1:#ffe9b8;--sun-2:#ffd27a}
     <div class="corner"><button type="button" class="g-btn" id="btnBoard">마스터 현황표</button><button type="button" class="g-btn" id="btnRecords">기록실</button></div>
     <button type="button" class="g-btn tail" id="btnHow">게임방법</button>
     <button type="button" class="g-btn tail green" id="btnStart">▶ 게임시작</button>
-    <div class="credit">틀린시연찾기 · 공식 메뉴얼 + 체험존 기반 · 신사업전략팀 · <span id="verTag" title="업데이트 노트는 게임방법 안에">v43</span></div>
+    <div class="credit">틀린시연찾기 · 공식 메뉴얼 + 체험존 기반 · 신사업전략팀 · <span id="verTag" title="업데이트 노트는 게임방법 안에">v44</span></div>
   </div>
 </section>
 
@@ -1273,6 +1273,7 @@ body[data-screen="loop"] .sunburst{--sun-1:#ffe9b8;--sun-2:#ffd27a}
     <div class="sites" id="siteLegend"></div>
     <p class="kbd" style="margin:10px 0 0">전체 완주 점수 = 100 − 오답×5 − 찬스×8. S 100 · A 90↑ · B 75↑ · C 60↑ · D · F(원장님 퇴장). 시간 초과도 오답 1회. 👀 시범은 정답과 멘트를 보여주는 자동 재생.</p>
     <details class="changelog"><summary>🆕 업데이트 노트 (최근)</summary><ul>
+      <li><b>v44</b> 🩺 실무 코스 보너스 <b>M9 의사랑 EMR 연동</b> 신설 — 의사랑 연동 매뉴얼의 실제 화면 24장·28스텝: 웰체크 EMR 지정 → 의사랑 환경설정(부가2·웰체크 연동) → 도구모음 W 아이콘 → 검사코드 매칭 → 원무 일만사 접수 → 검사결과 전송 → 환자 호출 → 포괄평가 EMR 결과 가져오기 → 심평원 작성완료 → 점검/평가. 보너스지만 흐름 전체를 순서대로</li>
       <li><b>v43</b> 목적 집중: 수가 계산기·숫자 특훈·응대 카드북·응대 특훈·오답 노트 칩 제외(제안·말하기는 루피 몫) · 🧭 자유자재 지수 신설(오답·찬스·시간초과 없이 8초 안 정답 비율 + 머뭇거린 곳 TOP3, 스테이지 클리어·성적표) · 입문 코스의 응대 특훈 → 순서 맞추기 M0~M3</li>
       <li><b>v42</b> 🎙 멘트 말하기 제외 — 제안 말하기 평가는 루피(알피왕)에서, 이 게임은 시연 조작·응대에 집중</li>
       <li><b>v40</b> 📲 웹 버전을 폰 홈 화면에 앱으로 설치 · 오프라인에서도 훈련(화면·이미지·BGM 저장), 연결되면 기록 자동 전송 · 오프라인 표시 · 현황표 📊 구글 시트 바로가기</li>
@@ -1515,6 +1516,50 @@ STEPS_M.push(
   { st:'mx', id:'xn', img:'x_mdate', synth:true, who:'', task:'심평원 환자관리 — <b>틀린 날짜</b>는?', rects:[R(18.0,74.9,7.5,6.0)], hint:'관리년월과 실시일자 비교', chance:"2025년 07월 행인데 실시일자가 08월", tip:{ say:'심평원 환자관리는 관리년월 행마다 그 달의 실시일자를 넣고 작성완료합니다. 7월 행에 8월 날짜가 들어가면 안 돼요.', note:'매뉴얼 p.62 심평원 바로가기 › 해당 월 행 체크 후 작성완료.' } },
   { st:'mx', id:'xo', img:'x_cert', synth:true, who:'원장님', say:'"인증서 비밀번호가 맞는데 로그인이 안 돼요"', task:'Agent 인증서 로그인 — <b>문제가 되는 곳</b>은?', rects:[R(30.5,54.4,16.0,6.0)], hint:'작업표시줄의 오늘 날짜와 만료 날짜 열', chance:"만료 날짜(2024-09-18)가 오늘(2026-10-15)보다 과거 — 만료된 인증서", tip:{ say:'만료된 공동인증서로는 Agent 로그인이 안 됩니다. 오늘 날짜(작업표시줄)와 만료 날짜부터 비교하고 갱신해 드릴게요.', note:'매뉴얼 p.10 공동인증서 로그인: 인증서 선택 후 비밀번호 입력 → 로그인 후 아이콘이 파란색인지 확인. 만료 규정은 매뉴얼에 없음 — 만료 인증서는 갱신 후 다시 선택.' } }
 );
+
+/* ── 보너스 M9 · 의사랑 EMR 연동: 「웰체크 EMR 연동(의사랑) 클릭형 프로토타입 매뉴얼」(promo.well-check.co.kr) 화면·좌표 기반. 원본 1920×1080 → % 좌표 ── */
+const IMG_Y = ['launcher','env1','env2','c1base','c1menu','c2','c3','tb','r_new','r2','r3','r4','r5','hp','wcall','w1','w2','w3','w5','hira','wcall2','v1','v4','hira2'];
+IMG_Y.forEach(k=>{ IMG['y_'+k]='img/ysr/'+k+'.webp'; IMGA['y_'+k]=1456/819; });
+const YP=(x1,y1,x2,y2,pad)=>{ pad=pad==null?0.4:pad; return R(+(x1/19.2-pad).toFixed(2), +(y1/10.8-pad).toFixed(2), +((x2-x1)/19.2+pad*2).toFixed(2), +((y2-y1)/10.8+pad*2).toFixed(2)); };
+STAGES_M.push({ id:'my', course:'biz', n:9, bonus:true, full:true, title:'의사랑 EMR 연동', sub:'연동 세팅 · 검사코드 매칭 · 일만사 접수 · 검사결과 전송 · 포괄평가/점검평가 가져오기', color:'#c2410c', page:'의사랑 연동 매뉴얼' });
+STEPS_M.push(
+  // ── ① 연동 환경 세팅 (웰체크)
+  { st:'my', id:'ya1', img:'y_hp', who:'원장님', say:'"우리는 의사랑 쓰는데, 웰체크랑 연동돼요?"', task:'[웰체크] 병원 프로필 — <b>사용 차트 종류(EMR)</b>를 의사랑으로', rects:[YP(973,753,1384,804)], hint:'기본 정보 카드 맨 아래 선택 칸', chance:"'사용 차트 종류(EMR)' 선택 칸", tip:{ say:'네, 의사랑은 웰체크와 바로 연동됩니다. 먼저 웰체크 병원설정에서 사용 차트를 의사랑으로 지정해 두면 검사 결과를 EMR에서 그대로 받아옵니다.', note:'웰체크 › 병원 설정 › 병원 프로필 › 사용 차트 종류(EMR) = <b>의사랑</b>.' } },
+  // ── ② 연동 환경 세팅 (의사랑)
+  { st:'my', id:'ya2', img:'y_launcher', who:'', task:'[의사랑] 런처에서 <b>환경설정</b>', rects:[YP(664,264,818,316)], hint:'런처 아이콘 중 톱니바퀴', chance:"'환경설정' 아이콘", tip:{ say:'의사랑 쪽에서도 연동을 켜야 합니다. 런처의 환경설정으로 들어갑니다.', note:'의사랑 런처 › 환경설정.' } },
+  { st:'my', id:'ya3', img:'y_env1', who:'', task:'환경설정 — <b>부가2</b> 탭', rects:[YP(319,186,372,209,0.6)], hint:'위쪽 탭 줄', chance:"'부가2' 탭", tip:{ say:'웰체크 연동 옵션은 부가2 탭에 있습니다.', note:'환경설정 › 부가2.' } },
+  { st:'my', id:'ya4', img:'y_env2', who:'', task:'<b>웰체크 연동</b> 체크', rects:[YP(127,622,217,647,0.6)], hint:'왼쪽 체크박스 목록', chance:"'웰체크 연동' 체크박스", tip:{ say:'웰체크 연동에 체크하면 의사랑 진료실에 웰체크 메뉴가 생깁니다.', note:'' } },
+  { st:'my', id:'ya5', img:'y_env2', who:'', task:'아래 <b>저장</b>', rects:[YP(1621,964,1719,992)], hint:'창 오른쪽 아래', chance:"'저장(A)' 버튼", tip:{ say:'저장까지 해야 반영됩니다. 체크만 하고 닫으면 메뉴가 안 보여요.', note:'' } },
+  { st:'my', id:'ya6', img:'y_tb', who:'', task:'진료실 도구모음 설정 — 표시 안 하는 버튼에서 <b>웰체크</b> 선택', rects:[YP(1113,342,1193,374)], hint:'오른쪽 목록', chance:"오른쪽 목록의 '웰체크' 아이콘", tip:{ say:'진료실 위쪽 도구모음에 웰체크 버튼을 올려 두면 진료 중에 한 번에 엽니다.', note:'진료실 › 도구(메뉴) › 도구모음 설정.' } },
+  { st:'my', id:'ya7', img:'y_tb', who:'', task:'<b>왼쪽으로 이동</b>해 도구모음에 표시', rects:[YP(941,313,973,343,0.6)], hint:'가운데 화살표 버튼 4개 중 맨 위', chance:"'<' 버튼", tip:{ say:'왼쪽(표시할 버튼)으로 옮기고 확인을 누르면 도구모음에 W 아이콘이 생깁니다.', note:'이동 후 [확인].' } },
+  // ── ③ 검사코드 매칭
+  { st:'my', id:'yb1', img:'y_c1base', who:'', task:'진료실 도구모음 — <b>웰체크 ▼</b> 메뉴 열기', rects:[YP(1198,54,1245,101)], hint:'도구모음 오른쪽 파란 W', chance:"파란 'W 웰체크' 아이콘", tip:{ say:'이 W 버튼 하나로 환자 호출, 검사 결과 전송, 검사코드 매칭을 다 합니다.', note:'웰체크 ▼ = 환자 호출 · 검사 결과 전송 · 검사코드 매칭설정.' } },
+  { st:'my', id:'yb2', img:'y_c1menu', who:'', task:'처음 한 번 — <b>검사코드 매칭설정</b>', rects:[YP(1224,150,1338,169,0.6)], hint:'펼쳐진 메뉴 맨 아래', chance:"'검사코드 매칭설정'", tip:{ say:'병원마다 검사 처방코드가 달라서, 처음 한 번 웰체크 임상검사 항목과 우리 병원 코드를 연결해 둡니다.', note:'' } },
+  { st:'my', id:'yb3', img:'y_c3', who:'원장님', say:'"우리 병원 코드가 다른데요?"', task:'혈압 항목 <b>수정</b>', rects:[YP(1187,242,1266,271)], hint:'첫 줄(혈압 수치) 오른쪽', chance:"혈압 수치 줄의 '수정'", tip:{ say:'이미 연결된 항목은 수정, 빈 항목은 추가하시면 됩니다. LDL과 eGFR은 다른 수치로 자동 계산돼 매칭할 필요가 없어요.', note:'LDL = 총콜·TG·HDL로 자동 계산 / eGFR = 크레아티닌·성별·나이로 자동 계산. 혈압은 기본 바이탈 BP1·BP2. 수정 → [등록된 기초자료]에서 처방코드 선택 → 저장 후 닫기.' } },
+  // ── ④ 일만사 환자 접수 (원무과)
+  { st:'my', id:'yc1', img:'y_r_new', who:'', task:'[의사랑 원무] 신규 접수 — 추가정보 <b>상세</b>', rects:[YP(849,720,887,744,0.6)], hint:'보험정보 영역 오른쪽 아래', chance:"추가정보 줄의 '상세'", tip:{ say:'일만사 환자는 접수할 때 부가정보에서 만성질환관리 대상으로 표시해 둡니다. 재진 환자도 같은 자리예요.', note:'원무과 외래 › 신규/접수 › 추가정보 상세.' } },
+  { st:'my', id:'yc2', img:'y_r2', who:'', task:'<b>일차의료 만성질환 관리</b> 체크', rects:[YP(397,473,557,495)], hint:'목록 가운데쯤', chance:"'일차의료 만성질환 관리' 체크박스", tip:{ say:'여기 체크하면 이 환자가 일만사 대상으로 표시되고 본인부담 경감이 적용됩니다.', note:'' } },
+  { st:'my', id:'yc3', img:'y_r3', who:'', task:'옆 <b>상세</b>', rects:[YP(560,472,608,496,0.6)], hint:'방금 체크한 줄 오른쪽', chance:"'상세' 버튼", tip:{ say:'상세에서 참여 신청일을 넣으면 본인부담 경감 기간이 자동으로 잡힙니다.', note:'' } },
+  { st:'my', id:'yc4', img:'y_r4', who:'', task:'만성질환 통합관리 상세 — <b>추가</b>', rects:[YP(1220,345,1320,369)], hint:'팝업 오른쪽 위', chance:"'추가' 버튼", tip:{ say:'자료제출시스템에서 환자 정보를 확인한 뒤 추가해서 입력합니다.', note:'' } },
+  { st:'my', id:'yc5', img:'y_r5', who:'', task:'참여 신청일 확인 후 <b>저장</b>', rects:[YP(1135,689,1228,713)], hint:'팝업 아래쪽', chance:"'저장 (S)'", tip:{ say:'참여 신청일 기준으로 경감 기간 6개월이 자동 계산됩니다. 저장 → 확인 → 부가정보 저장 → 접수(F8) 순서예요.', note:'예: 신청일 2026-10-13 → 경감 2026-10-13 ~ 2027-04-12.' } },
+  // ── ⑤ 검사결과 전송
+  { st:'my', id:'yd1', img:'y_c1menu', who:'원장님', say:'"검사 결과를 웰체크에 또 옮겨 적어야 해요?"', task:'진료실 웰체크 ▼ — <b>검사 결과 전송</b>', rects:[YP(1224,128,1316,147,0.6)], hint:'메뉴 두 번째 줄', chance:"'검사 결과 전송'", tip:{ say:'아니요, 진료실에서 이 환자 차트를 띄운 상태로 검사 결과 전송만 누르시면 최근 6개월 검사가 웰체크로 넘어갑니다.', note:'' } },
+  { st:'my', id:'yd2', img:'y_c2', who:'', task:'"웰체크로 전송하시겠습니까?" — <b>예</b>', rects:[YP(1041,604,1138,632)], hint:'질문 창 아래 버튼 두 개', chance:"'예(Y)'", tip:{ say:'최근 6개월 검사 결과를 찾아서, 실시일자가 다르면 나눠서 전송합니다.', note:'예: "최근 6개월 검사 결과 9건 확인 · 실시일자 2개로 나누어 전송".' } },
+  // ── ⑥ 포괄평가 계획수립
+  { st:'my', id:'ye1', img:'y_c1menu', who:'', task:'웰체크 ▼ — <b>환자 호출</b>', rects:[YP(1224,105,1300,126,0.6)], hint:'메뉴 맨 위', chance:"'환자 호출'", tip:{ say:'환자 호출을 누르면 진료실에 띄운 환자의 웰체크 화면이 바로 열립니다. 환자를 따로 검색할 필요가 없어요.', note:'' } },
+  { st:'my', id:'ye2', img:'y_wcall', who:'', task:'[웰체크] <b>포괄평가 계획수립</b> 탭', rects:[YP(411,260,582,306)], hint:'환자 이름 아래 탭 줄', chance:"'포괄평가 계획수립' 탭", tip:{ say:'포괄평가 탭에서 EMR 검사값을 불러옵니다.', note:'' } },
+  { st:'my', id:'ye3', img:'y_w1', who:'', task:'<b>EMR 결과 가져오기 ▼</b>', rects:[YP(1585,146,1759,189)], hint:'오른쪽 위 버튼 줄', chance:"'EMR 결과 가져오기 ▼'", tip:{ say:'방법은 두 가지예요. 검사 결과 확인은 값을 보고 골라서 넣고, 일괄 반영은 최신값을 한 번에 채웁니다.', note:'▼ 검사 결과 확인 / 검사 결과 일괄 반영.' } },
+  { st:'my', id:'ye4', img:'y_w2', who:'', task:'값을 보고 넣는 방법 — <b>검사 결과 확인</b>', rects:[YP(1590,196,1751,230)], hint:'펼쳐진 메뉴 첫 줄', chance:"'검사 결과 확인'", tip:{ say:'처음 시연할 땐 검사 결과 확인으로 어떤 값이 넘어왔는지 원장님께 보여 드리는 게 좋습니다.', note:'일괄 반영은 계획 수립 일자를 먼저 넣어야 함(빨간 테두리).' } },
+  { st:'my', id:'ye5', img:'y_w3', who:'', task:'EMR 임상수치 — 필수 <b>계획 수립일자</b>', rects:[YP(739,215,859,250)], hint:'팝업 위쪽 날짜 칸', chance:"'계획 수립일자' 날짜 칸", tip:{ say:'계획 수립일자는 필수고, 이 날짜 기준 최근 6개월 이내 검사값만 쓸 수 있습니다.', note:'' } },
+  { st:'my', id:'ye6', img:'y_w3', who:'', task:'<b>임상검사 세부내역 전송</b>', rects:[YP(887,944,1075,988)], hint:'팝업 맨 아래 파란 버튼', chance:"'임상검사 세부내역 전송'", tip:{ say:'전송하면 혈압·지질·신장·당 수치가 포괄평가 임상검사 칸에 자동으로 채워집니다.', note:'채운 뒤 [임상검사 저장].' } },
+  { st:'my', id:'ye7', img:'y_w5', who:'원장님', say:'"이걸로 심평원 제출까지 끝나요?"', task:'채운 뒤 심평원으로 — <b>심평원 바로가기</b>', rects:[YP(1441,142,1585,184)], hint:'오른쪽 위 검은 버튼', chance:"'심평원 바로가기'", tip:{ say:'임상검사 저장, 임시저장(심평원)까지 하고 심평원 바로가기로 넘어가 작성완료를 누르면 제출이 끝납니다.', note:'순서: 임상검사 저장 → 임시저장(심평원) → 심평원 바로가기 → 작성완료.' } },
+  { st:'my', id:'ye8', img:'y_hira', who:'', task:'[심평원] 포괄평가 및 계획수립 — <b>작성완료</b>', rects:[YP(1614,253,1724,289)], hint:'오른쪽 버튼 세 개 중 마지막', chance:"'작성완료'", tip:{ say:'작성완료를 누르면 심평원 제출이 끝납니다. 이후엔 웰체크에서 수정이 안 되니 값을 한 번 더 확인하고 누르세요.', note:'<b>작성완료 후 웰체크 수정 불가</b>.' } },
+  // ── ⑦ 점검/평가
+  { st:'my', id:'yf1', img:'y_wcall2', who:'', task:'6개월 뒤 — <b>점검/평가</b> 탭', rects:[YP(805,259,913,305)], hint:'탭 줄 맨 오른쪽', chance:"'점검/평가' 탭", tip:{ say:'점검평가도 같은 방식이에요. 환자 호출 → 점검/평가 탭 → EMR 결과 가져오기.', note:'' } },
+  { st:'my', id:'yf2', img:'y_v4', who:'', task:'점검 차수 확인 후 <b>임상검사 세부내역 전송</b>', rects:[YP(917,953,1111,996)], hint:'팝업 맨 아래 파란 버튼', chance:"'임상검사 세부내역 전송'", tip:{ say:'1차·2차 점검평가 탭을 골라 전송하면 해당 차수 칸에 채워집니다. 2차는 1차 작성완료 뒤에 열려요.', note:'' } },
+  { st:'my', id:'yf3', img:'y_hira2', who:'', task:'[심평원] 점검 및 평가 — <b>작성완료</b>', rects:[YP(1639,348,1751,384)], hint:'세부내역 위 버튼 세 개 중 마지막', chance:"'작성완료'", tip:{ say:'웰체크 임시저장 → 심평원 바로가기 → 작성완료로 점검평가 제출이 끝납니다.', note:'포괄평가와 같은 흐름. 작성완료 후 웰체크 수정 불가.' } }
+);
+
 STAGES.push(...STAGES_M); STEPS.push(...STEPS_M);
 
 /* ═══════════════════════════════════════════ 상태 ═══════════════════════════════════════════ */
@@ -1612,7 +1657,7 @@ function startRun(mode, stageId, demo){
 }
 function startStage(){
   const id = S.queue[S.qi]; S.stage = id==='review' ? { id:'review', course:S.course, n:'R', title:'틀린 것만 복습', sub:(S.reviewIds||[]).length+'단계 다시', color:'#9b5cff' } : id==='daily' ? { id:'daily', course:S.course, n:'D', title:'오늘의 10문제', sub:dailyKey()+' · 전 팀원 같은 문제 · '+diffOf().n, color:'#ff8a00' } : id==='focus' ? { id:'focus', course:S.course, n:'F', title:'약점 집중 훈련', sub:'숙련도 낮은 '+(S.focusIds||[]).length+'스텝 · '+diffOf().n, color:'#e0365b' } : id==='weekly' ? { id:'weekly', course:S.course, n:'W', title:'주간 챌린지', sub:weekKey()+' · 전 팀원 같은 12스텝 · 😈 압박', color:'#b45309' } : STAGES.find(s=>s.id===id);
-  S.steps = id==='review' ? (S.reviewIds||[]).map(x=>STEPS.find(s=>s.id===x)).filter(Boolean) : id==='daily' ? (S.dailyIds||[]).map(x=>STEPS.find(s=>s.id===x)).filter(Boolean) : id==='focus' ? (S.focusIds||[]).map(x=>STEPS.find(s=>s.id===x)).filter(Boolean) : id==='weekly' ? (S.weeklyIds||[]).map(x=>STEPS.find(s=>s.id===x)).filter(Boolean) : STEPS.filter(s=>s.st===id && (!s.branch || s.branch===(S.persona.branch||S.persona.key))); if(S.stage&&S.stage.bonus&&S.steps.length>7&&!S.demo&&!S.guide){ S.steps=S.steps.slice().sort(()=>Math.random()-0.5).slice(0,7).sort((a,b)=>STEPS.indexOf(a)-STEPS.indexOf(b)); }
+  S.steps = id==='review' ? (S.reviewIds||[]).map(x=>STEPS.find(s=>s.id===x)).filter(Boolean) : id==='daily' ? (S.dailyIds||[]).map(x=>STEPS.find(s=>s.id===x)).filter(Boolean) : id==='focus' ? (S.focusIds||[]).map(x=>STEPS.find(s=>s.id===x)).filter(Boolean) : id==='weekly' ? (S.weeklyIds||[]).map(x=>STEPS.find(s=>s.id===x)).filter(Boolean) : STEPS.filter(s=>s.st===id && (!s.branch || s.branch===(S.persona.branch||S.persona.key))); if(S.stage&&S.stage.bonus&&!S.stage.full&&S.steps.length>7&&!S.demo&&!S.guide){ S.steps=S.steps.slice().sort(()=>Math.random()-0.5).slice(0,7).sort((a,b)=>STEPS.indexOf(a)-STEPS.indexOf(b)); }
   S.idx=0; S.patience=100; S.combo=0;
   if(S.mode==='one') S.chances=diffOf().chances;
   S.stageRes[id] = { wrong:0, chance:0, tips:0, start:Date.now() }; S.qPick = (typeof pickQCards==='function') ? pickQCards(id) : null; preloadStage(id);
@@ -2063,6 +2108,7 @@ const SITES = {
   admin:{ n:'웰체크 관리자 페이지', ic:'🛠', url:'웰체크 운영팀 · 관리자', c:'#9b5cff', kind:'web' },
   nhis: { n:'요양기관 정보마당 (건보공단)', ic:'🏥', url:'medicare.nhis.or.kr', c:'#ff8a00', kind:'web' },
   emr:  { n:'EMR 오름차트', ic:'📊', url:'진료실 PC · 오름차트', c:'#0ea5e9', kind:'pc' },
+  ysr:  { n:'EMR 의사랑', ic:'🩺', url:'진료실 PC · 의사랑', c:'#c2410c', kind:'pc' },
   zone: { n:'체험존', ic:'🧪', url:'patientcareroom.web.app', c:'#ff3f8e', kind:'web' }
 };
 const SITE_OF = {
@@ -2079,7 +2125,13 @@ const SITE_OF = {
   e1:['emr','오름차트 (체험존 모사) › 수가표'], e1c:['emr','오름차트 › 수가표 팝업'], e2:['emr','오름차트 › 건생 안내'], e2c:['emr','오름차트 › 건생 팝업'], e3:['emr','오름차트 › 상병'], e4:['emr','오름차트 › 진료기록'], e5:['emr','오름차트 › 만성질환관리 메뉴'], e6:['emr','오름차트 › 처방 코드'], e7:['emr','오름차트 › 수익 시뮬레이션'], e8:['zone','수익 시뮬레이션'], e9:['zone','수익 시뮬레이션 › 환자 혜택'], e10:['zone','환자가 좋아하는 일만사'],
   r1:['zone','체험존 › 직원 코스'], r2:['zone','직원 코스 › 초대장 발송'], r3:['hira','업무포털 (체험존 모사) › 대상자 등록'], r4:['hira','대상자 등록 › 개인정보 제공동의'], r5:['hira','대상자 등록 › 경감시작일'], r6:['hira','대상자 등록 › 달력'], r7:['hira','대상자 등록 › 환자기본 정보'], r8:['hira','대상자 등록 › 담당의사'], r9:['hira','담당의사 선택 팝업'], r10:['hira','대상자 등록 › 저장'], r11:['zone','직원 코스 › 다음 단계'],
   p1:['wc','웰체크 (체험존 모사) › 포괄평가 계획수립'], p2:['wc','포괄평가 › EMR 차트 ▼'], p3:['wc','포괄평가 › 임상검사 내역'], p4:['wc','포괄평가 › 문진 내역'], p5:['wc','포괄평가 › 임시저장(심평원)'], p6:['wc','케어플랜 보고서 팝업'],
-  h1:['zone','체험존 › 건강생활실천지원금 코스'], h2:['nhis','정보마당 (체험존 모사) › 참여정보 조회및신청'], h3:['nhis','참여정보 조회및신청 › 참여신청'], h4:['nhis','건생 메뉴 › 포인트차감신청'], h5:['nhis','포인트차감신청 › 조회'], h6:['nhis','포인트차감신청 › 차감신청'], h7:['nhis','차감신청 팝업 › 전액'], h8:['nhis','차감신청 팝업 › 동의'], h9:['nhis','차감신청 팝업 › 차감신청'], h10:['zone','체험종료']
+  h1:['zone','체험존 › 건강생활실천지원금 코스'], h2:['nhis','정보마당 (체험존 모사) › 참여정보 조회및신청'], h3:['nhis','참여정보 조회및신청 › 참여신청'], h4:['nhis','건생 메뉴 › 포인트차감신청'], h5:['nhis','포인트차감신청 › 조회'], h6:['nhis','포인트차감신청 › 차감신청'], h7:['nhis','차감신청 팝업 › 전액'], h8:['nhis','차감신청 팝업 › 동의'], h9:['nhis','차감신청 팝업 › 차감신청'], h10:['zone','체험종료'],
+  ya1:['wc','병원 설정 › 병원 프로필 › 사용 차트 종류(EMR)'], ya2:['ysr','런처 › 환경설정'], ya3:['ysr','환경설정 › 부가2'], ya4:['ysr','환경설정 › 부가2 › 웰체크 연동'], ya5:['ysr','환경설정 › 설정 저장'], ya6:['ysr','진료실 › 도구 › 도구모음 설정'], ya7:['ysr','도구모음 설정 › 표시할 버튼으로 이동'],
+  yb1:['ysr','진료실 › 도구모음 › 웰체크 ▼'], yb2:['ysr','웰체크 ▼ › 검사코드 매칭설정'], yb3:['ysr','검사코드 매칭 설정 › 수정'],
+  yc1:['ysr','원무과 외래 › 신규 접수 › 추가정보'], yc2:['ysr','환자 자격 및 부가정보'], yc3:['ysr','부가정보 › 일차의료 만성질환 관리 › 상세'], yc4:['ysr','만성질환 통합관리 상세 › 추가'], yc5:['ysr','만성질환 통합관리 상세 › 저장'],
+  yd1:['ysr','진료실 › 웰체크 ▼ › 검사 결과 전송'], yd2:['ysr','검사 결과 전송 › 확인'],
+  ye1:['ysr','진료실 › 웰체크 ▼ › 환자 호출'], ye2:['wc','환자 › 포괄평가 계획수립'], ye3:['wc','포괄평가 › EMR 결과 가져오기'], ye4:['wc','EMR 결과 가져오기 › 검사 결과 확인'], ye5:['wc','EMR 임상수치 팝업'], ye6:['wc','EMR 임상수치 › 세부내역 전송'], ye7:['wc','포괄평가 › 심평원 바로가기'], ye8:['hira','포괄평가 및 계획수립 › 작성완료'],
+  yf1:['wc','환자 › 점검/평가'], yf2:['wc','점검/평가 › EMR 임상수치 팝업'], yf3:['hira','점검 및 평가 › 작성완료'],
 };
 Object.entries(SITE_OF).forEach(([id,[site,path]])=>{ const s=STEPS.find(x=>x.id===id); if(s){ s.site=site; s.path=path; } });
 function siteOf(st){ return SITES[st&&st.site] || SITES.zone; }
