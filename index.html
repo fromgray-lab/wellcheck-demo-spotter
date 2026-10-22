@@ -1518,7 +1518,7 @@ STEPS_M.push(
 );
 
 /* ── 보너스 M9 · 의사랑 EMR 연동: 「웰체크 EMR 연동(의사랑) 클릭형 프로토타입 매뉴얼」(promo.well-check.co.kr) 화면·좌표 기반. 원본 1920×1080 → % 좌표 ── */
-const IMG_Y = ['launcher','env1','env2','c1base','c1menu','c2','c3','tb','r_new','r2','r3','r4','r5','hp','wcall','w1','w2','w3','w5','hira','wcall2','v1','v4','hira2'];
+const IMG_Y = ['launcher','env1','env2','c1base','c1menu','c2','c3','tb','r_new','r2','r3','r4','r5','hp','wcall','w1','w2','w3','w5','hira','wcall2','v4','hira2'];
 IMG_Y.forEach(k=>{ IMG['y_'+k]='img/ysr/'+k+'.webp'; IMGA['y_'+k]=1456/819; });
 const YP=(x1,y1,x2,y2,pad)=>{ pad=pad==null?0.4:pad; return R(+(x1/19.2-pad).toFixed(2), +(y1/10.8-pad).toFixed(2), +((x2-x1)/19.2+pad*2).toFixed(2), +((y2-y1)/10.8+pad*2).toFixed(2)); };
 STAGES_M.push({ id:'my', course:'biz', n:9, bonus:true, full:true, title:'의사랑 EMR 연동', sub:'연동 세팅 · 검사코드 매칭 · 일만사 접수 · 검사결과 전송 · 포괄평가/점검평가 가져오기', color:'#c2410c', page:'의사랑 연동 매뉴얼' });
