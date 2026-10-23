@@ -73,3 +73,15 @@ if(SHEETS.url) setTimeout(async()=>{ try{ await flushOutbox(); }catch(e){} await
 /* 초기화 */""")
 src = rep(src, "if(SHEETS.url && (await shHealth())){ try{ await shPost(col, doc);", "if(SHEETS.url && (await shHealth())){ try{ await shPost(col, doc); markSent(col, doc);")
 src = rep(src, "let SH_OK=null, SH_AT=0, SH_P=null;", "let SH_OK=null, SH_AT=0, SH_P=null;\nfunction markSent(c,d){ if(!d||!d.at) return; try{ const s=JSON.parse(localStorage.getItem('dsg_sent')||'[]'); const k=c+'|'+(d.name||'')+'|'+d.at; if(!s.includes(k)){ s.push(k); localStorage.setItem('dsg_sent', JSON.stringify(s.slice(-3000))); } }catch(e){} }")
+# v53: 실패·중도 포기도 기록 — 원장님 퇴장(인내심 0)과 ✕ 그만두기 때 진행분을 mode 'fail' / 'quit'로 저장
+src = rep(src, "function gameOver(){ if(S.over) return; S.over=true;", "function gameOver(){ if(S.over) return; setTimeout(()=>{ try{ partialRun('fail'); }catch(e){} }, 50); S.over=true;")
+src = rep(src, "$('quitBtn').addEventListener('click', ()=>{ clearInterval(S.timer);", "$('quitBtn').addEventListener('click', ()=>{ try{ if(!S.over) partialRun('quit'); }catch(e){} clearInterval(S.timer);")
+src = rep(src, "\n/* 초기화 */", """
+function partialRun(kind){ if(S.demo||S.guide||S.mode==='review'||!S.stage) return; if(!['one','all','daily','focus','weekly'].includes(S.mode)) return;
+  const id=S.stage.id; const logs=(S.stepLog||[]).filter(l=>l.st===id||S.mode!=='one'&&S.mode!=='all'); const cur=S.cur?[{...S.cur, s:Math.round((Date.now()-(S.cur.t0||Date.now()))/1000)}]:[]; const all=logs.concat(kind==='quit'?cur:[]);
+  if(kind==='quit' && !all.some(l=>(l.s||0)>0||(l.w||0)>0)) return; /* 시작만 하고 바로 닫은 건 제외 */
+  const res=(S.stageRes||{})[id]||{}; const total=(S.steps||[]).length; const done=Math.min(total,(S.idx||0)); const secs=Math.floor((Date.now()-(res.start||S.start||Date.now()))/1000);
+  saveRun({ ...(S.profile||{name:S.name}), persona:S.persona?S.persona.key:'', mode:kind, from:S.mode, course:S.course, stage:id, diff:S.diff, grade:'F', score:Math.max(0,100-W_WRONG*(res.wrong||0)-W_CHANCE*(res.chance||0)), wrong:res.wrong||0, chance:res.chance||0, tips:res.tips||0, secs, over:true, progress:done+'/'+total, steps:compactSteps(all), at:new Date().toISOString() }); }
+/* 초기화 */""")
+src = rep(src, "qdrill:'응대 특훈',numdrill:'숫자 특훈',review:'복습'};", "qdrill:'응대 특훈',numdrill:'숫자 특훈',review:'복습',fail:'실패(원장님 퇴장)',quit:'중도 그만'};")
+src = rep(src, "numdrill:'숫자',order:'순서',review:'복습',demo:'시범',guide:'따라하기'};", "numdrill:'숫자',order:'순서',review:'복습',demo:'시범',guide:'따라하기',fail:'실패',quit:'중단'};")

@@ -1029,7 +1029,7 @@ body[data-screen="loop"] .sunburst{--sun-1:#ffe9b8;--sun-2:#ffd27a}
     <div class="corner"><button type="button" class="g-btn" id="btnBoard">마스터 현황표</button><button type="button" class="g-btn" id="btnRecords">기록실</button></div>
     <button type="button" class="g-btn tail" id="btnHow">게임방법</button>
     <button type="button" class="g-btn tail green" id="btnStart">▶ 게임시작</button>
-    <div class="credit">틀린시연찾기 · 공식 메뉴얼 + 체험존 기반 · 신사업전략팀 · <span id="verTag" title="업데이트 노트는 게임방법 안에">v52</span></div>
+    <div class="credit">틀린시연찾기 · 공식 메뉴얼 + 체험존 기반 · 신사업전략팀 · <span id="verTag" title="업데이트 노트는 게임방법 안에">v53</span></div>
   </div>
 </section>
 
@@ -1286,6 +1286,7 @@ body[data-screen="loop"] .sunburst{--sun-1:#ffe9b8;--sun-2:#ffd27a}
     <div class="sites" id="siteLegend"></div>
     <p class="kbd" style="margin:10px 0 0">전체 완주 점수 = 100 − 오답×5 − 찬스×8. S 100 · A 90↑ · B 75↑ · C 60↑ · D · F(원장님 퇴장). 시간 초과도 오답 1회. 👀 시범은 정답과 멘트를 보여주는 자동 재생.</p>
     <details class="changelog"><summary>🆕 업데이트 노트 (최근)</summary><ul>
+      <li><b>v53</b> 📉 실패·중도 그만도 기록 — 원장님 퇴장(인내심 0)과 플레이 중 ✕를 누른 판도 진행분(몇 스텝까지·오답·오클릭 위치)을 '실패'/'중단'으로 시트에 저장 → 어디서 막혀 포기하는지까지 개선 루프에 반영</li>
       <li><b>v52</b> 🛠 직원 기록 누락 수정 — 시트 저장소가 '나만' 접근이라 다른 사람 기록이 저장되지 않던 문제(배포 권한 '모든 사용자'로 변경) · 시트에 못 쓰면 '보냈다'고 착각하지 않고 이 기기 보내기함에 보관 · 연결되면 이 기기에 남은 기록·의견·평가를 자동 재전송(중복 없음)</li>
       <li><b>v51</b> 쌓인 기록 기반 개선 — M10에 '추천 환자 탭' 스텝 분리(실제 오클릭이 탭에 몰림), M0 Agent 로그인 '① 왼쪽 그림' 명시(오른쪽 그림 오클릭 4건), M6 문진표 발송 '웹 팝업' 명시(옆 폰 화면 오클릭)</li>
       <li><b>v50</b> 군더더기 제거·정확도 — 정상일 땐 저장 상태 줄 숨김 · '오늘 할 것' 추천 1개만 · 미션 카드 썸네일의 정답 동그라미(스포일러) 제거 · 코스 이름 '8단계 + 보너스 4' · M9~M11 독립 사실 검수 반영 14건(카트비피 보정 휴식 1분, 근거 없는 배터리 수치 삭제, 리브레 추천 대상 권소라로 정답 이동, 의사랑 공구 아이콘 힌트, 검사코드 질문↔당화혈색소 정답 등) · 원장님 질문 카드 10장 추가(M9 3 · M10 3 · M11 4)</li>
@@ -1735,7 +1736,7 @@ function tryFullscreen(){ try{ const el=document.documentElement; if(!document.f
 function exitFullscreen(){ try{ if(document.fullscreenElement && document.exitFullscreen) document.exitFullscreen().catch(()=>{}); }catch(e){} }
 $('fsBtn').addEventListener('click', ()=>{ if(document.fullscreenElement) exitFullscreen(); else tryFullscreen(); });
 $('soundBtn').addEventListener('click', ()=>{ S.sound=!S.sound; $('soundBtn').textContent=S.sound?'🔊':'🔇'; if(S.sound) SFX.pop(); if(typeof bgmSync==='function') bgmSync(); });
-$('quitBtn').addEventListener('click', ()=>{ clearInterval(S.timer); stopStepTimer(); S.guide=false; exitFullscreen(); renderMap(); show('map'); });
+$('quitBtn').addEventListener('click', ()=>{ try{ if(!S.over) partialRun('quit'); }catch(e){} clearInterval(S.timer); stopStepTimer(); S.guide=false; exitFullscreen(); renderMap(); show('map'); });
 $('clockHand').style.transformOrigin='32px 36px'; $('clockHand').style.transformBox='view-box';
 
 /* 카운트다운 3·2·1·START */
@@ -1900,7 +1901,7 @@ function stageClear(){
   $('nextStageBtn').addEventListener('click', ()=>{ host.innerHTML=''; if(S.mode==='all'){ if(last) finish(false); else { S.qi++; startStage(); } } else { exitFullscreen(); renderMap(); show('map'); } });
   const rb=$('retryBtn'); if(rb) rb.addEventListener('click', ()=>{ host.innerHTML=''; S.results=S.results.filter(r=>r.runIdx!==S.qi); startStage(); });
 }
-function gameOver(){ if(S.over) return; S.over=true; S.locked=true; stopStepTimer(); SFX.over(); const id=S.stage.id; const res=S.stageRes[id]; res.cleared=false; res.stars=0; if(S.cur){ S.cur.s=Math.round((Date.now()-S.cur.t0)/1000); S.stepLog.push(S.cur); S.cur=null; } res.steps=S.stepLog.filter(l=>l.st===id); res.secs=Math.floor((Date.now()-res.start)/1000);
+function gameOver(){ if(S.over) return; setTimeout(()=>{ try{ partialRun('fail'); }catch(e){} }, 50); S.over=true; S.locked=true; stopStepTimer(); SFX.over(); const id=S.stage.id; const res=S.stageRes[id]; res.cleared=false; res.stars=0; if(S.cur){ S.cur.s=Math.round((Date.now()-S.cur.t0)/1000); S.stepLog.push(S.cur); S.cur=null; } res.steps=S.stepLog.filter(l=>l.st===id); res.secs=Math.floor((Date.now()-res.start)/1000);
   setTimeout(()=>{ const host=$('overlayHost'); host.innerHTML=`<div class="overlay" style="pointer-events:auto"><div class="g-panel"><svg class="ovchar l" viewBox="0 0 280 330" aria-hidden="true"><use href="#chDocDizzy"/></svg><div class="banner red">원장님 퇴장…</div><p style="margin:6px 0 0;color:var(--dim)">"다음에 다시 봅시다." 인내심이 바닥났습니다.</p><div class="tally"><div><small>이 스테이지 오답</small><b>${res.wrong}</b></div><div><small>찬스</small><b>${res.chance}</b></div><div><small>남은 단계</small><b>${S.steps.length-S.idx}</b></div></div>${fbCardHtml()}<div class="btn-row"><button type="button" class="g-btn big orange" id="retryBtn">다시 도전</button>${S.mode==='all'?`<button type="button" class="g-btn gray" id="giveUpBtn">성적표 보기</button>`:''}<button type="button" class="g-btn gray" id="toMap2">맵으로</button></div></div></div>`;
     $('retryBtn').addEventListener('click', ()=>{ host.innerHTML=''; S.over=false; S.results=S.results.filter(r=>r.runIdx!==S.qi); S.wrong-=res.wrong; S.chance-=res.chance; startStage(); });
     const gu=$('giveUpBtn'); if(gu) gu.addEventListener('click', ()=>{ host.innerHTML=''; finish(true); });
@@ -2741,7 +2742,7 @@ function coachAdvice(p, pm, dna, evs){ const out=[]; const sts=STAGES.filter(s=>
   if(evs.length){ const ax={}; EVAL_AXES.forEach(([k,l])=>{ const v=evs.map(e=>e[k]).filter(x=>x!=null); if(v.length) ax[l]=v.reduce((a,b)=>a+b,0)/v.length; }); const low=Object.entries(ax).sort((a,b)=>a[1]-b[1])[0]; if(low&&low[1]<3.5) out.push(`현장 평가 '${low[0]}' 평균 ${low[1].toFixed(1)}/5 — 동행 시 이 축 중심으로 피드백`); }
   return out.slice(0,5); }
 function coachReportHtml(p){ const e=esc; const evs=evalsFor(p); const pm=personMastery(p.runs.concat(evalsAsAttempts(evs))); const dna=errorDnaRuns(p.runs); const note=noteFor(p.key); const runs=p.runs.slice().sort((a,b)=>(b.at||'').localeCompare(a.at||'')).slice(0,15); const advice=coachAdvice(p, pm, dna, evs);
-  const modeN={all:'전체 완주',one:'단독',daily:'오늘의 10문제',order:'순서',focus:'약점 집중',weekly:'주간 챌린지',qdrill:'응대 특훈',numdrill:'숫자 특훈',review:'복습'}; const diffN={easy:'쉬움',normal:'보통',hard:'압박'}; const sts=STAGES.filter(s=>!s.locked).sort((a,b)=>(a.course==='biz'?0:1)-(b.course==='biz'?0:1));
+  const modeN={all:'전체 완주',one:'단독',daily:'오늘의 10문제',order:'순서',focus:'약점 집중',weekly:'주간 챌린지',qdrill:'응대 특훈',numdrill:'숫자 특훈',review:'복습',fail:'실패(원장님 퇴장)',quit:'중도 그만'}; const diffN={easy:'쉬움',normal:'보통',hard:'압박'}; const sts=STAGES.filter(s=>!s.locked).sort((a,b)=>(a.course==='biz'?0:1)-(b.course==='biz'?0:1));
   return `<!doctype html><html lang="ko"><head><meta charset="utf-8"><title>코칭 리포트 · ${e(p.name)}</title><style>
   @page{size:A4;margin:14mm} body{font-family:'Noto Sans KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif;color:#1d2140;line-height:1.5;max-width:860px;margin:24px auto;padding:0 16px}
   h1{font-size:24px;margin:0 0 2px} .meta{color:#5b6383;font-size:13px;margin-bottom:14px} h2{font-size:16px;margin:18px 0 8px;border-left:5px solid #ffd93b;padding-left:8px}
@@ -2947,7 +2948,7 @@ function layoutTodo(){ const el=$('todo'); if(!el||el.querySelector('.trow')) re
 let BM_DAYS=0;
 function bmFilterRuns(rows){ if(!BM_DAYS) return rows; const since=Date.now()-BM_DAYS*864e5; return (rows||[]).filter(r=>Date.parse(r.at)>=since); }
 /* ── 3) 개인 패널 기록 행: 모드 라벨 ── */
-function modeLabel(r){ const M={all:'전체',one:'',daily:'10문제',weekly:'주간',focus:'약점',qdrill:'특훈',numdrill:'숫자',order:'순서',review:'복습',demo:'시범',guide:'따라하기'}; const st=STAGES.find(s=>s.id===r.stage); const code=st?stageCode(st):''; const m=M[r.mode]!=null?M[r.mode]:(r.mode||''); return [m,code].filter(Boolean).join(' ')||'?'; }
+function modeLabel(r){ const M={all:'전체',one:'',daily:'10문제',weekly:'주간',focus:'약점',qdrill:'특훈',numdrill:'숫자',order:'순서',review:'복습',demo:'시범',guide:'따라하기',fail:'실패',quit:'중단'}; const st=STAGES.find(s=>s.id===r.stage); const code=st?stageCode(st):''; const m=M[r.mode]!=null?M[r.mode]:(r.mode||''); return [m,code].filter(Boolean).join(' ')||'?'; }
 
 /* ═══════════════════════════════════════════ v22: 복습 카드 → 이 스텝만 연습 · 🩺 응대 오답 노트 ═══════════════════════════════════════════ */
 /* ── 1) 복습 카드에서 바로 그 스텝만 다시 (복습 모드, 1스텝) ── */
@@ -3171,6 +3172,11 @@ async function resendLocalToSheet(){ if(!SHEETS.url || !(await shHealth())) retu
   try{ localStorage.setItem('dsg_sent', JSON.stringify([...sent].slice(-3000))); }catch(e){}
   if(n) toast(`☁ 이 기기 기록 ${n}건을 구글 시트로 보냈어요`); return n; }
 if(SHEETS.url) setTimeout(async()=>{ try{ await flushOutbox(); }catch(e){} await resendLocalToSheet(); try{ renderSync(); }catch(e){} }, 3000);
+function partialRun(kind){ if(S.demo||S.guide||S.mode==='review'||!S.stage) return; if(!['one','all','daily','focus','weekly'].includes(S.mode)) return;
+  const id=S.stage.id; const logs=(S.stepLog||[]).filter(l=>l.st===id||S.mode!=='one'&&S.mode!=='all'); const cur=S.cur?[{...S.cur, s:Math.round((Date.now()-(S.cur.t0||Date.now()))/1000)}]:[]; const all=logs.concat(kind==='quit'?cur:[]);
+  if(kind==='quit' && !all.some(l=>(l.s||0)>0||(l.w||0)>0)) return; /* 시작만 하고 바로 닫은 건 제외 */
+  const res=(S.stageRes||{})[id]||{}; const total=(S.steps||[]).length; const done=Math.min(total,(S.idx||0)); const secs=Math.floor((Date.now()-(res.start||S.start||Date.now()))/1000);
+  saveRun({ ...(S.profile||{name:S.name}), persona:S.persona?S.persona.key:'', mode:kind, from:S.mode, course:S.course, stage:id, diff:S.diff, grade:'F', score:Math.max(0,100-W_WRONG*(res.wrong||0)-W_CHANCE*(res.chance||0)), wrong:res.wrong||0, chance:res.chance||0, tips:res.tips||0, secs, over:true, progress:done+'/'+total, steps:compactSteps(all), at:new Date().toISOString() }); }
 /* 초기화 */
 loadStars(); S.profile = loadProfile(); if(S.profile) S.name = S.profile.name;
 loadCourse(); ['s01','s02','s03'].forEach(k=>{ const i=new Image(); i.src=IMG[k]; });
