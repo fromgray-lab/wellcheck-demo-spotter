@@ -2,3 +2,4 @@ src/game/demo-spotter.html
 src/game/local*.html
 src/game/_preview.html
 __pycache__/
+src/game/parts/*.bak*
