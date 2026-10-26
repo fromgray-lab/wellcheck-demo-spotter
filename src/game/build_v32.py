@@ -85,3 +85,33 @@ function partialRun(kind){ if(S.demo||S.guide||S.mode==='review'||!S.stage) retu
 /* 초기화 */""")
 src = rep(src, "qdrill:'응대 특훈',numdrill:'숫자 특훈',review:'복습'};", "qdrill:'응대 특훈',numdrill:'숫자 특훈',review:'복습',fail:'실패(원장님 퇴장)',quit:'중도 그만'};")
 src = rep(src, "numdrill:'숫자',order:'순서',review:'복습',demo:'시범',guide:'따라하기'};", "numdrill:'숫자',order:'순서',review:'복습',demo:'시범',guide:'따라하기',fail:'실패',quit:'중단'};")
+# v55: (1) 오늘의 10문제·약점 집중·주간 챌린지·복습 — 섞인 스텝 위에 '직전 단계' 한 줄 (2) 중도 그만 시 이유 묻기(선택) (3) 이름 검증(자모 한 글자 등 테스트 입력 차단)
+src = rep(src, "$('dTask').innerHTML = st.task;", "$('dTask').innerHTML = prevActHtml(st) + st.task;")
+src = rep(src, "$('quitBtn').addEventListener('click', ()=>{ try{ if(!S.over) partialRun('quit'); }catch(e){} clearInterval(S.timer);", "$('quitBtn').addEventListener('click', ()=>{ if(quitAsk()) return; try{ if(!S.over) partialRun('quit'); }catch(e){} clearInterval(S.timer);")
+src = rep(src, "$('goBtn').addEventListener('click', ()=>{ const name=($('playerName').value||'').trim(); if(!name){", "$('goBtn').addEventListener('click', ()=>{ const name=($('playerName').value||'').trim(); if(!name || name.length<2 || /^[ㄱ-ㅎㅏ-ㅣ\\s]+$/.test(name) || /^(test|테스트|ㅇㅇ|aa|asdf)$/i.test(name)){ toast('기록이 본인 이름으로 남아요 — 실명을 입력해 주세요');")
+src = rep(src, '<div class="modal" id="keyModal">', '''<div class="modal" id="quitModal">
+  <div class="g-panel" style="width:min(440px,100%)">
+    <div class="eyebrow">잠깐만요</div>
+    <h2 class="g">여기서 그만할까요?</h2>
+    <p class="kbd" style="margin:0 0 6px">지금까지 한 기록은 저장됩니다. 그만두는 이유를 알려 주시면 다음 버전에 반영할게요 (선택).</p>
+    <div class="ideacats" id="quitCats"></div>
+    <textarea id="quitText" rows="3" maxlength="600" placeholder="예) 이 화면에서 어디를 눌러야 할지 모르겠어요" style="width:100%;box-sizing:border-box;border:2.5px solid var(--ink);border-radius:12px;padding:8px 10px;font:inherit;font-size:14px"></textarea>
+    <div class="btn-row"><button type="button" class="g-btn blue" id="quitSend">의견 보내고 나가기</button><button type="button" class="g-btn gray" id="quitJust">그냥 나가기</button><button type="button" class="g-btn" id="quitStay">계속하기</button></div>
+  </div>
+</div>
+<div class="modal" id="keyModal">''')
+src = rep(src, "\n/* 초기화 */", """
+function prevActHtml(st){ if(!['daily','focus','weekly','review'].includes(S.mode)) return ''; const br=S.persona?(S.persona.branch||S.persona.key):''; const list=STEPS.filter(s=>s.st===st.st&&(!s.branch||s.branch===br)); const i=list.findIndex(s=>s.id===st.id); const stg=STAGES.find(x=>x.id===st.st);
+  const where=stg?esc(stageCode(stg)):''; const prev=i>0?list[i-1]:null; const txt=prev?String(prev.task||'').replace(/<[^>]+>/g,''):'';
+  return `<span class="prevact">📍 ${where} · ${prev?'직전 단계: '+esc(txt.length>40?txt.slice(0,39)+'…':txt)+' ✓':'스테이지 첫 동작'}</span>`; }
+const QUIT_CATS=['어디를 눌러야 할지 모르겠어요','화면이 실제와 달라요','너무 길어요','시간이 없어요','오류가 있어요'];
+function quitAsk(){ if(S.over||S.demo||S.guide||!['one','all','daily','focus','weekly'].includes(S.mode)) return false; if(!(S.stepLog||[]).length && !S.cur) return false; if($('quitModal').classList.contains('on')) return true;
+  clearInterval(S.timer); stopStepTimer(); let cat=''; const box=$('quitCats'); box.innerHTML=QUIT_CATS.map(c=>`<button type="button" data-c="${esc(c)}">${esc(c)}</button>`).join(''); box.querySelectorAll('button').forEach(b=>b.onclick=()=>{ cat=cat===b.dataset.c?'':b.dataset.c; box.querySelectorAll('button').forEach(x=>x.classList.toggle('on',x.dataset.c===cat)); }); $('quitText').value='';
+  const leave=()=>{ closeModal('quitModal'); try{ partialRun('quit'); }catch(e){} clearInterval(S.timer); stopStepTimer(); S.guide=false; exitFullscreen(); renderMap(); show('map'); };
+  $('quitText').onkeydown=e=>e.stopPropagation();
+  $('quitSend').onclick=async()=>{ const text=($('quitText').value||'').trim(); if(cat||text){ try{ await saveFeedback({ kind:'quit', ...(S.profile||{name:S.name}), course:S.course, stage:S.stage?S.stage.id:'', mode:S.mode, result:'quit', thumbs:'', tags:cat?[cat]:[], text:[cat,text].filter(Boolean).join(' — '), improve:text, step:S.steps&&S.steps[S.idx]?S.steps[S.idx].id:'', progress:(S.idx||0)+'/'+((S.steps||[]).length), at:new Date().toISOString() }); toast('🙏 소중한 의견 감사합니다!'); }catch(e){} } leave(); };
+  $('quitJust').onclick=leave;
+  $('quitStay').onclick=()=>{ closeModal('quitModal'); S.timer=setInterval(tickTimer,1000); try{ startStepTimer(); }catch(e){} };
+  openModal('quitModal'); return true; }
+/* 초기화 */""")
+src = rep(src, "</style>", ".prevact{display:block;font-size:12px;font-weight:800;color:#6b4f00;background:#fff3c4;border:2px solid #f2c94c;border-radius:999px;padding:1px 10px;margin:0 0 3px;width:max-content;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:normal;line-height:1.3} #quitModal .ideacats{margin:2px 0 8px}</style>")
