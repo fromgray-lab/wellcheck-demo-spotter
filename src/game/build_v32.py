@@ -118,3 +118,17 @@ src = rep(src, "</style>", ".prevact{display:block;font-size:12px;font-weight:80
 # v56: 슬로건 변경 — '웰체크 자유자재 시연 MR 양성소' → '웰체크 자유자재로 시연하기' (모든 영역)
 src = src.replace('웰체크 자유자재 시연 MR 양성소', '웰체크 자유자재로 시연하기').replace("desc:'양성소 입소.", "desc:'훈련 시작.")
 assert '양성소' not in src.split('<details class="changelog">')[0] or True
+# v57: 폰 세로 타이틀 하단 단순화 — 하단엔 '게임시작' 하나만. 게임방법은 위쪽 작은 버튼으로, 곰·간호사·말풍선 꼬리·크레딧 제거
+src = rep(src, "</style>", """@media (orientation:portrait){
+ .poster.port .c4,.poster.port .c5{display:none}
+ #title .tui #btnStart::before,#title .tui #btnStart::after{display:none}
+ #title .tui #btnStart{left:7%;right:7%;bottom:calc(max(18px,env(safe-area-inset-bottom,0px)) + 14px);width:auto;text-align:center;font-size:clamp(22px,6.6vw,30px);padding:13px 18px;border-radius:22px;animation:pulse-btn 1.6s ease-in-out infinite}
+ #title .tui .corner #btnHow{position:static;font-size:14px;padding:4px 12px;border-width:3px;box-shadow:0 4px 0 var(--ink);background:rgba(255,255,255,.92);animation:none}
+ #title .tui .corner #btnHow::before,#title .tui .corner #btnHow::after{display:none}
+ #title .tui .corner{gap:6px}
+ #title .tui .credit{display:none!important}
+ #title .floor{height:19%}
+}</style>""")
+src = rep(src, "\n/* 초기화 */", """
+(function(){ const mq=matchMedia('(orientation:portrait)'); const place=()=>{ const h=$('btnHow'), c=document.querySelector('#title .tui .corner'), tui=document.querySelector('#title .tui'); if(!h||!c||!tui) return; if(mq.matches){ if(h.parentElement!==c) c.insertBefore(h,c.firstChild); h.textContent='게임방법'; const b=$('btnBoard'); if(b) b.textContent='현황표'; } else { if(h.parentElement!==tui) tui.insertBefore(h,$('btnStart')); const b=$('btnBoard'); if(b) b.textContent='마스터 현황표'; } }; place(); try{ mq.addEventListener('change',place); }catch(e){ mq.addListener(place); } })();
+/* 초기화 */""")
