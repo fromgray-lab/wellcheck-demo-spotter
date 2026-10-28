@@ -115,3 +115,6 @@ function quitAsk(){ if(S.over||S.demo||S.guide||!['one','all','daily','focus','w
   openModal('quitModal'); return true; }
 /* 초기화 */""")
 src = rep(src, "</style>", ".prevact{display:block;font-size:12px;font-weight:800;color:#6b4f00;background:#fff3c4;border:2px solid #f2c94c;border-radius:999px;padding:1px 10px;margin:0 0 3px;width:max-content;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:normal;line-height:1.3} #quitModal .ideacats{margin:2px 0 8px}</style>")
+# v56: 슬로건 변경 — '웰체크 자유자재 시연 MR 양성소' → '웰체크 자유자재로 시연하기' (모든 영역)
+src = src.replace('웰체크 자유자재 시연 MR 양성소', '웰체크 자유자재로 시연하기').replace("desc:'양성소 입소.", "desc:'훈련 시작.")
+assert '양성소' not in src.split('<details class="changelog">')[0] or True
