@@ -132,3 +132,7 @@ src = rep(src, "</style>", """@media (orientation:portrait){
 src = rep(src, "\n/* 초기화 */", """
 (function(){ const mq=matchMedia('(orientation:portrait)'); const place=()=>{ const h=$('btnHow'), c=document.querySelector('#title .tui .corner'), tui=document.querySelector('#title .tui'); if(!h||!c||!tui) return; if(mq.matches){ if(h.parentElement!==c) c.insertBefore(h,c.firstChild); h.textContent='게임방법'; const b=$('btnBoard'); if(b) b.textContent='현황표'; } else { if(h.parentElement!==tui) tui.insertBefore(h,$('btnStart')); const b=$('btnBoard'); if(b) b.textContent='마스터 현황표'; } }; place(); try{ mq.addEventListener('change',place); }catch(e){ mq.addListener(place); } })();
 /* 초기화 */""")
+# v58: 하단 시그니처 — © 신사업전략팀 (영문)
+src = rep(src, '<div class="credit">틀린시연찾기 · 공식 메뉴얼 + 체험존 기반 · 신사업전략팀 · <span id="verTag"', '<div class="credit">© 2026 New Business Strategy Team. All rights reserved. <span id="verTag"')
+src = rep(src, "</style>", """#title .tui .credit{left:0;right:0;text-align:center;font-family:var(--body);font-weight:600;font-size:11.5px;letter-spacing:.02em;color:rgba(255,255,255,.9);text-shadow:0 1px 0 rgba(0,0,0,.35)} #title .tui .credit #verTag{opacity:.7;margin-left:4px}
+@media (orientation:portrait){ #title .tui .credit{display:block!important;bottom:max(6px,env(safe-area-inset-bottom,0px));font-size:10px;white-space:nowrap;padding:0 8px} #title .tui .credit #verTag{display:none} #title .tui #btnStart{bottom:calc(max(18px,env(safe-area-inset-bottom,0px)) + 22px)} }</style>""")

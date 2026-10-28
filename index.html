@@ -796,7 +796,8 @@ body[data-screen="loop"] .sunburst{--sun-1:#ffe9b8;--sun-2:#ffd27a}
  #title .tui .corner{gap:6px}
  #title .tui .credit{display:none!important}
  #title .floor{height:19%}
-}</style>
+}#title .tui .credit{left:0;right:0;text-align:center;font-family:var(--body);font-weight:600;font-size:11.5px;letter-spacing:.02em;color:rgba(255,255,255,.9);text-shadow:0 1px 0 rgba(0,0,0,.35)} #title .tui .credit #verTag{opacity:.7;margin-left:4px}
+@media (orientation:portrait){ #title .tui .credit{display:block!important;bottom:max(6px,env(safe-area-inset-bottom,0px));font-size:10px;white-space:nowrap;padding:0 8px} #title .tui .credit #verTag{display:none} #title .tui #btnStart{bottom:calc(max(18px,env(safe-area-inset-bottom,0px)) + 22px)} }</style>
 
 <div class="sunburst" aria-hidden="true"></div>
 
@@ -1038,7 +1039,7 @@ body[data-screen="loop"] .sunburst{--sun-1:#ffe9b8;--sun-2:#ffd27a}
     <div class="corner"><button type="button" class="g-btn" id="btnBoard">마스터 현황표</button><button type="button" class="g-btn" id="btnRecords">기록실</button></div>
     <button type="button" class="g-btn tail" id="btnHow">게임방법</button>
     <button type="button" class="g-btn tail green" id="btnStart">▶ 게임시작</button>
-    <div class="credit">틀린시연찾기 · 공식 메뉴얼 + 체험존 기반 · 신사업전략팀 · <span id="verTag" title="업데이트 노트는 게임방법 안에">v57</span></div>
+    <div class="credit">© 2026 New Business Strategy Team. All rights reserved. <span id="verTag" title="업데이트 노트는 게임방법 안에">v58</span></div>
   </div>
 </section>
 
@@ -1305,6 +1306,7 @@ body[data-screen="loop"] .sunburst{--sun-1:#ffe9b8;--sun-2:#ffd27a}
     <div class="sites" id="siteLegend"></div>
     <p class="kbd" style="margin:10px 0 0">전체 완주 점수 = 100 − 오답×5 − 찬스×8. S 100 · A 90↑ · B 75↑ · C 60↑ · D · F(원장님 퇴장). 시간 초과도 오답 1회. 👀 시범은 정답과 멘트를 보여주는 자동 재생.</p>
     <details class="changelog"><summary>🆕 업데이트 노트 (최근)</summary><ul>
+      <li><b>v58</b> 타이틀 하단 시그니처 — © 2026 New Business Strategy Team. All rights reserved.</li>
       <li><b>v57</b> 폰 타이틀 하단 정리 — 하단엔 ▶ 게임시작 하나만(전폭). 게임방법은 위 버튼 줄로, 곰·간호사·말풍선 꼬리·크레딧 줄 제거</li>
       <li><b>v56</b> 슬로건 변경 — '웰체크 자유자재로 시연하기' (타이틀·결과 카드·인증서·수료 이미지·공유 썸네일 전부)</li>
       <li><b>v55</b> 일간 루프 제안 반영 — 오늘의 10문제·약점 집중·주간 챌린지에서 스텝 위에 '📍 M0 · 직전 단계: … ✓' 한 줄(맥락 없이 헤매던 문제) · '○○ 선택 후 [버튼]' 문구 3곳 '골라진 상태 — [버튼]'으로 정리 · ✕로 그만둘 때 이유 묻기(선택, 의견 시트로) · 이름에 자모 한 글자·'테스트' 등 입력 차단</li>
