@@ -136,3 +136,9 @@ src = rep(src, "\n/* 초기화 */", """
 src = rep(src, '<div class="credit">틀린시연찾기 · 공식 메뉴얼 + 체험존 기반 · 신사업전략팀 · <span id="verTag"', '<div class="credit">© 2026 New Business Strategy Team. All rights reserved. <span id="verTag"')
 src = rep(src, "</style>", """#title .tui .credit{left:0;right:0;text-align:center;font-family:var(--body);font-weight:600;font-size:11.5px;letter-spacing:.02em;color:rgba(255,255,255,.9);text-shadow:0 1px 0 rgba(0,0,0,.35)} #title .tui .credit #verTag{opacity:.7;margin-left:4px}
 @media (orientation:portrait){ #title .tui .credit{display:block!important;bottom:max(6px,env(safe-area-inset-bottom,0px));font-size:10px;white-space:nowrap;padding:0 8px} #title .tui .credit #verTag{display:none} #title .tui #btnStart{bottom:calc(max(18px,env(safe-area-inset-bottom,0px)) + 22px)} }</style>""")
+# v59: 현황표 범례 축약 — 한 줄 + 접힌 '등급 기준'
+import re as _re59
+_m59 = _re59.search(r'<p class="kbd" style="margin:10px 0 0"><b>종합</b> 👑 클로저.*?담당자 행을 누르면 상세\.</p>', src)
+assert _m59
+src = src[:_m59.start()] + '''<p class="kbd" style="margin:10px 0 0">👑 클로저 · 🥇 상급 · 🥈 중급 · 🥉 입문 — 담당자 행을 누르면 상세</p><details class="legend59"><summary>등급 기준</summary><ul><li>👑 시연 S + 루피 85↑</li><li>🥇 시연 A↑ + 루피 70↑</li><li>🥈 시연 B↑ 또는 루피 60↑</li><li>⏰ 무활동 · 🚫 미완주 · 🔁 반복 실수 — 코칭 필요 표시</li></ul></details>''' + src[_m59.end():]
+src = rep(src, "</style>", ".legend59{margin:4px 0 0;font-size:12.5px;color:var(--dim)} .legend59 summary{cursor:pointer;font-weight:800;color:var(--ink)} .legend59 ul{margin:4px 0 0;padding-left:18px;display:grid;gap:2px}</style>")

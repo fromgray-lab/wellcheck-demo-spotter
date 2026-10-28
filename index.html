@@ -797,7 +797,7 @@ body[data-screen="loop"] .sunburst{--sun-1:#ffe9b8;--sun-2:#ffd27a}
  #title .tui .credit{display:none!important}
  #title .floor{height:19%}
 }#title .tui .credit{left:0;right:0;text-align:center;font-family:var(--body);font-weight:600;font-size:11.5px;letter-spacing:.02em;color:rgba(255,255,255,.9);text-shadow:0 1px 0 rgba(0,0,0,.35)} #title .tui .credit #verTag{opacity:.7;margin-left:4px}
-@media (orientation:portrait){ #title .tui .credit{display:block!important;bottom:max(6px,env(safe-area-inset-bottom,0px));font-size:10px;white-space:nowrap;padding:0 8px} #title .tui .credit #verTag{display:none} #title .tui #btnStart{bottom:calc(max(18px,env(safe-area-inset-bottom,0px)) + 22px)} }</style>
+@media (orientation:portrait){ #title .tui .credit{display:block!important;bottom:max(6px,env(safe-area-inset-bottom,0px));font-size:10px;white-space:nowrap;padding:0 8px} #title .tui .credit #verTag{display:none} #title .tui #btnStart{bottom:calc(max(18px,env(safe-area-inset-bottom,0px)) + 22px)} }.legend59{margin:4px 0 0;font-size:12.5px;color:var(--dim)} .legend59 summary{cursor:pointer;font-weight:800;color:var(--ink)} .legend59 ul{margin:4px 0 0;padding-left:18px;display:grid;gap:2px}</style>
 
 <div class="sunburst" aria-hidden="true"></div>
 
@@ -1039,7 +1039,7 @@ body[data-screen="loop"] .sunburst{--sun-1:#ffe9b8;--sun-2:#ffd27a}
     <div class="corner"><button type="button" class="g-btn" id="btnBoard">마스터 현황표</button><button type="button" class="g-btn" id="btnRecords">기록실</button></div>
     <button type="button" class="g-btn tail" id="btnHow">게임방법</button>
     <button type="button" class="g-btn tail green" id="btnStart">▶ 게임시작</button>
-    <div class="credit">© 2026 New Business Strategy Team. All rights reserved. <span id="verTag" title="업데이트 노트는 게임방법 안에">v58</span></div>
+    <div class="credit">© 2026 New Business Strategy Team. All rights reserved. <span id="verTag" title="업데이트 노트는 게임방법 안에">v59</span></div>
   </div>
 </section>
 
@@ -1193,7 +1193,7 @@ body[data-screen="loop"] .sunburst{--sun-1:#ffe9b8;--sun-2:#ffd27a}
       </div>
       <div class="tiles" id="boardTiles"></div>
       <div class="btree" id="boardTree"></div>
-      <p class="kbd" style="margin:10px 0 0"><b>종합</b> 👑 클로저 = 시연 S + 제안(루피) 85↑ · 🥇 상급 = 시연 A↑(제안 70↑) · 🥈 중급 = 시연 B↑ 또는 제안 60↑ · 🥉 입문. <b>시연</b> 등급·점수·스테이지 별(무결점 3★). <b>제안</b> 루피 최고점과 5축(반대극복30·근거20·고객의득20·경청15·클로징15). <b>과정관리</b> 최근 8주 활동과 코칭 플래그(⏰ 무활동 · 🚫 미완주 · 🔁 반복 실수 · 🗣 축 취약 · 🎤 미응시), 관리자 메모. 담당자 행을 누르면 상세.</p>
+      <p class="kbd" style="margin:10px 0 0">👑 클로저 · 🥇 상급 · 🥈 중급 · 🥉 입문 — 담당자 행을 누르면 상세</p><details class="legend59"><summary>등급 기준</summary><ul><li>👑 시연 S + 루피 85↑</li><li>🥇 시연 A↑ + 루피 70↑</li><li>🥈 시연 B↑ 또는 루피 60↑</li><li>⏰ 무활동 · 🚫 미완주 · 🔁 반복 실수 — 코칭 필요 표시</li></ul></details>
     </div>
   </div>
 </section>
@@ -1306,6 +1306,7 @@ body[data-screen="loop"] .sunburst{--sun-1:#ffe9b8;--sun-2:#ffd27a}
     <div class="sites" id="siteLegend"></div>
     <p class="kbd" style="margin:10px 0 0">전체 완주 점수 = 100 − 오답×5 − 찬스×8. S 100 · A 90↑ · B 75↑ · C 60↑ · D · F(원장님 퇴장). 시간 초과도 오답 1회. 👀 시범은 정답과 멘트를 보여주는 자동 재생.</p>
     <details class="changelog"><summary>🆕 업데이트 노트 (최근)</summary><ul>
+      <li><b>v59</b> 현황표 설명 축약 — 한 줄(👑🥇🥈🥉 + 행 누르면 상세), 세부 기준은 '등급 기준' 접기 안으로</li>
       <li><b>v58</b> 타이틀 하단 시그니처 — © 2026 New Business Strategy Team. All rights reserved.</li>
       <li><b>v57</b> 폰 타이틀 하단 정리 — 하단엔 ▶ 게임시작 하나만(전폭). 게임방법은 위 버튼 줄로, 곰·간호사·말풍선 꼬리·크레딧 줄 제거</li>
       <li><b>v56</b> 슬로건 변경 — '웰체크 자유자재로 시연하기' (타이틀·결과 카드·인증서·수료 이미지·공유 썸네일 전부)</li>
