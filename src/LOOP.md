@@ -12,6 +12,7 @@
 - 기록: 구글 시트 「틀린시연찾기 DB」 fileId `1NzUdVlCRoTM7YBiP0vBRa62yLp4IRhf1DHkdrAzh-dQ` (Google Drive 커넥터 read_file_content). 탭 runs(행 끝 json: steps={스텝id:[오답,찬스,팁,초,시간초과,[[x%,y%] 오클릭…]]}, q, siteq) · feedback · evals.
 - feedback json의 kind: stage(자유 의견 good/improve) · tap(👍/👎 원탭) · why(막힌 스텝 신고: step, reason=「문제가 모호」「정답 위치가 이상」「화면이 잘 안 보임」「제가 몰랐어요」, miss=오클릭 좌표) · idea(상시 의견) · quit(중단 사유) · dispute(정답 이의). recovered:1 = 뒤늦게 복구된 예전 의견(처음 보면 신규).
 - 테스트 계정 제외: 연결테스트, 검수봇.
+- **시트 읽기 한계(2026-11-11 확인)**: Drive 커넥터는 runs 탭을 표본(약 20행)만 보여 준다. 신규 여부는 ① 「📊 요약」 탭의 사람별 '최근 활동'·'최근 7일 참여'(테스트 제외 전체 기준) ② 각 탭의 Table Range 행 수로 먼저 판단한다. 표본 밖 행은 스텝 분석을 할 수 없으니, 그런 날은 리포트에 "표본 n/전체 m행만 분석"을 적는다. Apps Script 읽기 주소(script.google.com)는 이 실행 환경 네트워크에서 막혀 있다(우회하지 않음).
 - v61(2026-11-10)부터 체험존 reg·plan·edu·chk와 실무 M2·M3·M4·M6 스텝은 생성물 `parts/course_sim.js`에 있다. 직접 고치지 말고 `src/game/build_v33.py` 끝에 런타임 덮어쓰기(스텝 id로 찾아 task/hint/rects 수정)를 추가한다. v61 이전 통계와 섞지 않는다.
 - 취합표: Claude Sheets 「틀린시연찾기 의견 복구 추적표」 https://claude.ai/artifact/7Aq2SXXLhpeZWQNe6NRTHj (Claude Docs 커넥터, 먼저 guide로 topic.sheets. 컨테이너 project id `31f61f4b-4b7c-4399-b061-08784612d062`). 탭 「의견 취합」 · 「학습된 규칙」 · 「복구 대상」(요청 상태 열은 팀장 칸 — 건드리지 않음).
 
@@ -46,3 +47,4 @@
 
 ## 변경 이력
 - 2026-11-10: 처음 작성 — 예약 작업 지시문에 있던 절차를 옮기고, 변경 검증·자동 되돌리기·UI 자동 반영·조용한 날 자기 점검·루프 자체 개선을 추가.
+- 2026-11-11: 「자료」에 시트 읽기 한계와 신규 여부 판단 순서(요약 탭 → 행 수)를 추가 — 커넥터가 runs를 표본만 돌려줘서 신규 기록을 놓치거나 전수 분석으로 착각할 위험.
