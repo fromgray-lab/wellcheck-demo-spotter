@@ -42,3 +42,12 @@ src = rep(src, "</style>", """.fbwhy{margin:8px 0 10px;padding:9px 10px;border:2
 .fbwb button.on{background:#1b1f3a;color:#ffd84d}.fbwr.done button:not(.on){opacity:.35;pointer-events:none}.fbwr.done .fbwn::after{content:" ✓ 접수";color:#1a9c5b;font-size:11px}
 </style>""")
 src = rep(src, "</style>", "body:has(#overlayHost .g-panel) #play>#dialog{visibility:hidden}\n</style>")
+
+# v63: 예전 의견 복구 — 이 기기에 남아 있는 의견(dsg_fb)은 '전송됨' 표시와 무관하게 한 번 더 시트로 (서버가 name+at 중복 제거)
+src = rep(src, "if(SHEETS.url) setTimeout(async()=>{ try{ await flushOutbox(); }catch(e){} await resendLocalToSheet();", "if(SHEETS.url) setTimeout(async()=>{ try{ await flushOutbox(); }catch(e){} try{ await recoverFb63(); }catch(e){} await resendLocalToSheet();")
+src = rep(src, "\n/* 초기화 */", r"""
+async function recoverFb63(){ if(localStorage.getItem('dsg_fb_rec63')) return; if(!SHEETS.url || !(await shHealth())) return; let l=[]; try{ l=JSON.parse(localStorage.getItem('dsg_fb')||'[]'); }catch(e){} l=l.filter(d=>d&&d.at);
+  let n=0; for(const d of l.slice(-100)){ try{ await shPost('feedback', Object.assign({}, d, {recovered:1})); markSent('feedback', d); n++; }catch(e){ return; } }
+  localStorage.setItem('dsg_fb_rec63', String(n)); if(n) try{ toast('예전에 남기신 의견 '+n+'건을 다시 보냈어요 🙏'); }catch(e){} }
+
+/* 초기화 */""")

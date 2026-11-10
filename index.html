@@ -1053,7 +1053,7 @@ body:has(#overlayHost .g-panel) #play>#dialog{visibility:hidden}
     <div class="corner"><button type="button" class="g-btn" id="btnBoard">마스터 현황표</button><button type="button" class="g-btn" id="btnRecords">기록실</button></div>
     <button type="button" class="g-btn tail" id="btnHow">게임방법</button>
     <button type="button" class="g-btn tail green" id="btnStart">▶ 게임시작</button>
-    <div class="credit">© 2026 New Business Strategy Team. All rights reserved. <span id="verTag" title="업데이트 노트는 게임방법 안에">v62</span></div>
+    <div class="credit">© 2026 New Business Strategy Team. All rights reserved. <span id="verTag" title="업데이트 노트는 게임방법 안에">v63</span></div>
   </div>
 </section>
 
@@ -1320,6 +1320,7 @@ body:has(#overlayHost .g-panel) #play>#dialog{visibility:hidden}
     <div class="sites" id="siteLegend"></div>
     <p class="kbd" style="margin:10px 0 0">전체 완주 점수 = 100 − 오답×5 − 찬스×8. S 100 · A 90↑ · B 75↑ · C 60↑ · D · F(원장님 퇴장). 시간 초과도 오답 1회. 👀 시범은 정답과 멘트를 보여주는 자동 재생.</p>
     <details class="changelog"><summary>🆕 업데이트 노트 (최근)</summary><ul>
+      <li><b>v63</b> 예전 의견 복구 — 이 기기에 남아 있던 의견을 접속 시 자동으로 한 번 더 전송</li>
       <li><b>v62</b> 의견이 쌓이는 구조 — 👍/👎는 <b>누르는 즉시 저장</b>, 틀렸던 스텝은 <b>🚩 왜 막혔는지 원탭</b>(문제 모호 / 정답 위치 / 화면 / 몰랐음)으로 접수 → 매일 자동 개선에 반영</li>
       <li><b>v61</b> 체험존 최신 화면으로 전면 교체 — 새 「웰체크 시뮬레이터」(실제 웰체크 웹·심평원·환자 앱) 고해상도 화면: 체험존 환자등록·케어플랜 교체, <b>교육상담·점검평가 스테이지 신설</b>, 실무 M2·M3·M4·M6도 같은 화면으로. 오프닝·EMR·건생은 새 레이아웃(상단 버튼)으로 재캡처, 검사 할인 목록(%) 추가</li>
       <li><b>v60</b> 문제를 화면 <b>상단</b>으로 — 노란 띠 + '문제' 라벨로 강조 (시선이 위→아래로 흐르도록)</li>
@@ -3214,7 +3215,7 @@ async function resendLocalToSheet(){ if(!SHEETS.url || !(await shHealth())) retu
   let n=0; for(const [c,d] of items.slice(-200)){ try{ await shPost(c,d); sent.add(c+'|'+(d.name||'')+'|'+d.at); n++; }catch(e){ break; } }
   try{ localStorage.setItem('dsg_sent', JSON.stringify([...sent].slice(-3000))); }catch(e){}
   if(n) toast(`☁ 이 기기 기록 ${n}건을 구글 시트로 보냈어요`); return n; }
-if(SHEETS.url) setTimeout(async()=>{ try{ await flushOutbox(); }catch(e){} await resendLocalToSheet(); try{ renderSync(); }catch(e){} }, 3000);
+if(SHEETS.url) setTimeout(async()=>{ try{ await flushOutbox(); }catch(e){} try{ await recoverFb63(); }catch(e){} await resendLocalToSheet(); try{ renderSync(); }catch(e){} }, 3000);
 function partialRun(kind){ if(S.demo||S.guide||S.mode==='review'||!S.stage) return; if(!['one','all','daily','focus','weekly'].includes(S.mode)) return;
   const id=S.stage.id; const logs=(S.stepLog||[]).filter(l=>l.st===id||S.mode!=='one'&&S.mode!=='all'); const cur=S.cur?[{...S.cur, s:Math.round((Date.now()-(S.cur.t0||Date.now()))/1000)}]:[]; const all=logs.concat(kind==='quit'?cur:[]);
   if(kind==='quit' && !all.some(l=>(l.s||0)>0||(l.w||0)>0)) return; /* 시작만 하고 바로 닫은 건 제외 */
@@ -3275,6 +3276,10 @@ function fbQuick(card,result,res){
   box.querySelectorAll('.fbwr').forEach(row=>row.querySelectorAll('button').forEach(b=>b.addEventListener('click',()=>{ if(row.dataset.done) return; row.dataset.done='1'; const l=hard.find(x=>x.id===row.dataset.id); b.classList.add('on'); row.classList.add('done'); try{ SFX.pop(); }catch(e){}
     Promise.resolve(saveFeedback({ kind:'why', ...fbBase(result,res), thumbs:'', tags:['막힌 이유', b.textContent], text:'🚩 ['+l.id+'] '+b.textContent, step:l.id, reason:b.textContent, miss:l.miss||[], w:l.w||0, to:l.to||0, at:new Date().toISOString() })).catch(()=>{}); })));
 }
+
+async function recoverFb63(){ if(localStorage.getItem('dsg_fb_rec63')) return; if(!SHEETS.url || !(await shHealth())) return; let l=[]; try{ l=JSON.parse(localStorage.getItem('dsg_fb')||'[]'); }catch(e){} l=l.filter(d=>d&&d.at);
+  let n=0; for(const d of l.slice(-100)){ try{ await shPost('feedback', Object.assign({}, d, {recovered:1})); markSent('feedback', d); n++; }catch(e){ return; } }
+  localStorage.setItem('dsg_fb_rec63', String(n)); if(n) try{ toast('예전에 남기신 의견 '+n+'건을 다시 보냈어요 🙏'); }catch(e){} }
 
 /* 초기화 */
 loadStars(); S.profile = loadProfile(); if(S.profile) S.name = S.profile.name;
