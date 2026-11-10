@@ -16,7 +16,7 @@ head=('<meta charset="utf-8"><meta name="viewport" content="width=device-width,i
       '<meta name="twitter:card" content="summary_large_image"><meta name="twitter:image" content="https://fromgray-lab.github.io/wellcheck-demo-spotter/og.jpg">')
 open(os.path.join(S,'index.html'),'w',encoding='utf-8').write('<!doctype html><html lang="ko"><head>'+head+'</head><body>'+body+'</body></html>')
 assets=['./','index.html','manifest.webmanifest','icon-192.png','icon-512.png','apple-touch-icon.png']
-for d in ('img','img/m','img/hd','img/ysr','img/dh','bgm'):
+for d in ('img','img/m','img/hd','img/ysr','img/dh','img/sim','bgm'):
     for f in sorted(os.listdir(os.path.join(S,d))):
         p=os.path.join(S,d,f)
         if os.path.isfile(p): assets.append(d+'/'+f)

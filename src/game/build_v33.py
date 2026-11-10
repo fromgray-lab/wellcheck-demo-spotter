@@ -8,3 +8,7 @@ src = rep(src, "</style>", """#play>.hud{order:1} #play>#prog{order:2} #play>#di
 @media (prefers-reduced-motion:reduce){#dialog .line.qpop{animation:none}}
 </style>""")
 src = rep(src, "$('dTask').innerHTML = prevActHtml(st) + st.task; try{", "$('dTask').innerHTML = prevActHtml(st) + st.task; (function(){ const l=$('dTask').closest('.line'); if(l){ l.classList.remove('qpop'); void l.offsetWidth; l.classList.add('qpop'); } })(); try{")
+
+# v61: 체험존 「웰체크 시뮬레이터」 화면으로 교체 (체험존 S2~S5 · 실무 M2·M3·M4·M6)
+src = rep(src, "\n/* 초기화 */", "\n" + open(P('parts/course_sim.js'), encoding='utf-8').read() + "\n/* 초기화 */")
+src = rep(src, "</style>", ".chtoast{top:auto;bottom:max(22px,env(safe-area-inset-bottom,0px))}\n</style>")
