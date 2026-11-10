@@ -797,7 +797,14 @@ body[data-screen="loop"] .sunburst{--sun-1:#ffe9b8;--sun-2:#ffd27a}
  #title .tui .credit{display:none!important}
  #title .floor{height:19%}
 }#title .tui .credit{left:0;right:0;text-align:center;font-family:var(--body);font-weight:600;font-size:11.5px;letter-spacing:.02em;color:rgba(255,255,255,.9);text-shadow:0 1px 0 rgba(0,0,0,.35)} #title .tui .credit #verTag{opacity:.7;margin-left:4px}
-@media (orientation:portrait){ #title .tui .credit{display:block!important;bottom:max(6px,env(safe-area-inset-bottom,0px));font-size:10px;white-space:nowrap;padding:0 8px} #title .tui .credit #verTag{display:none} #title .tui #btnStart{bottom:calc(max(18px,env(safe-area-inset-bottom,0px)) + 22px)} }.legend59{margin:4px 0 0;font-size:12.5px;color:var(--dim)} .legend59 summary{cursor:pointer;font-weight:800;color:var(--ink)} .legend59 ul{margin:4px 0 0;padding-left:18px;display:grid;gap:2px}</style>
+@media (orientation:portrait){ #title .tui .credit{display:block!important;bottom:max(6px,env(safe-area-inset-bottom,0px));font-size:10px;white-space:nowrap;padding:0 8px} #title .tui .credit #verTag{display:none} #title .tui #btnStart{bottom:calc(max(18px,env(safe-area-inset-bottom,0px)) + 22px)} }.legend59{margin:4px 0 0;font-size:12.5px;color:var(--dim)} .legend59 summary{cursor:pointer;font-weight:800;color:var(--ink)} .legend59 ul{margin:4px 0 0;padding-left:18px;display:grid;gap:2px}#play>.hud{order:1} #play>#prog{order:2} #play>#dialog{order:3} #play>#arena{order:4}
+#play>#dialog{border-top:0;border-bottom:4px solid var(--ink);background:#ffd84d;box-shadow:0 5px 0 rgba(13,16,40,.25);z-index:6}
+#dialog .line{border-width:3px}
+#dialog .line .task{display:block;font-size:1.2em;font-weight:900;line-height:1.3;margin-top:2px}
+#dialog .line .task::before{content:"문제";display:inline-block;background:var(--ink);color:#ffd84d;font-family:var(--body);font-weight:900;font-size:.6em;border-radius:6px;padding:2px 7px;margin-right:7px;vertical-align:.18em;letter-spacing:.06em}
+#dialog .line.qpop{animation:qpop60 .45s cubic-bezier(.2,1.5,.4,1)} @keyframes qpop60{0%{transform:scale(.96);box-shadow:0 0 0 0 #ff6a00}60%{box-shadow:0 0 0 6px rgba(255,106,0,.45)}100%{transform:none;box-shadow:0 3px 0 var(--ink)}}
+@media (prefers-reduced-motion:reduce){#dialog .line.qpop{animation:none}}
+</style>
 
 <div class="sunburst" aria-hidden="true"></div>
 
@@ -1039,7 +1046,7 @@ body[data-screen="loop"] .sunburst{--sun-1:#ffe9b8;--sun-2:#ffd27a}
     <div class="corner"><button type="button" class="g-btn" id="btnBoard">마스터 현황표</button><button type="button" class="g-btn" id="btnRecords">기록실</button></div>
     <button type="button" class="g-btn tail" id="btnHow">게임방법</button>
     <button type="button" class="g-btn tail green" id="btnStart">▶ 게임시작</button>
-    <div class="credit">© 2026 New Business Strategy Team. All rights reserved. <span id="verTag" title="업데이트 노트는 게임방법 안에">v59</span></div>
+    <div class="credit">© 2026 New Business Strategy Team. All rights reserved. <span id="verTag" title="업데이트 노트는 게임방법 안에">v60</span></div>
   </div>
 </section>
 
@@ -1306,6 +1313,7 @@ body[data-screen="loop"] .sunburst{--sun-1:#ffe9b8;--sun-2:#ffd27a}
     <div class="sites" id="siteLegend"></div>
     <p class="kbd" style="margin:10px 0 0">전체 완주 점수 = 100 − 오답×5 − 찬스×8. S 100 · A 90↑ · B 75↑ · C 60↑ · D · F(원장님 퇴장). 시간 초과도 오답 1회. 👀 시범은 정답과 멘트를 보여주는 자동 재생.</p>
     <details class="changelog"><summary>🆕 업데이트 노트 (최근)</summary><ul>
+      <li><b>v60</b> 문제를 화면 <b>상단</b>으로 — 노란 띠 + '문제' 라벨로 강조 (시선이 위→아래로 흐르도록)</li>
       <li><b>v59</b> 현황표 설명 축약 — 한 줄(👑🥇🥈🥉 + 행 누르면 상세), 세부 기준은 '등급 기준' 접기 안으로</li>
       <li><b>v58</b> 타이틀 하단 시그니처 — © 2026 New Business Strategy Team. All rights reserved.</li>
       <li><b>v57</b> 폰 타이틀 하단 정리 — 하단엔 ▶ 게임시작 하나만(전폭). 게임방법은 위 버튼 줄로, 곰·간호사·말풍선 꼬리·크레딧 줄 제거</li>
@@ -1824,7 +1832,7 @@ function renderStep(){
   S.stepWrong=0; S.stepChance=false; S.locked=false; S.busy=false; S.nearUsed=false; S.cur={ id:st.id, st:st.st, t0:Date.now(), w:0, c:0, tips:0, to:0, miss:[] };
   $('fx').innerHTML=''; $('arenaUi').innerHTML=''; $('overlayHost').innerHTML=''; $('dHint').classList.remove('on'); $('dHint').textContent='';
   setBoard(st.img, false);
-  $('dWho').textContent = st.who ? st.who+' '+(st.say||'') : ''; $('dTask').innerHTML = prevActHtml(st) + st.task; try{ $('shot').alt='시연 화면 — '+st.task.replace(/<[^>]+>/g,''); }catch(e){} if(st.who&&st.say&&!S.demo) speak(st.say);
+  $('dWho').textContent = st.who ? st.who+' '+(st.say||'') : ''; $('dTask').innerHTML = prevActHtml(st) + st.task; (function(){ const l=$('dTask').closest('.line'); if(l){ l.classList.remove('qpop'); void l.offsetWidth; l.classList.add('qpop'); } })(); try{ $('shot').alt='시연 화면 — '+st.task.replace(/<[^>]+>/g,''); }catch(e){} if(st.who&&st.say&&!S.demo) speak(st.say);
   setMood('neutral'); renderHUD();
   renderFrame(st); if(S.prevSite && st.site && st.site!==S.prevSite) siteToast(S.prevSite, st.site); S.prevSite=st.site||S.prevSite; if(st.ch) chapterToast(st); $('zedit').hidden=!BOARD.admin; editClear();
   if(S.demo){ demoStep(st); return; }

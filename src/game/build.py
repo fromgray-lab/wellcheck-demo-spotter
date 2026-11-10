@@ -249,6 +249,7 @@ exec(open(P('build_v29.py'), encoding='utf-8').read())
 # v30(🎙 멘트 말하기)는 루피(알피왕)와 역할 중복 → 제외 (2026-10-21 키아누)
 exec(open(P('build_v31.py'), encoding='utf-8').read())
 exec(open(P('build_v32.py'), encoding='utf-8').read())
+exec(open(P('build_v33.py'), encoding='utf-8').read())
 open(P('demo-spotter.html'), 'w', encoding='utf-8').write(src)
 print('built', len(src), 'bytes')
 
