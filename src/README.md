@@ -5,3 +5,5 @@
 - 이미지·BGM은 루트 `img/`·`bgm/` (src/game/img, bgm은 심볼릭 링크). 새 이미지 폴더는 `make_site.py`의 목록 튜플에도 추가
 - 스테이지 콘텐츠: `parts/course_manual.js`(실무 M0~M8) · `course_ysr.js`(M9 의사랑) · `course_dh.js`(M10 리브레·M11 카트비피) · `fix_zone4.py`(체험존) · 원장님 질문 `parts/qcards.json` · 사이트 경로 `parts/sites.js`
 - 시트 저장소 Apps Script: `src/sheets/` (배포 액세스 = **모든 사용자** 필수)
+
+- **학습된 규칙: `src/LESSONS.md`** — 의견·오답에서 뽑은 재발 방지 규칙. 콘텐츠를 만들거나 고치기 전에 반드시 읽고, 새로 배운 것은 맨 아래에 추가
