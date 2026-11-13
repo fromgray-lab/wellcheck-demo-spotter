@@ -1053,7 +1053,7 @@ body:has(#overlayHost .g-panel) #play>#dialog{visibility:hidden}
     <div class="corner"><button type="button" class="g-btn" id="btnBoard">마스터 현황표</button><button type="button" class="g-btn" id="btnRecords">기록실</button></div>
     <button type="button" class="g-btn tail" id="btnHow">게임방법</button>
     <button type="button" class="g-btn tail green" id="btnStart">▶ 게임시작</button>
-    <div class="credit">© 2026 New Business Strategy Team. All rights reserved. <span id="verTag" title="업데이트 노트는 게임방법 안에">v65</span></div>
+    <div class="credit">© 2026 New Business Strategy Team. All rights reserved. <span id="verTag" title="업데이트 노트는 게임방법 안에">v66</span></div>
   </div>
 </section>
 
@@ -1320,6 +1320,7 @@ body:has(#overlayHost .g-panel) #play>#dialog{visibility:hidden}
     <div class="sites" id="siteLegend"></div>
     <p class="kbd" style="margin:10px 0 0">전체 완주 점수 = 100 − 오답×5 − 찬스×8. S 100 · A 90↑ · B 75↑ · C 60↑ · D · F(원장님 퇴장). 시간 초과도 오답 1회. 👀 시범은 정답과 멘트를 보여주는 자동 재생.</p>
     <details class="changelog"><summary>🆕 업데이트 노트 (최근)</summary><ul>
+      <li><b>v66</b> 🔁 일간 자동 점검(규칙 L4) — 같은 글자가 왼쪽 메뉴·구역 제목에도 보이는 5곳의 문제에 '버튼'을 명시(건생 조회 2곳·차감신청, 교육자료 발송 2곳)</li>
       <li><b>v65</b> 🔁 일간 자동 점검(규칙 L6) — 같은 '혈당 입력' 버튼이 화면에 3개인 M5 환자 앱 스텝의 문제에 위치(「혈압/혈당 입력 안내」 메시지 아래)를 명시</li>
       <li><b>v64</b> 🔁 일간 자동 점검(규칙 L5) — '○○ 입력/체크/작성 후 [버튼]' 문구 중 화면에 이미 끝나 있는 4곳을 '○○된 상태 — [버튼]'으로 정리(M5 혈당 입력·작성완료, 리브레 보내기, 카트비피 저장) · M5 수기 입력 '임시저장' 정답 표시를 실제 파란 버튼 위치로 보정</li>
       <li><b>v63</b> 예전 의견 복구 — 이 기기에 남아 있던 의견을 접속 시 자동으로 한 번 더 전송</li>
@@ -3283,6 +3284,8 @@ async function recoverFb63(){ if(localStorage.getItem('dsg_fb_rec63')) return; i
   let n=0; for(const d of l.slice(-100)){ try{ await shPost('feedback', Object.assign({}, d, {recovered:1})); markSent('feedback', d); n++; }catch(e){ return; } }
   localStorage.setItem('dsg_fb_rec63', String(n)); if(n) try{ toast('예전에 남기신 의견 '+n+'건을 다시 보냈어요 🙏'); }catch(e){} }
 
+/* 루프 런타임 덮어쓰기 */
+(function(){ const L=[["h2", "task", "성명 \"테스트\" 환자를 찾는 <b>조회</b> 버튼"], ["h5", "task", "참여자 정보를 불러오는 <b>조회</b> 버튼"], ["h6", "task", "<b>차감신청</b> 버튼으로 신청 창을 여세요"], ["ze3", "task", "바구니에 담긴 상태 — <b>교육자료 발송</b> 버튼"], ["m4b", "task", "바구니에 담긴 상태 — <b>교육자료 발송</b> 버튼"]]; L.forEach(([id,k,v])=>{ const s=STEPS.find(x=>x.id===id); if(s) s[k]=v; }); })();
 /* 초기화 */
 loadStars(); S.profile = loadProfile(); if(S.profile) S.name = S.profile.name;
 loadCourse(); ['s01','s02','s03'].forEach(k=>{ const i=new Image(); i.src=IMG[k]; });

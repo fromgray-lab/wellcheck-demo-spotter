@@ -51,3 +51,15 @@ async function recoverFb63(){ if(localStorage.getItem('dsg_fb_rec63')) return; i
   localStorage.setItem('dsg_fb_rec63', String(n)); if(n) try{ toast('예전에 남기신 의견 '+n+'건을 다시 보냈어요 🙏'); }catch(e){} }
 
 /* 초기화 */""")
+
+# 루프 런타임 덮어쓰기 — 생성물(parts/course_sim.js)·원본 스텝을 직접 고치지 않고 스텝 id로 찾아 문구만 바꾼다(운영서 「자료」).
+# v66 (2026-11-14, 규칙 L4 전수 점검): 같은 글자가 왼쪽 메뉴·구역 제목에도 있는 스텝에 '버튼'을 명시
+LOOP_OVR = [
+  ('h2',  'task', '성명 "테스트" 환자를 찾는 <b>조회</b> 버튼'),
+  ('h5',  'task', '참여자 정보를 불러오는 <b>조회</b> 버튼'),
+  ('h6',  'task', '<b>차감신청</b> 버튼으로 신청 창을 여세요'),
+  ('ze3', 'task', '바구니에 담긴 상태 — <b>교육자료 발송</b> 버튼'),
+  ('m4b', 'task', '바구니에 담긴 상태 — <b>교육자료 발송</b> 버튼'),
+]
+import json as _json
+src = rep(src, "\n/* 초기화 */", "\n/* 루프 런타임 덮어쓰기 */\n(function(){ const L=" + _json.dumps(LOOP_OVR, ensure_ascii=False) + "; L.forEach(([id,k,v])=>{ const s=STEPS.find(x=>x.id===id); if(s) s[k]=v; }); })();\n/* 초기화 */")
