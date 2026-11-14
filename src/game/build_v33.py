@@ -60,6 +60,10 @@ LOOP_OVR = [
   ('h6',  'task', '<b>차감신청</b> 버튼으로 신청 창을 여세요'),
   ('ze3', 'task', '바구니에 담긴 상태 — <b>교육자료 발송</b> 버튼'),
   ('m4b', 'task', '바구니에 담긴 상태 — <b>교육자료 발송</b> 버튼'),
+  # v67 (2026-11-15): L4 미룸 m2c · L3 전수 점검(폰 세로 지시문 4줄 이상) m0e·m0h
+  ('m2c', 'task', '개별 발송 — 번호 입력 후 <b>초대장 발송</b> 버튼'),
+  ('m0e', 'task', '① 우클릭 메뉴 — <b>HIRA e-Form Agent 로그인</b>'),
+  ('m0h', 'task', '로그인 확인 — 작업표시줄 <b>파란 심평원 아이콘</b>'),
 ]
 import json as _json
 src = rep(src, "\n/* 초기화 */", "\n/* 루프 런타임 덮어쓰기 */\n(function(){ const L=" + _json.dumps(LOOP_OVR, ensure_ascii=False) + "; L.forEach(([id,k,v])=>{ const s=STEPS.find(x=>x.id===id); if(s) s[k]=v; }); })();\n/* 초기화 */")
