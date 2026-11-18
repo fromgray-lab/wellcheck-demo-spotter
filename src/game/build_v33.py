@@ -67,3 +67,8 @@ LOOP_OVR = [
 ]
 import json as _json
 src = rep(src, "\n/* 초기화 */", "\n/* 루프 런타임 덮어쓰기 */\n(function(){ const L=" + _json.dumps(LOOP_OVR, ensure_ascii=False) + "; L.forEach(([id,k,v])=>{ const s=STEPS.find(x=>x.id===id); if(s) s[k]=v; }); })();\n/* 초기화 */")
+
+# v68 (2026-11-19, 규칙 L9 전수 점검): 폰 가로(게임이 권하는 방향)에서 스테이지 클리어 화면의 👍/👎가 첫 화면 아래(스크롤해야 보임)에 있었음
+# → 의견 카드를 별·성적 바로 아래(자유자재 지수·핵심 멘트 위)로 올려 스크롤 없이 원탭. 되돌리기: 이 rep 한 줄 삭제.
+src = rep(src, "${S.demo||S.guide?'':fluHtml(S.stepLog.filter(l=>l.st===S.stage.id))}${recapHtml()}${S.demo?'':fbCardHtml()}",
+               "${S.demo?'':fbCardHtml()}${S.demo||S.guide?'':fluHtml(S.stepLog.filter(l=>l.st===S.stage.id))}${recapHtml()}")

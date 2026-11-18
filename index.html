@@ -1053,7 +1053,7 @@ body:has(#overlayHost .g-panel) #play>#dialog{visibility:hidden}
     <div class="corner"><button type="button" class="g-btn" id="btnBoard">마스터 현황표</button><button type="button" class="g-btn" id="btnRecords">기록실</button></div>
     <button type="button" class="g-btn tail" id="btnHow">게임방법</button>
     <button type="button" class="g-btn tail green" id="btnStart">▶ 게임시작</button>
-    <div class="credit">© 2026 New Business Strategy Team. All rights reserved. <span id="verTag" title="업데이트 노트는 게임방법 안에">v67</span></div>
+    <div class="credit">© 2026 New Business Strategy Team. All rights reserved. <span id="verTag" title="업데이트 노트는 게임방법 안에">v68</span></div>
   </div>
 </section>
 
@@ -1320,6 +1320,7 @@ body:has(#overlayHost .g-panel) #play>#dialog{visibility:hidden}
     <div class="sites" id="siteLegend"></div>
     <p class="kbd" style="margin:10px 0 0">전체 완주 점수 = 100 − 오답×5 − 찬스×8. S 100 · A 90↑ · B 75↑ · C 60↑ · D · F(원장님 퇴장). 시간 초과도 오답 1회. 👀 시범은 정답과 멘트를 보여주는 자동 재생.</p>
     <details class="changelog"><summary>🆕 업데이트 노트 (최근)</summary><ul>
+      <li><b>v68</b> 🔁 일간 자동 점검(규칙 L9) — 폰 가로 화면에서 스테이지 클리어 뒤 👍/👎가 화면 아래로 밀려 스크롤해야 보이던 것을, 별·성적 바로 아래로 올려 바로 한 번에 누를 수 있게</li>
       <li><b>v67</b> 🔁 일간 자동 점검(규칙 L3·L4) — 폰 세로에서 문제가 4~5줄로 길던 심평원 Agent 2곳(우클릭 메뉴·작업표시줄 아이콘)을 짧게 정리 · 초대장 개별 발송 문제에 '버튼' 명시</li>
       <li><b>v66</b> 🔁 일간 자동 점검(규칙 L4) — 같은 글자가 왼쪽 메뉴·구역 제목에도 보이는 5곳의 문제에 '버튼'을 명시(건생 조회 2곳·차감신청, 교육자료 발송 2곳)</li>
       <li><b>v65</b> 🔁 일간 자동 점검(규칙 L6) — 같은 '혈당 입력' 버튼이 화면에 3개인 M5 환자 앱 스텝의 문제에 위치(「혈압/혈당 입력 안내」 메시지 아래)를 명시</li>
@@ -1943,7 +1944,7 @@ function stageClear(){
   const prev=S.stars[id]; if(!prev || res.stars>prev.stars || (res.stars===prev.stars && res.wrong<prev.wrong)){ S.stars[id]={stars:res.stars,wrong:res.wrong,chance:res.chance,secs:res.secs}; saveStars(); }
   if(S.mode==='one' && !S.demo){ saveRun({ ...(S.profile||{name:S.name}), persona:S.persona.key, mode:'one', course:S.course, stage:id, grade:'', score:Math.max(0,100-W_WRONG*res.wrong-W_CHANCE*res.chance), wrong:res.wrong, chance:res.chance, tips:res.tips, secs:res.secs, at:new Date().toISOString(), over:false, stars:{[id]:res.stars}, steps:compactSteps(res.steps), q:qSummary(), siteq:siteSummary(), diff:S.diff }); }
   const last = S.qi>=S.queue.length-1;
-  const host=$('overlayHost'); host.innerHTML=`<div class="overlay" style="pointer-events:auto"><div class="g-panel"><svg class="ovchar r" viewBox="0 0 280 330" aria-hidden="true"><use href="#chDocYes"/></svg><div class="banner">STAGE CLEAR!</div><div style="font-family:var(--display);color:var(--dim)">${stageCode(S.stage)} · ${S.stage.title}</div>${starsHtml(0,true)}<div class="tally"><div><small>오답</small><b>${res.wrong}</b></div><div><small>찬스</small><b>${res.chance}</b></div><div><small>시간</small><b>${fmtTime(res.secs)}</b></div></div>${S.demo||S.guide?'':fluHtml(S.stepLog.filter(l=>l.st===S.stage.id))}${recapHtml()}${S.demo?'':fbCardHtml()}<div class="btn-row">${S.mode==='all' ? (last?`<button type="button" class="g-btn big green" id="nextStageBtn">동의서 받기 ✍</button>`:`<button type="button" class="g-btn big green" id="nextStageBtn">다음 스테이지 ▶</button>`) : `<button type="button" class="g-btn green" id="nextStageBtn">맵으로</button><button type="button" class="g-btn gray" id="retryBtn">다시</button>`}</div></div></div>`;
+  const host=$('overlayHost'); host.innerHTML=`<div class="overlay" style="pointer-events:auto"><div class="g-panel"><svg class="ovchar r" viewBox="0 0 280 330" aria-hidden="true"><use href="#chDocYes"/></svg><div class="banner">STAGE CLEAR!</div><div style="font-family:var(--display);color:var(--dim)">${stageCode(S.stage)} · ${S.stage.title}</div>${starsHtml(0,true)}<div class="tally"><div><small>오답</small><b>${res.wrong}</b></div><div><small>찬스</small><b>${res.chance}</b></div><div><small>시간</small><b>${fmtTime(res.secs)}</b></div></div>${S.demo?'':fbCardHtml()}${S.demo||S.guide?'':fluHtml(S.stepLog.filter(l=>l.st===S.stage.id))}${recapHtml()}<div class="btn-row">${S.mode==='all' ? (last?`<button type="button" class="g-btn big green" id="nextStageBtn">동의서 받기 ✍</button>`:`<button type="button" class="g-btn big green" id="nextStageBtn">다음 스테이지 ▶</button>`) : `<button type="button" class="g-btn green" id="nextStageBtn">맵으로</button><button type="button" class="g-btn gray" id="retryBtn">다시</button>`}</div></div></div>`;
   const stars=host.querySelectorAll('.bigstars i'); for(let i=0;i<res.stars;i++){ setTimeout(()=>{ stars[i].classList.add('on'); SFX.star(); }, 500+i*380); }
   bindFb(host,'clear',res);
   $('nextStageBtn').addEventListener('click', ()=>{ host.innerHTML=''; if(S.mode==='all'){ if(last) finish(false); else { S.qi++; startStage(); } } else { exitFullscreen(); renderMap(); show('map'); } });
