@@ -1053,7 +1053,7 @@ body:has(#overlayHost .g-panel) #play>#dialog{visibility:hidden}
     <div class="corner"><button type="button" class="g-btn" id="btnBoard">마스터 현황표</button><button type="button" class="g-btn" id="btnRecords">기록실</button></div>
     <button type="button" class="g-btn tail" id="btnHow">게임방법</button>
     <button type="button" class="g-btn tail green" id="btnStart">▶ 게임시작</button>
-    <div class="credit">© 2026 New Business Strategy Team. All rights reserved. <span id="verTag" title="업데이트 노트는 게임방법 안에">v68</span></div>
+    <div class="credit">© 2026 New Business Strategy Team. All rights reserved. <span id="verTag" title="업데이트 노트는 게임방법 안에">v69</span></div>
   </div>
 </section>
 
@@ -1320,6 +1320,7 @@ body:has(#overlayHost .g-panel) #play>#dialog{visibility:hidden}
     <div class="sites" id="siteLegend"></div>
     <p class="kbd" style="margin:10px 0 0">전체 완주 점수 = 100 − 오답×5 − 찬스×8. S 100 · A 90↑ · B 75↑ · C 60↑ · D · F(원장님 퇴장). 시간 초과도 오답 1회. 👀 시범은 정답과 멘트를 보여주는 자동 재생.</p>
     <details class="changelog"><summary>🆕 업데이트 노트 (최근)</summary><ul>
+      <li><b>v69</b> 🔁 일간 자동 점검(규칙 L9) — 따라하기·복습을 끝낸 화면에도 👍/👎 원탭을 넣어, 연습 모드에서도 한 번 눌러 의견을 남길 수 있게</li>
       <li><b>v68</b> 🔁 일간 자동 점검(규칙 L9) — 폰 가로 화면에서 스테이지 클리어 뒤 👍/👎가 화면 아래로 밀려 스크롤해야 보이던 것을, 별·성적 바로 아래로 올려 바로 한 번에 누를 수 있게</li>
       <li><b>v67</b> 🔁 일간 자동 점검(규칙 L3·L4) — 폰 세로에서 문제가 4~5줄로 길던 심평원 Agent 2곳(우클릭 메뉴·작업표시줄 아이콘)을 짧게 정리 · 초대장 개별 발송 문제에 '버튼' 명시</li>
       <li><b>v66</b> 🔁 일간 자동 점검(규칙 L4) — 같은 글자가 왼쪽 메뉴·구역 제목에도 보이는 5곳의 문제에 '버튼'을 명시(건생 조회 2곳·차감신청, 교육자료 발송 2곳)</li>
@@ -2293,7 +2294,8 @@ function showRing(st){ const r=st.rects[0]; const ring=document.createElement('d
 function guideStep(st){ $('tbar').hidden=true; showRing(st); $('dHint').textContent='✋ '+st.chance+' — 직접 눌러보세요'; $('dHint').classList.add('on'); }
 function guideSay(st){ const say=st.tip&&st.tip.say?st.tip.say:''; if(!say) return 0; const card=document.createElement('div'); card.className='demo-say'; card.innerHTML=`<div class="dl">🗣 이 화면에서 할 말</div><div>${esc(say)}</div>`; $('arenaUi').appendChild(card); return Math.min(4500, 1400+say.length*40); }
 function practiceEnd(kind){ stopStepTimer(); SFX.clear(); const id=S.stage.id; if(kind==='guide') try{ pathMark('guide', id); }catch(e){} const host=$('overlayHost'); const title = kind==='guide' ? '따라하기 완료!' : '복습 완료!'; const desc = kind==='guide' ? `${stageCode(S.stage)} · ${S.stage.title} — 손에 익었나요? 이제 실전으로.` : `틀렸던 ${S.steps.length}단계를 다시 짚었습니다 (오답 ${S.stageRes[id].wrong}).`;
-  host.innerHTML=`<div class="overlay" style="pointer-events:auto"><div class="g-panel"><svg class="ovchar r" viewBox="0 0 280 330" aria-hidden="true"><use href="#chDocYes"/></svg><div class="banner blue">${title}</div><p style="margin:6px 0 0;color:var(--dim)">${desc}</p>${recapHtml()}<div class="btn-row">${kind==='guide'?`<button type="button" class="g-btn big green" id="nextStageBtn">🎯 실전 도전</button>`:`<button type="button" class="g-btn big green" id="nextStageBtn">성적표로</button>`}<button type="button" class="g-btn gray" id="toMap2">맵으로</button></div></div></div>`;
+  host.innerHTML=`<div class="overlay" style="pointer-events:auto"><div class="g-panel"><svg class="ovchar r" viewBox="0 0 280 330" aria-hidden="true"><use href="#chDocYes"/></svg><div class="banner blue">${title}</div><p style="margin:6px 0 0;color:var(--dim)">${desc}</p>${S.demo?'':pfbHtml()}${recapHtml()}<div class="btn-row">${kind==='guide'?`<button type="button" class="g-btn big green" id="nextStageBtn">🎯 실전 도전</button>`:`<button type="button" class="g-btn big green" id="nextStageBtn">성적표로</button>`}<button type="button" class="g-btn gray" id="toMap2">맵으로</button></div></div></div>`;
+  try{ pfbBind(host, kind, id); }catch(e){}
   $('nextStageBtn').addEventListener('click', ()=>{ host.innerHTML=''; if(kind==='guide'){ S.guide=false; startRun('one', id); } else { exitFullscreen(); show('result'); } });
   $('toMap2').addEventListener('click', ()=>{ host.innerHTML=''; S.guide=false; exitFullscreen(); renderMap(); show('map'); }); }
 /* ── 핵심 멘트 리캡 (스테이지 끝) ── */
@@ -3288,6 +3290,11 @@ async function recoverFb63(){ if(localStorage.getItem('dsg_fb_rec63')) return; i
 
 /* 루프 런타임 덮어쓰기 */
 (function(){ const L=[["h2", "task", "성명 \"테스트\" 환자를 찾는 <b>조회</b> 버튼"], ["h5", "task", "참여자 정보를 불러오는 <b>조회</b> 버튼"], ["h6", "task", "<b>차감신청</b> 버튼으로 신청 창을 여세요"], ["ze3", "task", "바구니에 담긴 상태 — <b>교육자료 발송</b> 버튼"], ["m4b", "task", "바구니에 담긴 상태 — <b>교육자료 발송</b> 버튼"], ["m2c", "task", "개별 발송 — 번호 입력 후 <b>초대장 발송</b> 버튼"], ["m0e", "task", "① 우클릭 메뉴 — <b>HIRA e-Form Agent 로그인</b>"], ["m0h", "task", "로그인 확인 — 작업표시줄 <b>파란 심평원 아이콘</b>"]]; L.forEach(([id,k,v])=>{ const s=STEPS.find(x=>x.id===id); if(s) s[k]=v; }); })();
+/* v69 따라하기·복습 끝 원탭 의견 */
+function pfbHtml(){ return '<div class="fb" id="fbCard"><div class="fbt"><span>📝 이 연습, 어땠나요?</span><span class="thumbs"><button type="button" data-t="up" title="좋아요">👍</button><button type="button" data-t="down" title="별로예요">👎</button></span></div></div>'; }
+function pfbBind(host, kind, id){ const c=host.querySelector('#fbCard'); if(!c) return; const r=(S.stageRes&&S.stageRes[id])||{}; fbQuick(c, kind==='guide'?'guide':'review', {stars:0, wrong:r.wrong||0, steps:[]});
+  c.querySelectorAll('.thumbs button').forEach(b=>b.addEventListener('click',()=>{ c.querySelectorAll('.thumbs button').forEach(x=>x.classList.toggle('on',x===b)); const s=c.querySelector('.fbt>span'); if(s) s.textContent='✓ 저장됐어요. 고맙습니다!'; try{ SFX.pop(); }catch(e){} })); }
+
 /* 초기화 */
 loadStars(); S.profile = loadProfile(); if(S.profile) S.name = S.profile.name;
 loadCourse(); ['s01','s02','s03'].forEach(k=>{ const i=new Image(); i.src=IMG[k]; });

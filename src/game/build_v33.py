@@ -72,3 +72,17 @@ src = rep(src, "\n/* 초기화 */", "\n/* 루프 런타임 덮어쓰기 */\n(fun
 # → 의견 카드를 별·성적 바로 아래(자유자재 지수·핵심 멘트 위)로 올려 스크롤 없이 원탭. 되돌리기: 이 rep 한 줄 삭제.
 src = rep(src, "${S.demo||S.guide?'':fluHtml(S.stepLog.filter(l=>l.st===S.stage.id))}${recapHtml()}${S.demo?'':fbCardHtml()}",
                "${S.demo?'':fbCardHtml()}${S.demo||S.guide?'':fluHtml(S.stepLog.filter(l=>l.st===S.stage.id))}${recapHtml()}")
+
+# v69 (2026-11-20, 규칙 L9 미룸 처리): 따라하기·복습 끝 화면(practiceEnd)에 의견 남길 길이 없었음 → 👍/👎 원탭 카드(kind:'tap', 기존 fbQuick 그대로)를
+# 설명 바로 아래에 한 줄로 추가(폰 가로 342px에서 '실전 도전' 버튼이 밀려나지 않게 안내 줄 없이). 입력 단계 없음(L9). 되돌리기: 아래 rep 두 줄 삭제.
+src = rep(src, "<p style=\"margin:6px 0 0;color:var(--dim)\">${desc}</p>${recapHtml()}<div class=\"btn-row\">${kind==='guide'?",
+               "<p style=\"margin:6px 0 0;color:var(--dim)\">${desc}</p>${S.demo?'':pfbHtml()}${recapHtml()}<div class=\"btn-row\">${kind==='guide'?")
+src = rep(src, "  $('nextStageBtn').addEventListener('click', ()=>{ host.innerHTML=''; if(kind==='guide'){ S.guide=false; startRun('one', id); }",
+               "  try{ pfbBind(host, kind, id); }catch(e){}\n  $('nextStageBtn').addEventListener('click', ()=>{ host.innerHTML=''; if(kind==='guide'){ S.guide=false; startRun('one', id); }")
+src = rep(src, "\n/* 초기화 */", r"""
+/* v69 따라하기·복습 끝 원탭 의견 */
+function pfbHtml(){ return '<div class="fb" id="fbCard"><div class="fbt"><span>📝 이 연습, 어땠나요?</span><span class="thumbs"><button type="button" data-t="up" title="좋아요">👍</button><button type="button" data-t="down" title="별로예요">👎</button></span></div></div>'; }
+function pfbBind(host, kind, id){ const c=host.querySelector('#fbCard'); if(!c) return; const r=(S.stageRes&&S.stageRes[id])||{}; fbQuick(c, kind==='guide'?'guide':'review', {stars:0, wrong:r.wrong||0, steps:[]});
+  c.querySelectorAll('.thumbs button').forEach(b=>b.addEventListener('click',()=>{ c.querySelectorAll('.thumbs button').forEach(x=>x.classList.toggle('on',x===b)); const s=c.querySelector('.fbt>span'); if(s) s.textContent='✓ 저장됐어요. 고맙습니다!'; try{ SFX.pop(); }catch(e){} })); }
+
+/* 초기화 */""")
