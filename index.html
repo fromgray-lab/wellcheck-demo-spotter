@@ -1053,7 +1053,7 @@ body:has(#overlayHost .g-panel) #play>#dialog{visibility:hidden}
     <div class="corner"><button type="button" class="g-btn" id="btnBoard">마스터 현황표</button><button type="button" class="g-btn" id="btnRecords">기록실</button></div>
     <button type="button" class="g-btn tail" id="btnHow">게임방법</button>
     <button type="button" class="g-btn tail green" id="btnStart">▶ 게임시작</button>
-    <div class="credit">© 2026 New Business Strategy Team. All rights reserved. <span id="verTag" title="업데이트 노트는 게임방법 안에">v69</span></div>
+    <div class="credit">© 2026 New Business Strategy Team. All rights reserved. <span id="verTag" title="업데이트 노트는 게임방법 안에">v70</span></div>
   </div>
 </section>
 
@@ -1320,6 +1320,7 @@ body:has(#overlayHost .g-panel) #play>#dialog{visibility:hidden}
     <div class="sites" id="siteLegend"></div>
     <p class="kbd" style="margin:10px 0 0">전체 완주 점수 = 100 − 오답×5 − 찬스×8. S 100 · A 90↑ · B 75↑ · C 60↑ · D · F(원장님 퇴장). 시간 초과도 오답 1회. 👀 시범은 정답과 멘트를 보여주는 자동 재생.</p>
     <details class="changelog"><summary>🆕 업데이트 노트 (최근)</summary><ul>
+      <li><b>v70</b> 🔁 일간 자동 점검(규칙 L9) — 순서 맞추기를 끝낸 화면에 👍/👎 원탭을 넣고, 결과가 카드 목록 아래에 묻혀 폰에서 안 보이던 것을 끝나는 즉시 화면 안으로 올려 보여 주게</li>
       <li><b>v69</b> 🔁 일간 자동 점검(규칙 L9) — 따라하기·복습을 끝낸 화면에도 👍/👎 원탭을 넣어, 연습 모드에서도 한 번 눌러 의견을 남길 수 있게</li>
       <li><b>v68</b> 🔁 일간 자동 점검(규칙 L9) — 폰 가로 화면에서 스테이지 클리어 뒤 👍/👎가 화면 아래로 밀려 스크롤해야 보이던 것을, 별·성적 바로 아래로 올려 바로 한 번에 누를 수 있게</li>
       <li><b>v67</b> 🔁 일간 자동 점검(규칙 L3·L4) — 폰 세로에서 문제가 4~5줄로 길던 심평원 Agent 2곳(우클릭 메뉴·작업표시줄 아이콘)을 짧게 정리 · 초대장 개별 발송 문제에 '버튼' 명시</li>
@@ -2607,8 +2608,8 @@ function openOrder(stageId){ const st=STAGES.find(s=>s.id===stageId); if(!st) re
   const finish=()=>{ locked=true; const secs=Math.round((Date.now()-t0)/1000); const stars=wrong===0?3:wrong<=2?2:1; SFX.clear();
     const so={}; steps.forEach(s=>{ so[s.id]=[wrongIds.has(s.id)?1:0,0,0,Math.round(secs/steps.length),0,[]]; });
     saveRun({ ...(S.profile||{name:S.name}), persona:S.persona?S.persona.key:'', mode:'order', course:S.course, stage:stageId, grade:'', score:Math.max(0,100-10*wrong), wrong, chance:0, tips:0, secs, at:new Date().toISOString(), over:false, stars:{}, steps:so });
-    $('oGrid').insertAdjacentHTML('afterend', `<div class="oresult"><div class="banner ${stars===3?'':'blue'}" style="font-size:26px">${stars===3?'완벽한 순서!':'순서 완료'}</div>${starsHtml(stars)} <span class="kbd">틀림 ${wrong} · ${fmtTime(secs)}</span>${wrongIds.size?`<div class="kbd" style="margin-top:4px">헷갈린 단계: ${[...wrongIds].map(id=>{ const s=steps.find(x=>x.id===id); return s?esc(s.task.replace(/<[^>]+>/g,'')):''; }).join(' · ')}</div>`:''}<div class="btn-row"><button type="button" class="g-btn green" id="oAgain">다시</button><button type="button" class="g-btn" id="oPlay">🎯 이 스테이지 실전</button></div></div>`);
-    $('oAgain').addEventListener('click', ()=>openOrder(stageId)); $('oPlay').addEventListener('click', ()=>{ host.innerHTML=''; SFX.go(); startRun('one', stageId); }); };
+    $('oGrid').insertAdjacentHTML('afterend', `<div class="oresult"><div class="banner ${stars===3?'':'blue'}" style="font-size:26px">${stars===3?'완벽한 순서!':'순서 완료'}</div>${starsHtml(stars)} <span class="kbd">틀림 ${wrong} · ${fmtTime(secs)}</span>${wrongIds.size?`<div class="kbd" style="margin-top:4px">헷갈린 단계: ${[...wrongIds].map(id=>{ const s=steps.find(x=>x.id===id); return s?esc(s.task.replace(/<[^>]+>/g,'')):''; }).join(' · ')}</div>`:''}${ofbHtml()}<div class="btn-row"><button type="button" class="g-btn green" id="oAgain">다시</button><button type="button" class="g-btn" id="oPlay">🎯 이 스테이지 실전</button></div></div>`);
+    try{ ofbBind(host, stageId, wrong, stars); }catch(e){} $('oAgain').addEventListener('click', ()=>openOrder(stageId)); $('oPlay').addEventListener('click', ()=>{ host.innerHTML=''; SFX.go(); startRun('one', stageId); }); };
   const reveal=()=>{ locked=true; steps.forEach((s,i)=>{ const c=host.querySelector(`.ocard[data-id="${s.id}"]`); if(c){ c.classList.add('show'); c.insertAdjacentHTML('afterbegin', `<b class="onum">${i+1}</b>`); } }); setTimeout(finish, 900); };
   host.querySelectorAll('.ocard').forEach(c=>c.addEventListener('click', ()=>{ if(locked||c.classList.contains('done')) return; const id=c.dataset.id; if(id===steps[next].id){ c.classList.add('done'); c.insertAdjacentHTML('afterbegin', `<b class="onum">${next+1}</b>`); const slot=host.querySelector(`.oslot[data-i="${next}"]`); if(slot) slot.classList.add('on'); next++; SFX.good(); $('oStat').textContent=`${next} / ${steps.length}`; if(next>=steps.length) finish(); } else { wrong++; wrongIds.add(steps[next].id); SFX.wrong(); c.classList.remove('bad'); void c.offsetWidth; c.classList.add('bad'); try{ if(navigator.vibrate) navigator.vibrate(40); }catch(e){} if(wrong>=lives){ const hint=host.querySelector(`.ocard[data-id="${steps[next].id}"]`); if(hint) hint.classList.add('hint'); setTimeout(reveal, 500); } } }));
   $('oClose').addEventListener('click', ()=>{ host.innerHTML=''; }); $('orderModal').addEventListener('click', e=>{ if(e.target.id==='orderModal') host.innerHTML=''; }); SFX.pop(); }
@@ -3294,6 +3295,13 @@ async function recoverFb63(){ if(localStorage.getItem('dsg_fb_rec63')) return; i
 function pfbHtml(){ return '<div class="fb" id="fbCard"><div class="fbt"><span>📝 이 연습, 어땠나요?</span><span class="thumbs"><button type="button" data-t="up" title="좋아요">👍</button><button type="button" data-t="down" title="별로예요">👎</button></span></div></div>'; }
 function pfbBind(host, kind, id){ const c=host.querySelector('#fbCard'); if(!c) return; const r=(S.stageRes&&S.stageRes[id])||{}; fbQuick(c, kind==='guide'?'guide':'review', {stars:0, wrong:r.wrong||0, steps:[]});
   c.querySelectorAll('.thumbs button').forEach(b=>b.addEventListener('click',()=>{ c.querySelectorAll('.thumbs button').forEach(x=>x.classList.toggle('on',x===b)); const s=c.querySelector('.fbt>span'); if(s) s.textContent='✓ 저장됐어요. 고맙습니다!'; try{ SFX.pop(); }catch(e){} })); }
+
+/* v70 순서 맞추기 끝 원탭 의견 */
+function ofbHtml(){ return '<div class="fb" id="ofbCard" style="margin:8px auto 0;max-width:420px"><div class="fbt"><span>📝 이 연습, 어땠나요?</span><span class="thumbs"><button type="button" data-t="up" title="좋아요">👍</button><button type="button" data-t="down" title="별로예요">👎</button></span></div></div>'; }
+function ofbBind(host, stageId, wrong, stars){ const c=host.querySelector('#ofbCard'); let sent=''; if(c) c.querySelectorAll('.thumbs button').forEach(b=>b.addEventListener('click',()=>{ const t=b.dataset.t; if(t===sent) return; sent=t;
+    Promise.resolve(saveFeedback({ kind:'tap', ...fbBase('order',{stars, wrong}), stage:stageId, mode:'order', thumbs:t, tags:['원탭'], text:'', at:new Date().toISOString() })).catch(()=>{});
+    c.querySelectorAll('.thumbs button').forEach(x=>x.classList.toggle('on',x===b)); const s=c.querySelector('.fbt>span'); if(s) s.textContent='✓ 저장됐어요. 고맙습니다!'; try{ SFX.pop(); }catch(e){} }));
+  const r=host.querySelector('.oresult'); if(r) setTimeout(()=>{ try{ r.scrollIntoView({block:'end',behavior:'smooth'}); }catch(e){} }, 60); }
 
 /* 초기화 */
 loadStars(); S.profile = loadProfile(); if(S.profile) S.name = S.profile.name;

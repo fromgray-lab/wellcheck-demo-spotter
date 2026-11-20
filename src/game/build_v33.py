@@ -86,3 +86,21 @@ function pfbBind(host, kind, id){ const c=host.querySelector('#fbCard'); if(!c) 
   c.querySelectorAll('.thumbs button').forEach(b=>b.addEventListener('click',()=>{ c.querySelectorAll('.thumbs button').forEach(x=>x.classList.toggle('on',x===b)); const s=c.querySelector('.fbt>span'); if(s) s.textContent='✓ 저장됐어요. 고맙습니다!'; try{ SFX.pop(); }catch(e){} })); }
 
 /* 초기화 */""")
+
+# v70 (2026-11-21, 규칙 L9 미룸 처리): 순서 맞추기 끝 화면(.oresult)에 의견 남길 길이 없었음 → 👍/👎 한 줄 원탭 카드(kind:'tap', result='order')를
+# 별·틀림 줄 아래에 추가하고, 끝나면 결과 상자를 화면 안으로 스크롤(카드 그리드 아래에 붙어 폰에선 첫 화면 밖이었음). 입력 단계 없음(L9).
+# fbBase는 S.stage·S.mode(직전 실전 값)를 쓰므로 stage·mode를 순서 맞추기 값으로 덮어 저장. 되돌리기: 아래 rep 세 줄 삭제.
+# (숫자 특훈·응대 특훈 끝 화면은 v43에서 진입 칩이 빠져 도달할 수 없어 대상 아님)
+src = rep(src, ":''}<div class=\"btn-row\"><button type=\"button\" class=\"g-btn green\" id=\"oAgain\">",
+               ":''}${ofbHtml()}<div class=\"btn-row\"><button type=\"button\" class=\"g-btn green\" id=\"oAgain\">")
+src = rep(src, "$('oAgain').addEventListener('click', ()=>openOrder(stageId));",
+               "try{ ofbBind(host, stageId, wrong, stars); }catch(e){} $('oAgain').addEventListener('click', ()=>openOrder(stageId));")
+src = rep(src, "\n/* 초기화 */", r"""
+/* v70 순서 맞추기 끝 원탭 의견 */
+function ofbHtml(){ return '<div class="fb" id="ofbCard" style="margin:8px auto 0;max-width:420px"><div class="fbt"><span>📝 이 연습, 어땠나요?</span><span class="thumbs"><button type="button" data-t="up" title="좋아요">👍</button><button type="button" data-t="down" title="별로예요">👎</button></span></div></div>'; }
+function ofbBind(host, stageId, wrong, stars){ const c=host.querySelector('#ofbCard'); let sent=''; if(c) c.querySelectorAll('.thumbs button').forEach(b=>b.addEventListener('click',()=>{ const t=b.dataset.t; if(t===sent) return; sent=t;
+    Promise.resolve(saveFeedback({ kind:'tap', ...fbBase('order',{stars, wrong}), stage:stageId, mode:'order', thumbs:t, tags:['원탭'], text:'', at:new Date().toISOString() })).catch(()=>{});
+    c.querySelectorAll('.thumbs button').forEach(x=>x.classList.toggle('on',x===b)); const s=c.querySelector('.fbt>span'); if(s) s.textContent='✓ 저장됐어요. 고맙습니다!'; try{ SFX.pop(); }catch(e){} }));
+  const r=host.querySelector('.oresult'); if(r) setTimeout(()=>{ try{ r.scrollIntoView({block:'end',behavior:'smooth'}); }catch(e){} }, 60); }
+
+/* 초기화 */""")
