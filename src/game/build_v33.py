@@ -104,3 +104,22 @@ function ofbBind(host, stageId, wrong, stars){ const c=host.querySelector('#ofbC
   const r=host.querySelector('.oresult'); if(r) setTimeout(()=>{ try{ r.scrollIntoView({block:'end',behavior:'smooth'}); }catch(e){} }, 60); }
 
 /* 초기화 */""")
+
+# v71 (2026-11-22, 규칙 L10 전수 점검): 시트 쓰기(shPost)는 교차 출처라 응답을 못 읽어 2.5초 뒤 '보냄'으로 간주하고 markSent로 '전송됨'에 올린다.
+# 그 POST가 실제로는 유실돼도(연결 끊김·서버 오류) '전송됨'이라 resendLocalToSheet가 다시 보내지 않아 기기에만 남는 구멍이 있었음 = 도착 확인 없는 저장.
+# → 시작할 때 시트를 읽어(최근 300행, 서버 중복 제거 창과 같음) '전송됨'인데 시트에 없는 기록·의견·평가를 '전송됨'에서 빼 기존 재전송이 다시 보내게 함.
+# 보내는 길(shPost)은 바꾸지 않음. 10분 안의 것·읽은 창보다 오래된 것은 건드리지 않음(중복 방지). 되돌리기: 아래 rep 세 줄 삭제.
+src = rep(src, "function shGet(col){", "function shGet(col, lim){")
+src = rep(src, "'&limit=3000&cb='", "'&limit='+(lim||3000)+'&cb='")
+src = rep(src, "try{ await recoverFb63(); }catch(e){} await resendLocalToSheet();", "try{ await recoverFb63(); }catch(e){} try{ await verifySentOnSheet(); }catch(e){} await resendLocalToSheet();")
+src = rep(src, "\n/* 초기화 */", r"""
+/* v71 도착 확인: '전송됨'인데 시트에 없는 것은 다시 보낼 대상으로 */
+async function verifySentOnSheet(){ if(!SHEETS.url || !(await shHealth())) return 0; let sent; try{ sent=JSON.parse(localStorage.getItem('dsg_sent')||'[]'); }catch(e){ return 0; } if(!sent.length) return 0;
+  const LIM=300, cut=new Date(Date.now()-10*60000).toISOString(), drop=new Set();
+  for(const col of ['runs','feedback','evals']){ let rows; try{ rows=await shGet(col, LIM); }catch(e){ continue; } if(!Array.isArray(rows)) continue;
+    const have=new Set(rows.map(r=>col+'|'+((r&&r.name)||'')+'|'+((r&&r.at)||''))); let oldest=''; if(rows.length>=LIM) rows.forEach(r=>{ if(r&&r.at&&(!oldest||r.at<oldest)) oldest=r.at; });
+    sent.forEach(k=>{ if(k.indexOf(col+'|')!==0) return; const at=k.slice(k.lastIndexOf('|')+1); if(!at||at>=cut||(oldest&&at<oldest)) return; if(!have.has(k)) drop.add(k); }); }
+  if(drop.size){ try{ localStorage.setItem('dsg_sent', JSON.stringify(sent.filter(k=>!drop.has(k)))); }catch(e){} }
+  return drop.size; }
+
+/* 초기화 */""")

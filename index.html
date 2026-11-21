@@ -1053,7 +1053,7 @@ body:has(#overlayHost .g-panel) #play>#dialog{visibility:hidden}
     <div class="corner"><button type="button" class="g-btn" id="btnBoard">마스터 현황표</button><button type="button" class="g-btn" id="btnRecords">기록실</button></div>
     <button type="button" class="g-btn tail" id="btnHow">게임방법</button>
     <button type="button" class="g-btn tail green" id="btnStart">▶ 게임시작</button>
-    <div class="credit">© 2026 New Business Strategy Team. All rights reserved. <span id="verTag" title="업데이트 노트는 게임방법 안에">v70</span></div>
+    <div class="credit">© 2026 New Business Strategy Team. All rights reserved. <span id="verTag" title="업데이트 노트는 게임방법 안에">v71</span></div>
   </div>
 </section>
 
@@ -1320,6 +1320,7 @@ body:has(#overlayHost .g-panel) #play>#dialog{visibility:hidden}
     <div class="sites" id="siteLegend"></div>
     <p class="kbd" style="margin:10px 0 0">전체 완주 점수 = 100 − 오답×5 − 찬스×8. S 100 · A 90↑ · B 75↑ · C 60↑ · D · F(원장님 퇴장). 시간 초과도 오답 1회. 👀 시범은 정답과 멘트를 보여주는 자동 재생.</p>
     <details class="changelog"><summary>🆕 업데이트 노트 (최근)</summary><ul>
+      <li><b>v71</b> 🔁 일간 자동 점검(규칙 L10) — 시트로 보낸 기록·의견이 중간에 유실되면 '보냄' 표시 때문에 다시 보내지 않던 구멍을 막음: 접속할 때 시트에 실제로 도착했는지 확인하고, 없으면 이 기기 보관분을 자동으로 다시 보냄</li>
       <li><b>v70</b> 🔁 일간 자동 점검(규칙 L9) — 순서 맞추기를 끝낸 화면에 👍/👎 원탭을 넣고, 결과가 카드 목록 아래에 묻혀 폰에서 안 보이던 것을 끝나는 즉시 화면 안으로 올려 보여 주게</li>
       <li><b>v69</b> 🔁 일간 자동 점검(규칙 L9) — 따라하기·복습을 끝낸 화면에도 👍/👎 원탭을 넣어, 연습 모드에서도 한 번 눌러 의견을 남길 수 있게</li>
       <li><b>v68</b> 🔁 일간 자동 점검(규칙 L9) — 폰 가로 화면에서 스테이지 클리어 뒤 👍/👎가 화면 아래로 밀려 스크롤해야 보이던 것을, 별·성적 바로 아래로 올려 바로 한 번에 누를 수 있게</li>
@@ -3163,7 +3164,7 @@ const SHEETS={ url:(location.hostname.endsWith('github.io')?'https://script.goog
 /* 브라우저가 구글로의 교차 요청(fetch)을 막으므로: 쓰기 = 숨은 폼 POST(→숨은 iframe), 읽기 = JSONP(script 태그) */
 let SH_SEQ=0;
 function shPost(col, doc){ return new Promise((resolve, reject)=>{ const id='shf'+(++SH_SEQ); const ifr=document.createElement('iframe'); ifr.name=id; ifr.style.display='none'; const f=document.createElement('form'); f.method='POST'; f.action=SHEETS.url; f.target=id; f.style.display='none'; const inp=document.createElement('input'); inp.type='hidden'; inp.name='payload'; inp.value=JSON.stringify({ k:SHEETS.key, col, doc }); f.appendChild(inp); let done=false; const fin=(ok)=>{ if(done) return; done=true; setTimeout(()=>{ ifr.remove(); f.remove(); },1500); ok?resolve({ok:true}):reject(new Error('sheets timeout')); }; ifr.addEventListener('load', ()=>fin(true)); document.body.appendChild(ifr); document.body.appendChild(f); try{ f.submit(); }catch(e){ fin(false); return; } setTimeout(()=>fin(true), 2500); /* 교차 출처 응답은 load가 안 올 수 있음 — 전송 완료로 간주(서버가 중복 제거) */ }); }
-function shGet(col){ return new Promise((resolve, reject)=>{ const cb='__shcb'+(++SH_SEQ)+'_'+Date.now(); const sc=document.createElement('script'); let done=false; const clean=()=>{ try{ delete window[cb]; }catch(e){ window[cb]=undefined; } sc.remove(); }; window[cb]=(j)=>{ if(done) return; done=true; clean(); (j&&j.ok)?resolve(j.rows||[]):reject(new Error((j&&j.err)||'sheets')); }; sc.onerror=()=>{ if(done) return; done=true; clean(); reject(new Error('sheets load')); }; sc.src=SHEETS.url+'?k='+encodeURIComponent(SHEETS.key)+'&col='+col+'&limit=3000&cb='+cb+'&t='+Date.now(); document.head.appendChild(sc); setTimeout(()=>{ if(!done){ done=true; clean(); reject(new Error('sheets timeout')); } }, 20000); }); }
+function shGet(col, lim){ return new Promise((resolve, reject)=>{ const cb='__shcb'+(++SH_SEQ)+'_'+Date.now(); const sc=document.createElement('script'); let done=false; const clean=()=>{ try{ delete window[cb]; }catch(e){ window[cb]=undefined; } sc.remove(); }; window[cb]=(j)=>{ if(done) return; done=true; clean(); (j&&j.ok)?resolve(j.rows||[]):reject(new Error((j&&j.err)||'sheets')); }; sc.onerror=()=>{ if(done) return; done=true; clean(); reject(new Error('sheets load')); }; sc.src=SHEETS.url+'?k='+encodeURIComponent(SHEETS.key)+'&col='+col+'&limit='+(lim||3000)+'&cb='+cb+'&t='+Date.now(); document.head.appendChild(sc); setTimeout(()=>{ if(!done){ done=true; clean(); reject(new Error('sheets timeout')); } }, 20000); }); }
 
 /* ═══════════════════════════════════════════ v29(v39): 🚚 새 주소로 이사 — 예전(claude.ai) 기록을 한 번에 웹 사이트로 ═══════════════════════════════════════════ */
 const WEB_URL='https://fromgray-lab.github.io/wellcheck-demo-spotter/';
@@ -3223,7 +3224,7 @@ async function resendLocalToSheet(){ if(!SHEETS.url || !(await shHealth())) retu
   let n=0; for(const [c,d] of items.slice(-200)){ try{ await shPost(c,d); sent.add(c+'|'+(d.name||'')+'|'+d.at); n++; }catch(e){ break; } }
   try{ localStorage.setItem('dsg_sent', JSON.stringify([...sent].slice(-3000))); }catch(e){}
   if(n) toast(`☁ 이 기기 기록 ${n}건을 구글 시트로 보냈어요`); return n; }
-if(SHEETS.url) setTimeout(async()=>{ try{ await flushOutbox(); }catch(e){} try{ await recoverFb63(); }catch(e){} await resendLocalToSheet(); try{ renderSync(); }catch(e){} }, 3000);
+if(SHEETS.url) setTimeout(async()=>{ try{ await flushOutbox(); }catch(e){} try{ await recoverFb63(); }catch(e){} try{ await verifySentOnSheet(); }catch(e){} await resendLocalToSheet(); try{ renderSync(); }catch(e){} }, 3000);
 function partialRun(kind){ if(S.demo||S.guide||S.mode==='review'||!S.stage) return; if(!['one','all','daily','focus','weekly'].includes(S.mode)) return;
   const id=S.stage.id; const logs=(S.stepLog||[]).filter(l=>l.st===id||S.mode!=='one'&&S.mode!=='all'); const cur=S.cur?[{...S.cur, s:Math.round((Date.now()-(S.cur.t0||Date.now()))/1000)}]:[]; const all=logs.concat(kind==='quit'?cur:[]);
   if(kind==='quit' && !all.some(l=>(l.s||0)>0||(l.w||0)>0)) return; /* 시작만 하고 바로 닫은 건 제외 */
@@ -3302,6 +3303,15 @@ function ofbBind(host, stageId, wrong, stars){ const c=host.querySelector('#ofbC
     Promise.resolve(saveFeedback({ kind:'tap', ...fbBase('order',{stars, wrong}), stage:stageId, mode:'order', thumbs:t, tags:['원탭'], text:'', at:new Date().toISOString() })).catch(()=>{});
     c.querySelectorAll('.thumbs button').forEach(x=>x.classList.toggle('on',x===b)); const s=c.querySelector('.fbt>span'); if(s) s.textContent='✓ 저장됐어요. 고맙습니다!'; try{ SFX.pop(); }catch(e){} }));
   const r=host.querySelector('.oresult'); if(r) setTimeout(()=>{ try{ r.scrollIntoView({block:'end',behavior:'smooth'}); }catch(e){} }, 60); }
+
+/* v71 도착 확인: '전송됨'인데 시트에 없는 것은 다시 보낼 대상으로 */
+async function verifySentOnSheet(){ if(!SHEETS.url || !(await shHealth())) return 0; let sent; try{ sent=JSON.parse(localStorage.getItem('dsg_sent')||'[]'); }catch(e){ return 0; } if(!sent.length) return 0;
+  const LIM=300, cut=new Date(Date.now()-10*60000).toISOString(), drop=new Set();
+  for(const col of ['runs','feedback','evals']){ let rows; try{ rows=await shGet(col, LIM); }catch(e){ continue; } if(!Array.isArray(rows)) continue;
+    const have=new Set(rows.map(r=>col+'|'+((r&&r.name)||'')+'|'+((r&&r.at)||''))); let oldest=''; if(rows.length>=LIM) rows.forEach(r=>{ if(r&&r.at&&(!oldest||r.at<oldest)) oldest=r.at; });
+    sent.forEach(k=>{ if(k.indexOf(col+'|')!==0) return; const at=k.slice(k.lastIndexOf('|')+1); if(!at||at>=cut||(oldest&&at<oldest)) return; if(!have.has(k)) drop.add(k); }); }
+  if(drop.size){ try{ localStorage.setItem('dsg_sent', JSON.stringify(sent.filter(k=>!drop.has(k)))); }catch(e){} }
+  return drop.size; }
 
 /* 초기화 */
 loadStars(); S.profile = loadProfile(); if(S.profile) S.name = S.profile.name;
